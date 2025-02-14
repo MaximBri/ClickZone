@@ -1,17 +1,20 @@
 import { API_URL, apiRoutes } from '@/shared/config/apiRoutes';
 import { userDataForRegister } from '@/shared/types';
+import axios from 'axios';
 
 export const registration = async (userData: userDataForRegister) => {
+  console.log(userData)
   try {
-    const response = await fetch(`${API_URL}${apiRoutes.registration}`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(userData),
-    });
-    const data = await response.json();
-    console.log(data);
+    const response = await axios.post(
+      `${API_URL}${apiRoutes.registration}`,
+      userData,
+      {
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      }
+    );
+    console.log(response);
   } catch (error) {
     console.error('Error with registration: ', error);
   }
