@@ -1,0 +1,14 @@
+{
+  "extends": ["stylelint-config-clean-order", "stylelint-config-prettier"],
+  "rules": {
+    "declaration-property-value-disallowed-list": {
+      "border": ["/rem/"],
+      "border-width": ["/rem/"],
+      "border-radius": ["/rem/"],
+      "outline-width": ["/rem/"],
+      "box-shadow": ["/rem/"],
+      "line-height": ["/rem/"]
+    }
+  },
+  "customSyntax": "postcss-scss"
+}

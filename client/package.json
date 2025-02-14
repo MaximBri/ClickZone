@@ -1,0 +1,51 @@
+{
+  "name": "clickzone",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc -b && vite build",
+    "lint": "eslint \"src/**/*.{ts,tsx}\"",
+    "lint:fix": "eslint src --ext ts,tsx --fix",
+    "lint:style": "stylelint \"**/*.{css,scss}\"",
+    "lint:style:fix": "stylelint \"**/*.{css,scss}\" --fix",
+    "test": "jest",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build"
+  },
+  "dependencies": {
+    "@reduxjs/toolkit": "^2.5.1",
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0",
+    "react-redux": "^9.2.0",
+    "react-router-dom": "^7.1.5",
+    "vite-plugin-stylelint": "^6.0.0",
+    "vite-plugin-svgr": "^4.3.0"
+  },
+  "devDependencies": {
+    "@eslint/js": "^9.19.0",
+    "@types/node": "^22.13.1",
+    "@types/react": "^19.0.8",
+    "@types/react-dom": "^19.0.3",
+    "@vitejs/plugin-react": "^4.3.4",
+    "eslint": "^9.19.0",
+    "eslint-plugin-react-hooks": "^5.0.0",
+    "eslint-plugin-react-refresh": "^0.4.18",
+    "gh-pages": "^6.3.0",
+    "globals": "^15.14.0",
+    "postcss-scss": "^4.0.9",
+    "sass": "^1.84.0",
+    "sass-loader": "^16.0.4",
+    "sass-resources-loader": "^2.2.5",
+    "stylelint": "^14.16.1",
+    "stylelint-config-clean-order": "^7.0.0",
+    "stylelint-config-prettier": "^9.0.5",
+    "stylelint-order": "^6.0.4",
+    "typescript": "~5.7.2",
+    "typescript-eslint": "^8.22.0",
+    "vite": "^6.1.0",
+    "vite-plugin": "^0.0.0",
+    "vite-plugin-eslint": "^1.8.1"
+  }
+}
