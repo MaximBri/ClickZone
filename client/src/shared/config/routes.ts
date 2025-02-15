@@ -1,5 +1,6 @@
+export const DOMAIN = 'ClickZone';
+
 export const routes = {
   base: '/',
-  auth: {},
   pages: {},
 };

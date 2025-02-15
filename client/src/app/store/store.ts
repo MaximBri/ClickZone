@@ -2,10 +2,12 @@ import { TypedUseSelectorHook, useDispatch, useSelector } from 'react-redux';
 import { Action, configureStore, ThunkAction } from '@reduxjs/toolkit';
 
 import windows from '@/widgets/pop-ups/model/popUpsSlice';
+import user from '@/entities/user/model/userSlice';
 
 export const store = configureStore({
   reducer: {
     windows,
+    user,
   },
 });
 
