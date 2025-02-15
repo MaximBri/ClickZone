@@ -20,6 +20,7 @@ export interface formDataInterface {
 export const registerModel = () => {
   const dispatch = useAppDispatch();
   const [canSend, setCanSend] = useState<boolean>(false);
+  const [loading, setLoading] = useState<boolean>(false);
   const [error, setError] = useState<formDataSendInterface>({});
   const [formData, setFormData] = useState<formDataInterface>({
     login: '',
@@ -71,13 +72,17 @@ export const registerModel = () => {
     dispatch(setInProcess(false));
   };
 
-  const sendForm = () => {
+  const sendForm =  () => {
     const check = checkCanSend();
     if (check) {
+      setLoading(true);
       registration({
         login: formData.login,
         password: formData.pass,
-      });
+      }).then(() => {
+        setLoading(false);
+      }
+      )
     }
   };
 
@@ -88,6 +93,7 @@ export const registerModel = () => {
     onChangeData,
     sendForm,
     error,
+    loading,
     openAuthWindow,
   };
 };
