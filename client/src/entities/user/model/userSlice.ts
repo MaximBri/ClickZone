@@ -1,6 +1,5 @@
 import { RootState } from '@/app/store/store';
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { act } from 'react';
 
 const initialState: {
   dataIsLoaded: boolean;

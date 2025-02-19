@@ -15,6 +15,9 @@
   border-radius: 15px;
 
   background-color: $button;
+  &--animated {
+    animation: slow-animate-full 0.3s;
+  }
   &__background {
     position: fixed;
     z-index: 50;
@@ -24,6 +27,9 @@
     left: 0;
 
     background-color: $pop-up-background;
+    &--animated {
+      animation: slow-animate-full 0.3s;
+    }
   }
   &__title {
     margin-bottom: rem(20);
@@ -96,5 +102,23 @@
       font-weight: 600;
       color: $button-secondary;
     }
+  }
+}
+
+@keyframes slow-animate-full {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+@keyframes slow-animate {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 0.75;
   }
 }
