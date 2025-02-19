@@ -20,16 +20,6 @@ export const Register = () => {
             {data.error.item && data.error[data.error.item]}
           </h3>
           <label className={styles['window__body-item']}>
-            Ваша почта
-            <input
-              className={styles['window__body-input']}
-              value={data.formData.email}
-              onChange={(e) => data.onChangeData('email', e.target.value)}
-              type="email"
-              placeholder="Электронная почта"
-            />
-          </label>
-          <label className={styles['window__body-item']}>
             Ваш логин
             <input
               className={styles['window__body-input']}
@@ -56,14 +46,14 @@ export const Register = () => {
               value={data.formData.repeatPass}
               onChange={(e) => data.onChangeData('repeatPass', e.target.value)}
               type="password"
-              placeholder="Пароль, не менее 4 символов"
+              placeholder="Повторите пароль"
             />
           </label>
           <button
             className={styles['window__body-button']}
             type="submit"
           >
-            Отправить
+            {data.loading? "Отправка" : "Отправить"}
           </button>
         </form>
         <button

@@ -8,11 +8,10 @@ import {
 import { registration } from '@/entities/user/registration';
 
 export interface formDataSendInterface extends Partial<formDataInterface> {
-  item?: 'email' | 'login' | 'pass' | 'repeatPass' | '';
+  item?: 'login' | 'pass' | 'repeatPass' | '';
 }
 
 export interface formDataInterface {
-  email: string;
   login: string;
   pass: string;
   repeatPass: string;
@@ -21,9 +20,9 @@ export interface formDataInterface {
 export const registerModel = () => {
   const dispatch = useAppDispatch();
   const [canSend, setCanSend] = useState<boolean>(false);
+  const [loading, setLoading] = useState<boolean>(false);
   const [error, setError] = useState<formDataSendInterface>({});
   const [formData, setFormData] = useState<formDataInterface>({
-    email: '',
     login: '',
     pass: '',
     repeatPass: '',
@@ -31,10 +30,7 @@ export const registerModel = () => {
 
   const checkCanSend = (): boolean => {
     let check: boolean = false;
-    if (!formData.email.length) {
-      setError({ item: 'email', email: 'Введите коррекнтую почту' });
-      setCanSend(check);
-    } else if (formData.login.length < 4) {
+    if (formData.login.length < 4) {
       setError({
         item: 'login',
         login: 'Логин не может быть короче 4 символов',
@@ -58,7 +54,7 @@ export const registerModel = () => {
   };
 
   const onChangeData = (
-    key: 'email' | 'login' | 'pass' | 'repeatPass' | '',
+    key: 'login' | 'pass' | 'repeatPass' | '',
     value: string
   ) => {
     setFormData((prev) => {
@@ -76,19 +72,17 @@ export const registerModel = () => {
     dispatch(setInProcess(false));
   };
 
-  const sendForm = () => {
+  const sendForm =  () => {
     const check = checkCanSend();
-    console.log({
-      email: formData.email,
-      login: formData.login,
-      password: formData.pass,
-    });
     if (check) {
+      setLoading(true);
       registration({
-        email: formData.email,
-        password: formData.pass,
         login: formData.login,
-      });
+        password: formData.pass,
+      }).then(() => {
+        setLoading(false);
+      }
+      )
     }
   };
 
@@ -99,6 +93,7 @@ export const registerModel = () => {
     onChangeData,
     sendForm,
     error,
+    loading,
     openAuthWindow,
   };
 };

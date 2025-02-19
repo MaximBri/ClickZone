@@ -6,9 +6,9 @@
   width: 100%;
   border-bottom: 2px solid;
   &__link {
-    width: rem(200);
-    &-image {
-      width: 100%;
-    }
+    margin: rem(10) 0;
+    font-family: 'LakesNeue';
+    font-size: rem(28);
+    font-weight: 900;
   }
 }

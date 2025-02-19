@@ -22,13 +22,13 @@ export const Auth = () => {
             {data.error.login || data.error.pass}
           </h3>
           <label className={styles['window__body-item']}>
-            Ваш логин или почта
+            Ваш логин
             <input
               className={styles['window__body-input']}
               value={data.form.login}
               onChange={(e) => data.form.updateLogin(e.target.value)}
               type="text"
-              placeholder="Логин или почта"
+              placeholder="Логин"
             />
           </label>
           <label className={styles['window__body-item']}>
