@@ -44,6 +44,7 @@ export const NavBar = () => {
         className={styles['navbar__button-auth']}
       >
         <img src={personSvg} alt="person" />
+        <h4 className={styles['navbar__button-title']}>Войти</h4>
       </button>
     </aside>
   );

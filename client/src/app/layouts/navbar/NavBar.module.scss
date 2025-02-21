@@ -21,6 +21,7 @@
 
   &__button {
     position: relative;
+    z-index: 100;
 
     width: rem(50);
     height: rem(50);
@@ -31,6 +32,9 @@
 
     transition: all 0.3s;
     &-auth {
+      position: relative;
+      z-index: 100;
+
       width: rem(50);
       height: rem(50);
       border: 1px solid $border-secondary;
@@ -38,14 +42,20 @@
 
       background-color: $button;
 
-      transition: background-color 0.3s linear;
+      transition: all 0.3s linear;
       &:hover {
         background-color: $button-active;
       }
+      &:hover > .navbar__button-title {
+        z-index: 100;
+        opacity: 1;
+      }
     }
     &-title {
+      pointer-events: none;
+
       position: absolute;
-      z-index: 100;
+      z-index: -100;
       top: 50%;
       right: rem(-20);
       transform: translate(100%, -50%);
@@ -63,6 +73,7 @@
       transition: opacity 0.3s;
     }
     &:hover > &-title {
+      z-index: 100;
       opacity: 1;
     }
 
