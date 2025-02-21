@@ -1,11 +1,14 @@
 import { useAppDispatch } from '@/app/store/store';
-import { useState } from 'react';
+import { useRef, useState } from 'react';
 import {
+  getInProcess,
   setAuthWindow,
   setInProcess,
   setRegisterWindow,
 } from '../../model/popUpsSlice';
 import { registration } from '@/entities/user/registration';
+import styles from '../../shared/Auth&Register.module.scss';
+import { useSelector } from 'react-redux';
 
 export interface formDataSendInterface extends Partial<formDataInterface> {
   item?: 'login' | 'pass' | 'repeatPass' | '';
@@ -27,6 +30,9 @@ export const registerModel = () => {
     pass: '',
     repeatPass: '',
   });
+  const background = useRef<HTMLDivElement>(null);
+  const body = useRef<HTMLElement>(null);
+  const inProcess = useSelector(getInProcess);
 
   const checkCanSend = (): boolean => {
     let check: boolean = false;
@@ -63,16 +69,25 @@ export const registerModel = () => {
   };
 
   const openAuthWindow = () => {
-    closeRegisterWindow();
-    dispatch(setAuthWindow(true));
+    body.current?.classList.add(styles['window--closed']);
+    setTimeout(() => {
+      // closeRegisterWindow();
+      dispatch(setInProcess(true));
+      dispatch(setRegisterWindow(false));
+      dispatch(setAuthWindow(true));
+    }, 250);
   };
 
   const closeRegisterWindow = () => {
-    dispatch(setRegisterWindow(false));
-    dispatch(setInProcess(false));
+    background.current?.classList.add(styles['window__background--closed']);
+    body.current?.classList.add(styles['window--closed']);
+    setTimeout(() => {
+      dispatch(setRegisterWindow(false));
+      dispatch(setInProcess(false));
+    }, 250);
   };
 
-  const sendForm =  () => {
+  const sendForm = () => {
     const check = checkCanSend();
     if (check) {
       setLoading(true);
@@ -81,8 +96,7 @@ export const registerModel = () => {
         password: formData.pass,
       }).then(() => {
         setLoading(false);
-      }
-      )
+      });
     }
   };
 
@@ -95,5 +109,10 @@ export const registerModel = () => {
     error,
     loading,
     openAuthWindow,
+    inProcess,
+    refs: {
+      body,
+      background,
+    },
   };
 };

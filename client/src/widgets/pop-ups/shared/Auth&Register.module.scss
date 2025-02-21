@@ -18,6 +18,9 @@
   &--animated {
     animation: slow-animate-full 0.3s;
   }
+  &--closed {
+    animation: slow-animate-close-full 0.3s;
+  }
   &__background {
     position: fixed;
     z-index: 50;
@@ -29,6 +32,9 @@
     background-color: $pop-up-background;
     &--animated {
       animation: slow-animate-full 0.3s;
+    }
+    &--closed {
+      animation: slow-animate-close-full 0.3s;
     }
   }
   &__title {
@@ -114,11 +120,11 @@
   }
 }
 
-@keyframes slow-animate {
+@keyframes slow-animate-close-full {
   0% {
-    opacity: 0;
+    opacity: 1;
   }
   100% {
-    opacity: 0.75;
+    opacity: 0;
   }
 }
