@@ -17,8 +17,12 @@ export const animalModel = () => {
   const finances = useSelector(getFinances);
   const countCoinsOnClick = useSelector(getCoinsOnClick);
   const pet = animalsList[level - 1];
-  const coinsToNextLevel = level > 9 ? 'Максимальный уровень':
-    `Нужно монет для следующего уровня: ${coinsRequiredForNextLevel * 5 * Math.pow(level, 1)}`
+  const coinsToNextLevel =
+    level > 9
+      ? 'Максимальный уровень'
+      : `Нужно монет для следующего уровня: ${
+          coinsRequiredForNextLevel * 5 * Math.pow(level, 1)
+        }`;
   const [clicks, setClicks] = useState<
     Array<{ x: number; y: number; id: number }>
   >([]);
@@ -27,13 +31,14 @@ export const animalModel = () => {
     const rect = event.currentTarget.getBoundingClientRect();
     const x = event.clientX - rect.left;
     const y = event.clientY - rect.top;
-
+  
     const newClick = { x, y, id: Date.now() };
     setClicks((prev) => [...prev, newClick]);
-
+  
     setTimeout(() => {
       setClicks((prev) => prev.filter((click) => click.id !== newClick.id));
     }, 500);
+    
     dispatch(setCoins());
   };
 
