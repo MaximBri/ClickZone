@@ -3,13 +3,22 @@ import styles from '../shared/Auth&Register.module.scss';
 
 export const Auth = () => {
   const data = authModel();
+  console.log(data.inProcess);
   return (
     <>
       <div
+        ref={data.refs.background}
         onClick={() => data.closeAuthWindow()}
-        className={styles.window__background}
+        className={`${styles.window__background} ${
+          data.inProcess ? '' : styles['window__background--animated']
+        }`}
       ></div>
-      <section className={styles.window}>
+      <section
+        className={`${styles.window} ${
+          data.inProcess ? '' : styles['window--animated']
+        }`}
+        ref={data.refs.body}
+      >
         <h2 className={styles.window__title}>Авторизация</h2>
         <form className={styles.window__body} action={data.sendForm}>
           <h3

@@ -18,23 +18,21 @@ export const Animal = () => {
           alt="pet"
           draggable={false}
         />
+        {data.clicks.map((click) => (
+          <div
+            key={click.id}
+            className={styles.clickFeedback}
+            style={{
+              left: `${click.x}px`,
+              top: `${click.y}px`,
+            }}
+          >
+            +{data.countCoinsOnClick}
+          </div>
+        ))}
       </button>
 
-      {data.clicks.map((click) => (
-        <div
-          key={click.id}
-          className={styles.clickFeedback}
-          style={{
-            left: `${click.x}px`,
-            top: `${click.y}px`,
-          }}
-        >
-          +{data.countCoinsOnClick}
-        </div>
-      ))}
-      <h3
-        className={styles['animal__next-level']}
-      >{data.coinsToNextLevel}</h3>
+      <h3 className={styles['animal__next-level']}>{data.coinsToNextLevel}</h3>
     </div>
   );
 };

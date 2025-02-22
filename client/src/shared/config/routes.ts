@@ -2,5 +2,10 @@ export const DOMAIN = 'ClickZone';
 
 export const routes = {
   base: '/',
-  pages: {},
+  pages: {
+    randomizer: '/randomizer',
+    shop: '/shop',
+    globalMap: '/globalMap',
+    leaderboard: '/leaderboard',
+  },
 };

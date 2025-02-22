@@ -6,10 +6,14 @@ export const Register = () => {
   return (
     <>
       <div
+        ref={data.refs.background}
         onClick={() => data.closeRegisterWindow()}
-        className={styles.window__background}
+        className={`${styles.window__background}`}
       ></div>
-      <section className={styles.window}>
+      <section
+        ref={data.refs.body}
+        className={`${styles.window} ${styles['window--animated']}`}
+      >
         <h2 className={styles.window__title}>Регистрация</h2>
         <form className={styles.window__body} action={data.sendForm}>
           <h3
@@ -49,11 +53,8 @@ export const Register = () => {
               placeholder="Повторите пароль"
             />
           </label>
-          <button
-            className={styles['window__body-button']}
-            type="submit"
-          >
-            {data.loading? "Отправка" : "Отправить"}
+          <button className={styles['window__body-button']} type="submit">
+            {data.loading ? 'Отправка' : 'Отправить'}
           </button>
         </form>
         <button

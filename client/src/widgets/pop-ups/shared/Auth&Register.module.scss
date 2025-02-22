@@ -1,6 +1,6 @@
 .window {
   position: absolute;
-  z-index: 100;
+  z-index: 1000;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
@@ -15,15 +15,27 @@
   border-radius: 15px;
 
   background-color: $button;
+  &--animated {
+    animation: slow-animate-full 0.3s;
+  }
+  &--closed {
+    animation: slow-animate-close-full 0.3s;
+  }
   &__background {
     position: fixed;
-    z-index: 50;
+    z-index: 900;
     top: 0;
     right: 0;
     bottom: 0;
     left: 0;
 
     background-color: $pop-up-background;
+    &--animated {
+      animation: slow-animate-full 0.3s;
+    }
+    &--closed {
+      animation: slow-animate-close-full 0.3s;
+    }
   }
   &__title {
     margin-bottom: rem(20);
@@ -96,5 +108,23 @@
       font-weight: 600;
       color: $button-secondary;
     }
+  }
+}
+
+@keyframes slow-animate-full {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+@keyframes slow-animate-close-full {
+  0% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
   }
 }
