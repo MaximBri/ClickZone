@@ -71,7 +71,6 @@ export const registerModel = () => {
   const openAuthWindow = () => {
     body.current?.classList.add(styles['window--closed']);
     setTimeout(() => {
-      // closeRegisterWindow();
       dispatch(setInProcess(true));
       dispatch(setRegisterWindow(false));
       dispatch(setAuthWindow(true));
@@ -91,10 +90,15 @@ export const registerModel = () => {
     const check = checkCanSend();
     if (check) {
       setLoading(true);
-      registration({
-        login: formData.login,
-        password: formData.pass,
-      }).then(() => {
+      registration(
+        {
+          login: formData.login,
+          password: formData.pass,
+        },
+        setError,
+        closeRegisterWindow,
+        dispatch
+      ).then(() => {
         setLoading(false);
       });
     }

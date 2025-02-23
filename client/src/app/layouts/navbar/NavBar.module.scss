@@ -1,6 +1,7 @@
 .aside {
   display: flex;
   flex-direction: column;
+  gap: rem(30);
   align-items: center;
   justify-content: space-between;
 
@@ -88,6 +89,49 @@
     }
     &--active {
       & > img {
+        filter: none;
+      }
+    }
+  }
+}
+
+@media (max-width: 576px) {
+  .aside {
+    flex-direction: row;
+    gap: rem(10);
+
+    width: 100%;
+    height: auto;
+    padding: rem(10);
+    border-radius: 0 0 10px 10px;
+
+    background-color: $border-primary;
+  }
+  .navbar {
+    flex-direction: row;
+    max-width: calc(100% - 50px);
+    &__button {
+      width: rem(35);
+      height: rem(35);
+      padding: rem(8);
+      &-auth {
+        width: rem(35);
+        height: rem(35);
+        &:hover {
+          background-color: $button;
+        }
+        &:hover > .navbar__button-title {
+          opacity: 0;
+        }
+      }
+      &-title {
+        display: none;
+      }
+      &:hover > &-title {
+        opacity: 0;
+      }
+
+      &:hover > img {
         filter: none;
       }
     }

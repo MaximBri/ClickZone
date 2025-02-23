@@ -29,3 +29,27 @@
     }
   }
 }
+
+@media (max-width: 1024px) {
+  .footer {
+    padding: rem(10) rem(20);
+
+    &__center {
+      gap: rem(20);
+      padding: rem(5) rem(10);
+      &-item {
+        max-width: rem(120);
+        & > img {
+          width: rem(20);
+        }
+      }
+    }
+  }
+}
+
+
+@media (max-width: 576px) {
+  .footer {
+    padding: rem(5) rem(20);
+  }
+}

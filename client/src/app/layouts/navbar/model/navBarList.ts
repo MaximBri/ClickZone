@@ -16,7 +16,7 @@ export const navBarList: navBarListInterface[] = [
   { iconLink: '/shop.svg', title: 'Рынок', pageName: routes.pages.shop },
   {
     iconLink: '/globalMap.svg',
-    title: 'Глобальная карти',
+    title: 'Глобальная карта',
     pageName: routes.pages.globalMap,
   },
   {
