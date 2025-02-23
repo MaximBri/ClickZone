@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-import { AppDispatch, useAppDispatch } from '@/app/store/store';
+import { AppDispatch } from '@/app/store/store';
 import { setDataAfterRegister, setDataIsLoaded } from './model/userSlice';
 import { API_URL, apiRoutes } from '@/shared/config/apiRoutes';
 import { userDataForRegister } from '@/shared/types';
