@@ -4,8 +4,11 @@
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: center;
 
   width: 100%;
+  height: 100%;
+  margin-left: rem(-35);
 
   &__title {
     margin-bottom: rem(20);
@@ -16,8 +19,6 @@
 
   &__button {
     position: relative;
-
-    overflow: hidden;
 
     padding: rem(30);
     border: 10px solid #000;
@@ -72,7 +73,7 @@
   position: absolute;
   transform: translate(-50%, -50%);
 
-  font-size: 28px;
+  font-size: rem(28);
   font-weight: bold;
   color: rgb(255, 238, 0);
   text-shadow: -2px 2px 2px #000;
@@ -88,5 +89,52 @@
       transform: translate(-50%, -150%);
       opacity: 0;
     }
+  }
+}
+
+@media (max-width: 768px) {
+  .animal {
+    margin-left: 0;
+    &__title {
+      font-size: rem(24);
+    }
+
+    &__button {
+      padding: rem(20);
+      border: 7px solid #000;
+      &-image {
+        max-width: rem(200);
+      }
+    }
+    &__next-level {
+      margin: rem(20) rem(30) 0;
+    }
+  }
+  .clickFeedback {
+    font-size: rem(24);
+  }
+}
+
+@media (max-width: 576px) {
+  .animal {
+    &__title {
+      margin-bottom: rem(10);
+      font-size: rem(22);
+    }
+
+    &__button {
+      border: 5px solid #000;
+
+      &-image {
+        max-width: rem(150);
+      }
+    }
+    &__next-level {
+      margin: rem(20) rem(30) 0;
+      font-size: rem(16);
+    }
+  }
+  .clickFeedback {
+    font-size: rem(20);
   }
 }

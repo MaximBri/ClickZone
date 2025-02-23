@@ -1,11 +1,15 @@
+import { useRef, useState } from 'react';
+import { useSelector } from 'react-redux';
+
 import { useAppDispatch } from '@/app/store/store';
+import { authorization } from '@/entities/user/authorization';
 import {
+  getInProcess,
   setAuthWindow,
   setInProcess,
   setRegisterWindow,
 } from '../../model/popUpsSlice';
-import { useState } from 'react';
-import { authorization } from '@/entities/user/authorization';
+import styles from '../../shared/Auth&Register.module.scss';
 
 export const authModel = () => {
   const dispatch = useAppDispatch();
@@ -14,6 +18,9 @@ export const authModel = () => {
   const [pass, setPass] = useState<string>('');
   const [canSend, setCanSend] = useState<boolean>(false);
   const [error, setError] = useState<{ login?: string; pass?: string }>({});
+  const background = useRef<HTMLDivElement>(null);
+  const body = useRef<HTMLElement>(null);
+  const inProcess = useSelector(getInProcess);
 
   const checkFields = (text1: string, text2: string) => {
     if (text1.length > 3 && text2.length > 3) setCanSend(true);
@@ -31,13 +38,21 @@ export const authModel = () => {
   };
 
   const closeAuthWindow = () => {
-    dispatch(setAuthWindow(false));
+    background.current?.classList.add(styles['window__background--closed']);
+    body.current?.classList.add(styles['window--closed']);
+    setTimeout(() => {
+      dispatch(setAuthWindow(false));
+      dispatch(setInProcess(false));
+    }, 250);
   };
 
   const openRegisterWindow = () => {
-    dispatch(setRegisterWindow(true));
-    dispatch(setInProcess(true));
-    dispatch(setAuthWindow(false));
+    body.current?.classList.add(styles['window--closed']);
+    setTimeout(() => {
+      dispatch(setInProcess(true));
+      dispatch(setRegisterWindow(true));
+      dispatch(setAuthWindow(false));
+    }, 250);
   };
 
   const sendForm = () => {
@@ -57,6 +72,11 @@ export const authModel = () => {
     canSend,
     error,
     openRegisterWindow,
+    inProcess,
+    refs: {
+      body,
+      background,
+    },
     form: {
       login,
       pass,

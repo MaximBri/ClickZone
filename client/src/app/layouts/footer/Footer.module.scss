@@ -7,46 +7,49 @@
   padding: rem(10) rem(30);
 
   background-color: $border-primary;
-  &__nav {
-    &:first-child {
-      display: flex;
-      justify-content: start;
-    }
-    &:last-child {
-      display: flex;
-      justify-content: end;
-    }
-    &-item {
-      width: rem(40);
-      height: rem(40);
-      border: 1px solid $border-secondary;
-      border-radius: 10px;
-
-      background-color: $button;
-      
-      transition: background-color 0.3s linear;
-      &:hover {
-        background-color: $button-active;
-      }
-    }
-  }
   &__center {
     display: flex;
-    // flex-direction: column;
-    gap: rem(10);
+    gap: rem(30);
 
+    margin: 0 auto;
     padding: rem(5) rem(10);
     border-radius: 5px;
 
     background-color: $background-secondary;
     &-item {
       display: flex;
+      flex-direction: column;
       gap: rem(10);
       align-items: center;
+
       max-width: rem(120);
       & > img {
         width: rem(30);
       }
     }
+  }
+}
+
+@media (max-width: 1024px) {
+  .footer {
+    padding: rem(10) rem(20);
+
+    &__center {
+      gap: rem(20);
+      padding: rem(5) rem(10);
+      &-item {
+        max-width: rem(120);
+        & > img {
+          width: rem(20);
+        }
+      }
+    }
+  }
+}
+
+
+@media (max-width: 576px) {
+  .footer {
+    padding: rem(5) rem(20);
   }
 }
