@@ -3,7 +3,6 @@ import styles from '../shared/Auth&Register.module.scss';
 
 export const Auth = () => {
   const data = authModel();
-  console.log(data.inProcess);
   return (
     <>
       <div
