@@ -1,11 +1,12 @@
 import sqlalchemy as sa
-from pydantic import BaseModel, Field, field_validator
+from pydantic import BaseModel, Field, field_validator, ConfigDict
 
 from app import db
 from app.models import User
 
 
 class RegistrationForm(BaseModel):
+    model_config = ConfigDict(extra='forbid')
     login: str = Field(..., min_length=4)
     password: str = Field(..., min_length=4)
 
