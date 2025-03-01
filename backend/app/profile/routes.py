@@ -10,7 +10,7 @@ from app.models import DBSessionManager
 
 
 @bp.route('/edit_profile', methods=['POST'])
-@jwt_required
+@jwt_required()
 def edit_profile():
     try:
         with DBSessionManager():

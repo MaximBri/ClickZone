@@ -9,7 +9,7 @@ class Config:
 
     SECRET_KEY = os.environ.get('SECRET_KEY') or 'secret-key-1234'
     SQLALCHEMY_DATABASE_URI = os.environ.get('DATABASE_URL') or 'sqlite:///' + os.path.join(base_dir, 'ClickZone.db')
-    CORS_ORIGINS = os.environ.get('CORS_ORIGINS') or 'http://localhost:3000'
+    CORS_ORIGINS = os.environ.get('CORS_ORIGINS', None)
 
     JWT_SECRET_KEY = os.environ.get('JWT_SECRET_KEY') or 'super-secret-clickzone'
     JWT_TOKEN_LOCATION = ['cookies']

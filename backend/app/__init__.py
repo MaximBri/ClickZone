@@ -1,4 +1,4 @@
-from flask import Flask
+from flask import Flask, current_app
 from flask_migrate import Migrate
 from flask_cors import CORS
 from flask_sqlalchemy import SQLAlchemy
@@ -21,7 +21,6 @@ def create_app(config_class=Config):
     jwt.init_app(app)
 
     cors.init_app(app)
-    cors.origin = app.config['CORS_ORIGINS']
 
     from app.auth import bp as auth_bp
     app.register_blueprint(auth_bp, url_prefix='/api/auth')
