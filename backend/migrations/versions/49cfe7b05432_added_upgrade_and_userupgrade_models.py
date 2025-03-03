@@ -1,8 +1,8 @@
 """Added Upgrade and UserUpgrade models
 
-Revision ID: 1f2743743ba7
+Revision ID: 49cfe7b05432
 Revises: c4189beafafe
-Create Date: 2025-03-01 23:51:29.522725
+Create Date: 2025-03-03 20:40:09.208617
 
 """
 from alembic import op
@@ -10,7 +10,7 @@ import sqlalchemy as sa
 
 
 # revision identifiers, used by Alembic.
-revision = '1f2743743ba7'
+revision = '49cfe7b05432'
 down_revision = 'c4189beafafe'
 branch_labels = None
 depends_on = None
@@ -27,7 +27,8 @@ def upgrade():
     sa.Column('cost_coins', sa.Integer(), nullable=False),
     sa.Column('cost_diamonds', sa.Integer(), nullable=False),
     sa.Column('multiplier', sa.Integer(), nullable=False),
-    sa.PrimaryKeyConstraint('id')
+    sa.PrimaryKeyConstraint('id'),
+    sa.UniqueConstraint('name')
     )
     op.create_table('user_upgrade',
     sa.Column('user_id', sa.Integer(), nullable=False),

@@ -12,7 +12,7 @@ from app import db
 
 class Upgrade(db.Model):
     id: so.Mapped[int] = so.mapped_column(primary_key=True)
-    name: so.Mapped[str] = so.mapped_column(sa.String(128), nullable=False)
+    name: so.Mapped[str] = so.mapped_column(sa.String(128), nullable=False, unique=True)
     description: so.Mapped[str] = so.mapped_column(sa.String(256), nullable=False)
 
     upgrade_type: so.Mapped[str] = so.mapped_column(sa.Enum('consumable', 'permanent', name='upgrade_type'))
@@ -104,3 +104,12 @@ class User(db.Model):
 
     def __repr__(self):
         return f'<User {self.username}>'
+
+
+@event.listens_for(User, 'before_insert')
+def create_unique_name(mapper, connection, target):
+    max_id = db.session.scalar(sa.func.max(User.id))
+    if max_id is not None:
+        target.name = f'User_{max_id + 1}'
+    else:
+        target.name = 'User_0'
