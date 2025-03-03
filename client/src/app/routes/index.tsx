@@ -7,6 +7,7 @@ import { RandomizePage } from '@/pages/randomizer';
 import { ShopPage } from '@/pages/shop';
 import { GlobalMapPage } from '@/pages/global-map';
 import { LeaderBoardPage } from '@/pages/leaderbord';
+import { AccountPage } from '@/pages/account';
 
 export const AppRoutes = () => {
   return (
@@ -14,6 +15,7 @@ export const AppRoutes = () => {
       <Routes>
         <Route path={routes.base} element={<MainLayout />}>
           <Route index element={<HomePage />}></Route>
+          <Route path={routes.pages.userPage} element={<AccountPage />}></Route>
           <Route
             path={routes.pages.randomizer}
             element={<RandomizePage />}

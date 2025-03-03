@@ -1,4 +1,6 @@
 .header {
+  position: relative;
+
   display: flex;
   align-items: center;
   justify-content: center;
@@ -10,5 +12,21 @@
     font-family: 'LakesNeue';
     font-size: rem(28);
     font-weight: 900;
+  }
+  &__nickname {
+    position: absolute;
+    top: 50%;
+    right: 0;
+    transform: translate(0%, -50%);
+
+    overflow: hidden;
+
+    max-width: max(30%, 100px);
+    padding: rem(5) rem(20);
+
+    font-size: rem(20);
+    font-weight: 600;
+    text-overflow: ellipsis;
+    white-space: nowrap;
   }
 }

@@ -1,19 +1,27 @@
 import { useLocation, useNavigate } from 'react-router-dom';
+import { useSelector } from 'react-redux';
+import { memo } from 'react';
 
-import { DOMAIN } from '@/shared/config/routes';
+import { DOMAIN, routes } from '@/shared/config/routes';
 import { navBarList } from './model/navBarList';
+import { setAuthWindow } from '@/widgets/pop-ups/model/popUpsSlice';
+import { userInfoIsLoaded } from '@/entities/user/model/userSlice';
+import { useAppDispatch } from '@/app/store/store';
 import personSvg from '/images/Person.svg';
 import styles from './NavBar.module.scss';
-import { useAppDispatch } from '@/app/store/store';
-import { setAuthWindow } from '@/widgets/pop-ups/model/popUpsSlice';
 
-export const NavBar = () => {
+export const NavBar = memo(() => {
   const navigate = useNavigate();
   const location = useLocation();
   const dispatch = useAppDispatch();
+  const authorized = useSelector(userInfoIsLoaded);
 
-  const openAuthWindow = () => {
-    dispatch(setAuthWindow(true));
+  const userButtonHandle = () => {
+    if (authorized) {
+      navigate(routes.pages.userPage);
+    } else {
+      dispatch(setAuthWindow(true));
+    }
   };
 
   return (
@@ -40,12 +48,14 @@ export const NavBar = () => {
         })}
       </nav>
       <button
-        onClick={() => openAuthWindow()}
+        onClick={() => userButtonHandle()}
         className={styles['navbar__button-auth']}
       >
         <img src={personSvg} alt="person" />
-        <h4 className={styles['navbar__button-title']}>Войти</h4>
+        <h4 className={styles['navbar__button-title']}>
+          {authorized ? 'Аккаунт' : 'Войти'}
+        </h4>
       </button>
     </aside>
   );
-};
+});

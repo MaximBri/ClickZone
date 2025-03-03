@@ -1,6 +1,8 @@
-export const API_URL: string = 'http://localhost:5000/api/';
+export const TEMP_USER_DATA = 'keys';
 
 export const apiRoutes = {
-  registration: 'registration',
-  authorization: 'login',
+  registration: 'auth/registration',
+  authorization: 'auth/login',
+  logout: 'auth/logout',
+  setProfile: 'profile/edit_profile',
 };

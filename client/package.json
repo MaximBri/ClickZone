@@ -17,6 +17,7 @@
   "dependencies": {
     "@reduxjs/toolkit": "^2.5.1",
     "axios": "^1.7.9",
+    "js-cookie": "^3.0.5",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
     "react-redux": "^9.2.0",
@@ -26,6 +27,7 @@
   },
   "devDependencies": {
     "@eslint/js": "^9.19.0",
+    "@types/js-cookie": "^3.0.6",
     "@types/node": "^22.13.1",
     "@types/react": "^19.0.8",
     "@types/react-dom": "^19.0.3",
@@ -48,5 +50,10 @@
     "vite": "^6.1.0",
     "vite-plugin": "^0.0.0",
     "vite-plugin-eslint": "^1.8.1"
-  }
+  },
+  "main": "index.js",
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": ""
 }
