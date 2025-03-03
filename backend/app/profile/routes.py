@@ -14,7 +14,7 @@ from app.models import DBSessionManager
 def edit_profile():
     try:
         with DBSessionManager():
-            form = EditProfileForm(**request.json())
+            form = EditProfileForm(**request.get_json())
             user = get_current_user()
             user.name = form.name
             user.about_me = form.about_me
