@@ -96,8 +96,7 @@ export const registerModel = () => {
           password: formData.pass,
         },
         setError,
-        closeRegisterWindow,
-        dispatch
+        openAuthWindow
       ).then(() => {
         setLoading(false);
       });

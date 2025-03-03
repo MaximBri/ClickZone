@@ -44,6 +44,20 @@
     font-weight: 600;
     text-align: center;
   }
+  &__button-info{
+    position: absolute;
+    top: rem(20);
+    right: rem(20);
+    transform: translate(0%, 0%);
+
+    width: rem(50);
+    height: rem(50);
+
+    background-color: transparent;
+    &-icon{
+      width: 100%;
+    }
+  }
 }
 
 @keyframes borderAnimation {
