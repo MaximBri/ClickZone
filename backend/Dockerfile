@@ -15,18 +15,26 @@ RUN curl -sSL https://install.python-poetry.org | python3 -
 ENV PATH="$POETRY_HOME/bin:$PATH"
 ENV POETRY_VIRTUALENVS_IN_PROJECT=true
 
-COPY pyproject.toml poetry.lock ./
+# Set the working directory
+WORKDIR /backend
 
+# Install bash early to avoid layer issues
 RUN apt-get update && apt-get install -y bash
 
+# Copy dependency files first (for layer caching)
+COPY pyproject.toml poetry.lock ./
+
+# Copy the rest of the files
 COPY app app
 COPY migrations migrations
 COPY .env .env
 COPY ClickZone.py config.py boot.sh ./
-RUN chmod a+x boot.sh
 
-RUN poetry install
-RUN poetry add gunicorn
+# Make boot.sh executable
+RUN chmod +x boot.sh
+
+# Install dependencies
+RUN poetry install && poetry add gunicorn
 
 EXPOSE 5000
 ENTRYPOINT ["./boot.sh"]
