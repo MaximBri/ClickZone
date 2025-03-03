@@ -54,7 +54,7 @@ export const Register = () => {
             />
           </label>
           <button className={styles['window__body-button']} type="submit">
-            {data.loading ? 'Отправка' : 'Отправить'}
+            {data.loading ? 'Отправка...' : 'Отправить'}
           </button>
         </form>
         <button

@@ -44,7 +44,7 @@ export const authorization = async (data: {
     } else if (error.status === 500) {
       data.setError({ login: 'Ошибка на сервере' });
     }
-    console.error('Error with registration: ', error);
+    console.error('Error with authorization: ', error);
   } finally {
     data.setIsLoaded(false);
   }
