@@ -107,4 +107,4 @@
 ## Стек:
 
 - **Frontend**: HTML, SCSS (модули), TypeScript, React, Redux Toolkit, FSD (архитектура), Vite (сборщик)
-- **Backend**: Node.js, Express, MongoDB
+- **Backend**: Flask, Flask-SQLAlchemy, Flask-CORS, Flask-Migrate, Flask-JWT-Extended, SQLite3, Pydantic, python-dotenv
