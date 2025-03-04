@@ -119,5 +119,6 @@
 
 ## Стек:
 
-- **Frontend**: HTML, SCSS (модули), TypeScript, React, Redux Toolkit, FSD (архитектура), Vite (сборщик), Axios (выполнение HTTP-запросов)
-- **Backend**: Python, Flask
+
+- **Frontend**: HTML, SCSS (модули), TypeScript, React, Redux Toolkit, FSD (архитектура), Vite (сборщик)
+- **Backend**: Flask, Flask-SQLAlchemy, Flask-CORS, Flask-Migrate, Flask-JWT-Extended, SQLite3, Pydantic, python-dotenv

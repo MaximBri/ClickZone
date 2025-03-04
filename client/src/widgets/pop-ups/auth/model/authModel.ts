@@ -1,8 +1,10 @@
-import { useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { useSelector } from 'react-redux';
 
 import { useAppDispatch } from '@/app/store/store';
 import { authorization } from '@/entities/user/authorization';
+import { TEMP_USER_DATA } from '@/shared/config/apiRoutes';
+import { authErrorInterface, userDataForRegister } from '@/shared/types';
 import {
   getInProcess,
   setAuthWindow,
@@ -13,28 +15,25 @@ import styles from '../../shared/Auth&Register.module.scss';
 
 export const authModel = () => {
   const dispatch = useAppDispatch();
+  const temp = localStorage.getItem(TEMP_USER_DATA);
+  let data: userDataForRegister;
+  if (temp) {
+    data = JSON.parse(temp);
+  } else data = { login: '', password: '' };
+  localStorage.removeItem(TEMP_USER_DATA);
 
-  const [login, setLogin] = useState<string>('');
-  const [pass, setPass] = useState<string>('');
+  const [login, setLogin] = useState<string>(data.login);
+  const [pass, setPass] = useState<string>(data.password);
   const [canSend, setCanSend] = useState<boolean>(false);
-  const [error, setError] = useState<{ login?: string; pass?: string }>({});
+  const [isLoaded, setIsLoaded] = useState<boolean>(false);
+  const [error, setError] = useState<authErrorInterface>({});
   const background = useRef<HTMLDivElement>(null);
   const body = useRef<HTMLElement>(null);
   const inProcess = useSelector(getInProcess);
 
-  const checkFields = (text1: string, text2: string) => {
-    if (text1.length > 3 && text2.length > 3) setCanSend(true);
+  const checkFields = () => {
+    if (login.length > 3 && pass.length > 3) setCanSend(true);
     else setCanSend(false);
-  };
-
-  const updatePass = (text: string) => {
-    setPass(text);
-    checkFields(text, login);
-  };
-
-  const updateLogin = (text: string) => {
-    setLogin(text);
-    checkFields(text, pass);
   };
 
   const closeAuthWindow = () => {
@@ -62,9 +61,20 @@ export const authModel = () => {
       setError({ login: 'Логин не может быть короче 4 символов!' });
     } else {
       setError({});
-      authorization({ login, password: pass });
+      authorization({
+        login,
+        password: pass,
+        appDispatch: dispatch,
+        closeAuthWindow,
+        setError,
+        setIsLoaded,
+      });
     }
   };
+
+  useEffect(() => {
+    checkFields();
+  }, [pass, login]);
 
   return {
     closeAuthWindow,
@@ -73,6 +83,7 @@ export const authModel = () => {
     error,
     openRegisterWindow,
     inProcess,
+    isLoaded,
     refs: {
       body,
       background,
@@ -80,8 +91,8 @@ export const authModel = () => {
     form: {
       login,
       pass,
-      updatePass,
-      updateLogin,
+      setPass,
+      setLogin,
     },
   };
 };

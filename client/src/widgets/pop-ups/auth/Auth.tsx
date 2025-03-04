@@ -34,7 +34,7 @@ export const Auth = () => {
             <input
               className={styles['window__body-input']}
               value={data.form.login}
-              onChange={(e) => data.form.updateLogin(e.target.value)}
+              onChange={(e) => data.form.setLogin(e.target.value)}
               type="text"
               placeholder="Логин"
             />
@@ -44,7 +44,7 @@ export const Auth = () => {
             <input
               className={styles['window__body-input']}
               value={data.form.pass}
-              onChange={(e) => data.form.updatePass(e.target.value)}
+              onChange={(e) => data.form.setPass(e.target.value)}
               type="password"
               placeholder="Пароль"
             />
@@ -54,7 +54,7 @@ export const Auth = () => {
             type="submit"
             disabled={!data.canSend}
           >
-            Отправить
+            {data.isLoaded ? 'Отправка...' : 'Отправить'}
           </button>
         </form>
         <button

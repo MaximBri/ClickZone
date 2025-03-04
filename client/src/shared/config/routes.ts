@@ -7,5 +7,6 @@ export const routes = {
     shop: '/shop',
     globalMap: '/globalMap',
     leaderboard: '/leaderboard',
+    userPage: '/account',
   },
 };
