@@ -1,10 +1,14 @@
 .aside {
+  scrollbar-width: none;
+
   display: flex;
   flex-direction: column;
   gap: rem(30);
   align-items: center;
   justify-content: space-between;
 
+  width: rem(70);
+  min-width: rem(70);
   height: 100%;
   padding: rem(10);
   border: 1px solid $background-secondary;
@@ -12,6 +16,15 @@
   border-radius: 0 10px 10px 0;
 
   background-color: $border-primary;
+
+  -ms-overflow-style: none;
+
+  &::-webkit-scrollbar {
+    display: none;
+    width: 0;
+    height: 0;
+    background: transparent;
+  }
 }
 
 .navbar {
@@ -38,6 +51,7 @@
 
       width: rem(50);
       height: rem(50);
+      min-height: rem(50);
       border: 1px solid $border-secondary;
       border-radius: 10px;
 
@@ -117,6 +131,7 @@
       &-auth {
         width: rem(35);
         height: rem(35);
+        min-height: rem(35);
         &:hover {
           background-color: $button;
         }

@@ -9,43 +9,62 @@
 
   width: 0;
   height: 100%;
-  border-bottom: 2px solid $text-primary;
-  border-left: 2px solid $text-primary;
   border-radius: 15px 0 0 15px;
-
-  background-color: $text-heading;
-
+  
+  background-color: $pop-up-background;
+  
   transition: width 0.3s;
   &--active {
-    width: rem(400);
+    width: rem(420);
+    border-bottom: 2px solid $text-primary;
+    border-left: 2px solid $text-primary;
   }
   &__wrapper {
-    transform: translate(0, 0);
-    width: 100%;
+    display: flex;
+    flex-direction: column;
+
+    width: rem(420);
+    height: 100%;
+
     opacity: 0;
-    transition: all 0.1s;
+
+    transition: all 0.2s;
     &--open{
       opacity: 1;
     }
     &--closed {
-      transform: translate(100%, 0%);
-      display: none;
+      opacity: 0;
     }
   }
   &__title {
+    flex-shrink: 0;
+
+    margin: rem(10) 0;
+
     font-size: rem(22);
     font-weight: 600;
+    color: $text-heading;
     text-align: center;
   }
-  &__background {
-    position: fixed;
-    z-index: 50;
+  &__close-button{
+    cursor: pointer;
+
+    position: absolute;
     top: 0;
-    right: 0;
-    bottom: 0;
     left: 0;
 
-    width: 100vw;
-    height: 100vh;
+    width: rem(45);
+    height: rem(45);
+    padding: rem(10);
+  }
+  &__list{
+    overflow-x: hidden;
+    overflow-y: auto;
+    display: flex;
+    flex: 1;
+    flex-wrap: wrap;
+    gap: rem(10) rem(15);
+
+    padding: rem(10);
   }
 }

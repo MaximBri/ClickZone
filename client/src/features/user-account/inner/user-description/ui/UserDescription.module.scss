@@ -1,0 +1,45 @@
+.setting {
+  display: flex;
+  flex-direction: column;
+  gap: rem(10);
+
+  width: 100%;
+
+  font-size: rem(20);
+  font-weight: 500;
+
+  &__input {
+    resize: none;
+
+    height: rem(300);
+    padding: rem(10) rem(20);
+    border: 1px solid $border-primary;
+    border-radius: 10px;
+
+    font-size: rem(18);
+    &::placeholder {
+      color: $text-primary;
+    }
+  }
+  &__button {
+    transition: all 0.3s;
+    &--disabled {
+      transform: translateX(rem(-40));
+      overflow: hidden;
+      width: 0;
+    }
+    &--active {
+      transform: translateX(0);
+
+      width: min-content;
+      padding: rem(10) rem(20);
+      border-radius: 10px;
+
+      font-size: rem(18);
+      font-weight: 600;
+      color: $text-primary;
+
+      background-color: $button-thertialy;
+    }
+  }
+}

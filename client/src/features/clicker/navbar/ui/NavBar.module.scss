@@ -13,9 +13,35 @@
 
   background-color: $border-secondary;
   &__button {
+    position: relative;
     width: rem(50);
     height: rem(50);
     background-color: transparent;
+    &-title {
+      pointer-events: none;
+
+      position: absolute;
+      z-index: -100;
+      top: 50%;
+      left: rem(-20);
+      transform: translate(-100%, -50%);
+
+      padding: rem(4);
+      border-radius: 5px;
+
+      font-size: rem(16);
+      color: $text-heading;
+      text-wrap: nowrap;
+
+      opacity: 0;
+      background-color: $text-primary;
+
+      transition: opacity 0.3s;
+    }
+    &:hover > &-title {
+      z-index: 100;
+      opacity: 1;
+    }
     &-icon {
       width: 100%;
     }
