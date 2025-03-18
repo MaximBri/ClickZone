@@ -20,7 +20,8 @@ class Config:
     JWT_COOKIE_SAMESITE = 'Lax'  # CSRF protection
 
     JWT_CSRF_IN_COOKIES = True
-    JWT_COOKIE_CSRF_PROTECT = True  # Включаем CSRF-защиту для JWT cookies
+    JWT_CSRF_CHECK_FORM = True
+    JWT_REFRESH_COOKIE_CSRF_PROTECT = True  # Explicitly for refresh tokens
 
     FLASK_APP = os.environ.get('FLASK_APP')
     FLASK_DEBUG = os.environ.get('FLASK_DEBUG')
