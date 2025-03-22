@@ -24,7 +24,7 @@ def refresh():
     return response
 
 
-@bp.route('/check-auth', methods=['POST'])
+@bp.route('/check-auth', methods=['GET'])
 @jwt_required()
 def check_auth():
     identity = get_jwt_identity()
@@ -32,4 +32,3 @@ def check_auth():
     if not user:
         response = make_response({'errors': [{'msg': 'User not found'}]}, 401)
         return response
-    return 200
