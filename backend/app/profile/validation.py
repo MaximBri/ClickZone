@@ -1,4 +1,5 @@
 import sqlalchemy as sa
+from flask_jwt_extended import get_current_user
 from pydantic import BaseModel, Field, field_validator, ConfigDict
 
 from app import db
@@ -16,5 +17,6 @@ class EditProfileForm(BaseModel):
             sa.select(User).where(User.name == value)
         )
         if user is not None:
-            raise ValueError('Имя занято')
+            if not user.id == get_current_user().id:
+                raise ValueError('Имя занято')
         return value
