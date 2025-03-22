@@ -1,10 +1,14 @@
 .alert-card {
+  transform: translateX(150%);
+
   display: flex;
   align-items: center;
 
   padding: 0.5rem;
   border-left: 4px solid;
   border-radius: 8px;
+
+  box-shadow: 2px 2px 4px 2px #0000003d;
 
   transition: all 0.3s ease-in-out;
   &__icon {
@@ -17,6 +21,9 @@
   &__message {
     font-size: rem(18);
     font-weight: 600;
+  }
+  &--visible {
+    transform: translateX(0%);
   }
 
   &--success {
@@ -37,7 +44,7 @@
     border-color: #f59e0b;
     color: #854d0e;
     background-color: #fef08a;
-    
+
     .alert-card__icon {
       color: #f59e0b;
     }

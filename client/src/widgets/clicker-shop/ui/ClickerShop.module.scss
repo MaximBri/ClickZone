@@ -10,9 +10,9 @@
   width: 0;
   height: 100%;
   border-radius: 15px 0 0 15px;
-  
+
   background-color: $pop-up-background;
-  
+
   transition: width 0.3s;
   &--active {
     width: rem(420);
@@ -29,7 +29,7 @@
     opacity: 0;
 
     transition: all 0.2s;
-    &--open{
+    &--open {
       opacity: 1;
     }
     &--closed {
@@ -46,7 +46,7 @@
     color: $text-heading;
     text-align: center;
   }
-  &__close-button{
+  &__close-button {
     cursor: pointer;
 
     position: absolute;
@@ -57,7 +57,7 @@
     height: rem(45);
     padding: rem(10);
   }
-  &__list{
+  &__list {
     overflow-x: hidden;
     overflow-y: auto;
     display: flex;
@@ -66,5 +66,48 @@
     gap: rem(10) rem(15);
 
     padding: rem(10);
+  }
+}
+
+@media (max-width: 1024px) {
+  .shop {
+    &__title {
+      margin: rem(10) 0;
+      font-size: rem(20);
+    }
+  }
+}
+
+@media (max-width: 768px) {
+  .shop {
+    &__title {
+      margin: rem(10) 0;
+      font-size: rem(18);
+    }
+  }
+}
+
+@media (max-width: 500px) {
+  .shop {
+    &--active {
+      width: 100%;
+    }
+    &__title {
+      margin: rem(10) 0;
+      font-size: rem(18);
+    }
+    &__wrapper {
+      width: 100%;
+    }
+    &__list {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: rem(10) rem(15);
+      align-items: center;
+      justify-content: center;
+
+      width: 100%;
+      padding: rem(10);
+    }
   }
 }

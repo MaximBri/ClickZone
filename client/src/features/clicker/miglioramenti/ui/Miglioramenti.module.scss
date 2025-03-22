@@ -1,9 +1,11 @@
 .miglioramenti {
+  position: relative;
+
   display: flex;
   flex-direction: column;
   gap: rem(10);
   align-items: center;
-  justify-content: center;
+  justify-content: space-between;
 
   max-width: rem(190);
   border: 1px solid $button-disabled;
@@ -16,8 +18,15 @@
     box-shadow: 0px 5px 5px $black-shadow;
   }
   &__image {
-    width: 50%;
+    height: rem(90);
     padding-top: rem(15);
+    padding-bottom: rem(5);
+  }
+  &__about {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
   }
   &__name {
     width: 100%;
@@ -36,6 +45,14 @@
     &-coin {
       width: rem(20);
     }
+  }
+  &__buy {
+    display: flex;
+    flex-direction: column;
+    gap: rem(10);
+    align-items: center;
+
+    width: 100%;
   }
   &__price {
     display: flex;
@@ -65,6 +82,58 @@
     &:disabled {
       cursor: default;
       background-color: $button-disabled;
+    }
+  }
+  &__icon {
+    position: absolute;
+    top: rem(15);
+    right: rem(15);
+
+    width: rem(30);
+    height: rem(30);
+  }
+}
+
+@media (max-width: 1024px) {
+  .miglioramenti {
+    &__name {
+      padding: rem(8) rem(15);
+      font-size: rem(16);
+    }
+    &__button {
+      width: 70%;
+      font-size: rem(16);
+    }
+  }
+}
+
+@media (max-width: 768px) {
+  .miglioramenti {
+    transition: box-shadow 0s ease;
+    &__image {
+      height: rem(70);
+    }
+    &:hover {
+      box-shadow: 0px 0px 0px transparent;
+    }
+    &__name {
+      padding: rem(5) rem(10);
+    }
+    &__button {
+      width: 70%;
+      font-size: rem(16);
+    }
+  }
+}
+
+@media (max-width: 500px) {
+  .miglioramenti {
+    width: 100%;
+    max-width: none;
+    height: 100%;
+    &__icon {
+      width: rem(25);
+      height: rem(25);
     }
   }
 }

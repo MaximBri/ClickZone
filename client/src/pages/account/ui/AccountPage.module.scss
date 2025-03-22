@@ -1,12 +1,13 @@
 .account {
+  overflow-y: auto;
   display: flex;
   flex-direction: column;
+  flex-grow: 1;
   gap: rem(30);
   justify-content: space-between;
 
-  width: 100%;
   height: 100%;
-  margin: 0 rem(40);
+  padding: 0 rem(40);
   &__wrapper {
     display: flex;
     flex-direction: column;
@@ -21,5 +22,28 @@
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: rem(20);
+  }
+}
+
+@media (max-width: 1024px) {
+  .account {
+    padding: 0 rem(30);
+    &__title {
+      font-size: rem(20);
+    }
+    &__main {
+      grid-template-columns: 1fr;
+      gap: rem(0);
+    }
+  }
+}
+
+@media (max-width: 768px) {
+  .account {
+    gap: rem(20);
+    padding: 0 rem(20);
+    &__title {
+      font-size: rem(18);
+    }
   }
 }

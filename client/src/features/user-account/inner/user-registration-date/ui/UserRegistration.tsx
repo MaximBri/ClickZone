@@ -17,7 +17,7 @@ export const UserRegistration = () => {
   );
   return (
     <h3 className={styles.date}>
-      Дата вашей регистрации: <strong>{formatDate(userRegisterData)}</strong>
+      Дата регистрации: <strong>{formatDate(userRegisterData)}</strong>
     </h3>
   );
 };

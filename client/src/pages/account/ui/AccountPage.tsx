@@ -5,17 +5,17 @@ import { UserNickname } from "@/features/user-account/inner/user-nickname";
 import { UserDescription } from "@/features/user-account/inner/user-description";
 import { UserRegistration } from "@/features/user-account/inner/user-registration-date";
 import { ExitFromAccount } from "@/features/user-account/inner/exit-from-account";
-import { userInfoIsLoaded } from "@/entities/user/model/userSlice";
+import { getIsAuthorized } from "@/entities/user/model/userSlice";
 import { routes } from "@/shared/config/routes";
 import styles from "./AccountPage.module.scss";
-import { Notifications } from "@/features/notifications";
 
 export const AccountPage = () => {
   const navigate = useNavigate();
-  const isAuthorized = useSelector(userInfoIsLoaded);
+  const isAuthorized = useSelector(getIsAuthorized);
   if (isAuthorized === false) {
     navigate(routes.base);
   } else if (isAuthorized === null) {
+    // Добавить загрузчик
     return null;
   }
   return (
@@ -29,7 +29,6 @@ export const AccountPage = () => {
         <ExitFromAccount />
       </div>
       <UserRegistration />
-      <Notifications message="1123123" type="success" index={1} />
     </section>
   );
 };

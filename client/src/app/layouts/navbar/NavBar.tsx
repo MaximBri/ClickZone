@@ -9,7 +9,7 @@ import "tippy.js/animations/scale.css";
 import { DOMAIN, routes } from "@/shared/config/routes";
 import { navBarList } from "./model/navBarList";
 import { setAuthWindow } from "@/widgets/pop-ups/model/popUpsSlice";
-import { userInfoIsLoaded } from "@/entities/user/model/userSlice";
+import { getIsAuthorized } from "@/entities/user/model/userSlice";
 import { useAppDispatch } from "@/app/store/store";
 import personSvg from "/images/Person.svg";
 import lockSvg from "/images/services/lock.svg";
@@ -19,7 +19,7 @@ export const NavBar = memo(() => {
   const navigate = useNavigate();
   const location = useLocation();
   const dispatch = useAppDispatch();
-  const authorized = useSelector(userInfoIsLoaded);
+  const authorized = useSelector(getIsAuthorized);
   const isMobile = useMediaQuery({ query: "(max-width: 768px)" });
 
   const userButtonHandle = () => {

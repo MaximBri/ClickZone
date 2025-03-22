@@ -38,7 +38,6 @@ export interface authErrorInterface {
 export interface notificationDataInterface {
   message: string;
   type: notificationsErrorsTypes;
-  index: number;
 }
 
 export type notificationsErrorsTypes = "success" | "error" | "warning";

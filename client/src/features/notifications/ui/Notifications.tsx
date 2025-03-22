@@ -1,15 +1,21 @@
-import { FC } from "react";
+import { FC, memo, useEffect, useState } from "react";
 import { notificationDataInterface } from "@/shared/types";
 import styles from "./Notifications.module.scss";
 
-export const Notifications: FC<notificationDataInterface> = ({
-  message,
-  type,
-  index,
-}) => {
+export const Notifications: FC<{
+  data: notificationDataInterface;
+}> = memo(({ data }) => {
+  const [visible, setVisible] = useState<boolean>(false);
+
+  useEffect(() => {
+    setVisible(true);
+  }, []);
+
   return (
     <div
-      className={`${styles["alert-card"]} ${styles[`alert-card--${type}`]}`}
+      className={`${styles["alert-card"]} ${
+        styles[`alert-card--${data.type}`]
+      } ${visible ? styles["alert-card--visible"] : ""}`}
     >
       <svg
         stroke="currentColor"
@@ -25,7 +31,7 @@ export const Notifications: FC<notificationDataInterface> = ({
           strokeLinecap="round"
         />
       </svg>
-      <p className={styles["alert-card__message"]}>{message}</p>
+      <p className={styles["alert-card__message"]}>{data.message}</p>
     </div>
   );
-};
+});

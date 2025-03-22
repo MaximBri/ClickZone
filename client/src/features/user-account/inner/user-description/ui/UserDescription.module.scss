@@ -43,3 +43,36 @@
     }
   }
 }
+
+@media (max-width: 1024px) {
+  .setting {
+    gap: rem(10);
+    font-size: rem(18);
+    &__input {
+      height: rem(100);
+      padding: rem(8) rem(15);
+    }
+    &__button {
+      &--active {
+        padding: rem(8) rem(15);
+      }
+    }
+  }
+}
+
+@media (max-width: 768px) {
+  .setting {
+    gap: rem(5);
+    font-size: rem(16);
+    &__input {
+      height: rem(70);
+      padding: rem(5) rem(10);
+    }
+    &__button {
+      font-size: rem(16);
+      &--active {
+        padding: rem(8) rem(15);
+      }
+    }
+  }
+}
