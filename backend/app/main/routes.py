@@ -32,3 +32,6 @@ def check_auth():
     if not user:
         response = make_response({'errors': [{'msg': 'User not found'}]}, 401)
         return response
+    response = make_response()
+    response.status_code = 200
+    return response
