@@ -8,7 +8,7 @@ from app.models import User
 class EditProfileForm(BaseModel):
     model_config = ConfigDict(extra='forbid')
     name: str = Field(..., min_length=1)
-    about_me: str = Field(..., min_length=1)
+    about_me: str = Field(...)
 
     @field_validator('name')
     def validate_name(cls, value):
