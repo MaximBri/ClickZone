@@ -1,7 +1,7 @@
 import { useDispatch, useSelector } from 'react-redux';
 import { useEffect, useState } from 'react';
 
-import { animalsList } from '@/pages/home/model/animalsList';
+import { animalsList } from '@/pages/home/ui/model/animalsList';
 import {
   getCoinsOnClick,
   getFinances,

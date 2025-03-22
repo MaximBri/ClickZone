@@ -1,26 +1,20 @@
-import { useLocation, useNavigate } from "react-router-dom";
-import { useSelector } from "react-redux";
-import { memo } from "react";
-import { useMediaQuery } from "react-responsive";
-import Tippy from "@tippyjs/react";
-import "tippy.js/dist/tippy.css";
-import "tippy.js/animations/scale.css";
+import { useLocation, useNavigate } from 'react-router-dom';
+import { useSelector } from 'react-redux';
+import { memo } from 'react';
 
-import { DOMAIN, routes } from "@/shared/config/routes";
-import { navBarList } from "./model/navBarList";
-import { setAuthWindow } from "@/widgets/pop-ups/model/popUpsSlice";
-import { getIsAuthorized } from "@/entities/user/model/userSlice";
-import { useAppDispatch } from "@/app/store/store";
-import personSvg from "/images/Person.svg";
-import lockSvg from "/images/services/lock.svg";
-import styles from "./NavBar.module.scss";
+import { DOMAIN, routes } from '@/shared/config/routes';
+import { navBarList } from './model/navBarList';
+import { setAuthWindow } from '@/widgets/pop-ups/model/popUpsSlice';
+import { userInfoIsLoaded } from '@/entities/user/model/userSlice';
+import { useAppDispatch } from '@/app/store/store';
+import personSvg from '/images/Person.svg';
+import styles from './NavBar.module.scss';
 
 export const NavBar = memo(() => {
   const navigate = useNavigate();
   const location = useLocation();
   const dispatch = useAppDispatch();
-  const authorized = useSelector(getIsAuthorized);
-  const isMobile = useMediaQuery({ query: "(max-width: 768px)" });
+  const authorized = useSelector(userInfoIsLoaded);
 
   const userButtonHandle = () => {
     if (authorized) {
@@ -30,80 +24,38 @@ export const NavBar = memo(() => {
     }
   };
 
-  const checkDisabled = (needAuth: boolean): boolean => {
-    return needAuth ? !authorized : false;
-  };
-
-  const buttonHandle = (link: string, needAuth: boolean) => {
-    if (needAuth) {
-      if (authorized) {
-        navigate(link);
-      }
-    } else {
-      navigate(link);
-    }
-  };
-
   return (
     <aside className={styles.aside}>
       <nav className={styles.navbar}>
         {navBarList.map((item, index) => {
           return (
-            <Tippy
+            <button
+              onClick={() => navigate(item.pageName)}
+              className={`${styles.navbar__button} ${
+                location.pathname === item.pageName
+                  ? styles['navbar__button--active']
+                  : ''
+              }`}
               key={index}
-              content={item.title}
-              placement="right"
-              animation="scale"
-              disabled={isMobile}
-              arrow={true}
-              duration={150}
-              appendTo={document.body}
-              interactive={true}
             >
-              <button
-                onClick={() => buttonHandle(item.pageName, item.needAuth)}
-                className={`${styles.navbar__button} ${
-                  location.pathname === item.pageName
-                    ? styles["navbar__button--active"]
-                    : ""
-                }`}
-                key={index}
-                disabled={checkDisabled(item.needAuth)}
-              >
-                <img
-                  className={styles["navbar__button-icon"]}
-                  src={`/${DOMAIN}/images/services${item.iconLink}`}
-                  alt="page"
-                />
-                {checkDisabled(item.needAuth) && (
-                  <img
-                    className={styles["navbar__button--disabled"]}
-                    src={lockSvg}
-                    alt="lock"
-                  ></img>
-                )}
-              </button>
-            </Tippy>
+              <img
+                src={`/${DOMAIN}/images/services${item.iconLink}`}
+                alt="page"
+              />
+              <h4 className={styles['navbar__button-title']}>{item.title}</h4>
+            </button>
           );
         })}
       </nav>
-      <Tippy
-        content={authorized ? "Аккаунт" : "Войти"}
-        placement="right"
-        animation="scale"
-        arrow={true}
-        duration={150}
-        disabled={isMobile}
-        appendTo={document.body}
-        interactive={true}
+      <button
+        onClick={() => userButtonHandle()}
+        className={styles['navbar__button-auth']}
       >
-        <button
-          onClick={() => userButtonHandle()}
-          className={styles["navbar__button-auth"]}
-        >
-          <img src={personSvg} alt="person" />
-        </button>
-      </Tippy>
+        <img src={personSvg} alt="person" />
+        <h4 className={styles['navbar__button-title']}>
+          {authorized ? 'Аккаунт' : 'Войти'}
+        </h4>
+      </button>
     </aside>
   );
 });

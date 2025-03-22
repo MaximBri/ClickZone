@@ -1,9 +1,8 @@
-import { useSelector } from 'react-redux';
-
-import { getFinances } from '@/entities/user/model/userSlice';
 import coinSvg from '/images/resourses/coin.svg';
 import diamondSvg from '/images/resourses/diamond.svg';
 import styles from '../Footer.module.scss';
+import { useSelector } from 'react-redux';
+import { getFinances } from '@/entities/user/model/userSlice';
 
 export const UserFinanceInfo = () => {
   const finances = useSelector(getFinances);

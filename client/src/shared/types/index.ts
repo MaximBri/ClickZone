@@ -4,7 +4,6 @@ export interface userDataForRegister {
 }
 
 export interface userDataInterface {
-  isAuthorized: boolean | null;
   dataIsLoaded: boolean | null;
   level: number;
   coinsPerMinute: number;
@@ -34,10 +33,3 @@ export interface authErrorInterface {
   login?: string;
   pass?: string;
 }
-
-export interface notificationDataInterface {
-  message: string;
-  type: notificationsErrorsTypes;
-}
-
-export type notificationsErrorsTypes = "success" | "error" | "warning";
