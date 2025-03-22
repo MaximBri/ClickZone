@@ -1,6 +1,5 @@
 import { RootState } from "@/app/store/store";
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { dataAfterRegisterInterface } from "../registration";
 import { clickerUpgradeInterface, userDataInterface } from "@/shared/types";
 
 const initialState: userDataInterface = {
@@ -28,22 +27,17 @@ const UserSlice = createSlice({
   name: "user",
   initialState,
   reducers: {
+    // Globals
     setIsAuthorized(state, action: PayloadAction<boolean>) {
       state.isAuthorized = action.payload;
     },
     setDataIsLoaded(state, action: PayloadAction<boolean>) {
       state.dataIsLoaded = action.payload;
     },
-    setDataAfterRegister(
-      state,
-      action: PayloadAction<dataAfterRegisterInterface>
-    ) {
-      state.globals.id = action.payload.id;
-      state.globals.nickname = action.payload.nickname;
-    },
     setId(state, action: PayloadAction<number>) {
       state.globals.id = action.payload;
     },
+    // Wallet
     setCoins(state) {
       state.finances.coins += state.coinsOnClick;
     },
@@ -56,16 +50,19 @@ const UserSlice = createSlice({
     setCoinsPerMinute(state, action: PayloadAction<number>) {
       state.coinsPerMinute = action.payload;
     },
+    // Account
     setDescription(state, action: PayloadAction<string>) {
       state.globals.description = action.payload;
     },
+    setNickname(state, action: PayloadAction<string>) {
+      state.globals.nickname = action.payload;
+    },
+    resetUserData: () => initialState,
+    // Clicker
     setLevel(state, action: PayloadAction<number>) {
       if (action.payload <= 10 && action.payload > 0) {
         state.level = action.payload;
       }
-    },
-    setNickname(state, action: PayloadAction<string>) {
-      state.globals.nickname = action.payload;
     },
     setUpgrades(state, action: PayloadAction<clickerUpgradeInterface[]>) {
       state.clicker.upgrades = action.payload;
@@ -82,13 +79,13 @@ export const getCoinsOnClick = (state: RootState) => state.user.coinsOnClick;
 export const getNickname = (state: RootState) => state.user.globals.nickname;
 export const getDescription = (state: RootState) =>
   state.user.globals.description;
+export const getGlobalsUserData = (state: RootState) => state.user.globals;
 export const userInfoIsLoaded = (state: RootState) => state.user.dataIsLoaded;
 export const getIsAuthorized = (state: RootState) => state.user.isAuthorized;
 
 export const {
   setIsAuthorized,
   setDataIsLoaded,
-  setDataAfterRegister,
   setCoins,
   setCoinsPerMinute,
   setLevel,
@@ -99,6 +96,7 @@ export const {
   setId,
   addOneUpgrade,
   setUpgrades,
+  resetUserData,
 } = UserSlice.actions;
 
 export default UserSlice.reducer;

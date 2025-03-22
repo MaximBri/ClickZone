@@ -1,10 +1,12 @@
 import { useSelector } from "react-redux";
-import { useEffect, useState } from "react";
+import { FC, useEffect, useState } from "react";
 
 import { getNickname } from "@/entities/user/model/userSlice";
 import styles from "./UserNickname.module.scss";
 
-export const UserNickname = () => {
+export const UserNickname: FC<{
+  onUpdate: (key: "name" | "description", value: string) => void;
+}> = ({ onUpdate }) => {
   const userNickname = useSelector(getNickname) || "User";
   const [nickname, setNickname] = useState<string>(userNickname || "User");
   const [saveButtonIsActive, setSaveButtonIsActive] = useState<boolean>(false);
@@ -27,6 +29,7 @@ export const UserNickname = () => {
         // disabled
       />
       <button
+        onClick={() => onUpdate("name", nickname)}
         className={`${styles.setting__button} ${
           saveButtonIsActive
             ? styles["setting__button--active"]
