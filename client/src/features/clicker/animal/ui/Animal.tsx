@@ -1,6 +1,5 @@
 import { DOMAIN } from '@/shared/config/routes';
-import { animalModel } from './model/animalModel';
-import infoSvg from './icons/info.svg';
+import { animalModel } from '../model/animalModel';
 import styles from './Animal.module.scss';
 
 export const Animal = () => {
@@ -31,13 +30,6 @@ export const Animal = () => {
             +{data.countCoinsOnClick}
           </div>
         ))}
-      </button>
-      <button className={styles['animal__button-info']}>
-        <img
-          className={styles['animal__button-info-icon']}
-          src={infoSvg}
-          alt="info"
-        />
       </button>
       <h3 className={styles['animal__next-level']}>{data.coinsToNextLevel}</h3>
     </div>

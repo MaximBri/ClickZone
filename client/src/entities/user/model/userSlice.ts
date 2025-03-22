@@ -1,9 +1,10 @@
-import { RootState } from '@/app/store/store';
-import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { dataAfterRegisterInterface } from '../registration';
-import { clickerUpgradeInterface, userDataInterface } from '@/shared/types';
+import { RootState } from "@/app/store/store";
+import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { dataAfterRegisterInterface } from "../registration";
+import { clickerUpgradeInterface, userDataInterface } from "@/shared/types";
 
 const initialState: userDataInterface = {
+  isAuthorized: null,
   dataIsLoaded: null,
   level: 1,
   coinsPerMinute: 0,
@@ -14,8 +15,8 @@ const initialState: userDataInterface = {
   },
   globals: {
     id: null,
-    nickname: '',
-    description: '',
+    nickname: "",
+    description: "",
     dateOfRegister: null,
   },
   clicker: {
@@ -24,9 +25,12 @@ const initialState: userDataInterface = {
 };
 
 const UserSlice = createSlice({
-  name: 'user',
+  name: "user",
   initialState,
   reducers: {
+    setIsAuthorized(state, action: PayloadAction<boolean>) {
+      state.isAuthorized = action.payload;
+    },
     setDataIsLoaded(state, action: PayloadAction<boolean>) {
       state.dataIsLoaded = action.payload;
     },
@@ -76,9 +80,13 @@ export const getLevel = (state: RootState) => state.user.level;
 export const getFinances = (state: RootState) => state.user.finances;
 export const getCoinsOnClick = (state: RootState) => state.user.coinsOnClick;
 export const getNickname = (state: RootState) => state.user.globals.nickname;
+export const getDescription = (state: RootState) =>
+  state.user.globals.description;
 export const userInfoIsLoaded = (state: RootState) => state.user.dataIsLoaded;
+export const getIsAuthorized = (state: RootState) => state.user.isAuthorized;
 
 export const {
+  setIsAuthorized,
   setDataIsLoaded,
   setDataAfterRegister,
   setCoins,

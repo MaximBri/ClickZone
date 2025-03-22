@@ -1,13 +1,15 @@
-import { TypedUseSelectorHook, useDispatch, useSelector } from 'react-redux';
-import { Action, configureStore, ThunkAction } from '@reduxjs/toolkit';
+import { TypedUseSelectorHook, useDispatch, useSelector } from "react-redux";
+import { Action, configureStore, ThunkAction } from "@reduxjs/toolkit";
 
-import windows from '@/widgets/pop-ups/model/popUpsSlice';
-import user from '@/entities/user/model/userSlice';
+import windows from "@/widgets/pop-ups/model/popUpsSlice";
+import user from "@/entities/user/model/userSlice";
+import notifications from "@/widgets/pop-ups/notifications/model/notificationSlice";
 
 export const store = configureStore({
   reducer: {
     windows,
     user,
+    notifications,
   },
 });
 
