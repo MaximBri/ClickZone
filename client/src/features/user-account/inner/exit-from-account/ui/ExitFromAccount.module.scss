@@ -1,0 +1,23 @@
+.exit {
+  display: flex;
+  gap: rem(30);
+  margin-top: rem(5);
+  font-size: rem(20);
+  &__button {
+    margin-top: rem(-5);
+    padding: rem(10) rem(25);
+    border-radius: 10px;
+
+    font-size: rem(20);
+    font-weight: 600;
+    color: $text-heading;
+
+    background-color: #ff3f3a;
+
+    transition: transform 0.3s ease, background-color 0.3s ease;
+    &:active {
+      transform: scale(0.95);
+      background-color: $error-muted;
+    }
+  }
+}

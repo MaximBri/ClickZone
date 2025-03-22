@@ -11,9 +11,8 @@
 
   background-color: $background-secondary;
 
-  transition: transform 0.3s ease, box-shadow .3s ease;
+  transition: box-shadow 0.3s ease;
   &:hover {
-    transform: translateY(rem(-5)) scale(1.02);
     box-shadow: 0px 5px 5px $black-shadow;
   }
   &__image {
@@ -63,7 +62,7 @@
     &:active {
       transform: scale(0.98);
     }
-    &:disabled{
+    &:disabled {
       cursor: default;
       background-color: $button-disabled;
     }

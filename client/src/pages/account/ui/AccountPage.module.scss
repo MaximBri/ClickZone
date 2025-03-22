@@ -2,14 +2,24 @@
   display: flex;
   flex-direction: column;
   gap: rem(30);
+  justify-content: space-between;
 
   width: 100%;
   height: 100%;
   margin: 0 rem(40);
+  &__wrapper {
+    display: flex;
+    flex-direction: column;
+  }
   &__title {
     margin: rem(10) auto;
     font-size: rem(24);
-    font-weight: 500;
+    font-weight: 700;
     text-align: center;
+  }
+  &__main {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: rem(20);
   }
 }

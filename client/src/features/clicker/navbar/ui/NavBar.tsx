@@ -1,34 +1,58 @@
 import { useState } from "react";
 
 import { ClickerShop } from "@/widgets/clicker-shop";
+import { useMediaQuery } from "react-responsive";
 import infoSvg from "./icons/info.svg";
 import shopSvg from "./icons/shop.svg";
 import styles from "./NavBar.module.scss";
+import Tippy from "@tippyjs/react";
 
 export const NavBar = () => {
   const [shopIsActive, setShopIsActive] = useState<boolean>(false);
+  const isMobile = useMediaQuery({ query: "(max-width: 768px)" });
+
   return (
     <>
       <nav className={styles.nav}>
-        <button
-          className={styles.nav__button}
-          onClick={() => setShopIsActive(true)}
+        <Tippy
+          content={"Улучшения"}
+          placement="left"
+          animation="scale"
+          disabled={isMobile}
+          arrow={true}
+          duration={150}
+          appendTo={document.body}
+          interactive={true}
         >
-          <img
-            src={shopSvg}
-            alt="shop"
-            className={styles["nav__button-icon"]}
-          />
-          <h3 className={styles["nav__button-title"]}>Улучшения</h3>
-        </button>
-        <button className={styles.nav__button}>
-          <img
-            className={styles["nav__button-icon"]}
-            src={infoSvg}
-            alt="info"
-          />
-          <h3 className={styles["nav__button-title"]}>О кликере</h3>
-        </button>
+          <button
+            className={styles.nav__button}
+            onClick={() => setShopIsActive(true)}
+          >
+            <img
+              src={shopSvg}
+              alt="shop"
+              className={styles["nav__button-icon"]}
+            />
+          </button>
+        </Tippy>
+        <Tippy
+          content={"О кликере"}
+          placement="left"
+          animation="scale"
+          disabled={isMobile}
+          arrow={true}
+          duration={150}
+          appendTo={document.body}
+          interactive={true}
+        >
+          <button className={styles.nav__button}>
+            <img
+              className={styles["nav__button-icon"]}
+              src={infoSvg}
+              alt="info"
+            />
+          </button>
+        </Tippy>
       </nav>
 
       <ClickerShop active={shopIsActive} closeSection={setShopIsActive} />

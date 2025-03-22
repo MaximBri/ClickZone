@@ -7,6 +7,7 @@ import {
   setDescription,
   setDiamonds,
   setId,
+  setIsAuthorized,
   setNickname,
 } from './model/userSlice';
 import { Dispatch, UnknownAction } from '@reduxjs/toolkit';
@@ -28,6 +29,7 @@ export const authorization = async (data: {
       data.password,
       dispatch
     );
+    dispatch(setIsAuthorized(true))
     dispatch(setDataIsLoaded(true));
     dispatch(setCoins(response.data.resources.coins));
     dispatch(setDiamonds(response.data.resources.diamonds));

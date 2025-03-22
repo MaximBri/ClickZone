@@ -4,6 +4,7 @@ import { dataAfterRegisterInterface } from "../registration";
 import { clickerUpgradeInterface, userDataInterface } from "@/shared/types";
 
 const initialState: userDataInterface = {
+  isAuthorized: null,
   dataIsLoaded: null,
   level: 1,
   coinsPerMinute: 0,
@@ -27,6 +28,9 @@ const UserSlice = createSlice({
   name: "user",
   initialState,
   reducers: {
+    setIsAuthorized(state, action: PayloadAction<boolean>) {
+      state.isAuthorized = action.payload;
+    },
     setDataIsLoaded(state, action: PayloadAction<boolean>) {
       state.dataIsLoaded = action.payload;
     },
@@ -79,8 +83,10 @@ export const getNickname = (state: RootState) => state.user.globals.nickname;
 export const getDescription = (state: RootState) =>
   state.user.globals.description;
 export const userInfoIsLoaded = (state: RootState) => state.user.dataIsLoaded;
+export const getIsAuthorized = (state: RootState) => state.user.isAuthorized;
 
 export const {
+  setIsAuthorized,
   setDataIsLoaded,
   setDataAfterRegister,
   setCoins,

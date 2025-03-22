@@ -1,6 +1,11 @@
 .aside {
-  scrollbar-width: none;
+  isolation: isolate;
+  position: relative;
+  transform: translateZ(0);
 
+  direction: rtl;
+  overflow-x: hidden;
+  overflow-y: auto;
   display: flex;
   flex-direction: column;
   gap: rem(30);
@@ -17,13 +22,9 @@
 
   background-color: $border-primary;
 
-  -ms-overflow-style: none;
-
   &::-webkit-scrollbar {
-    display: none;
-    width: 0;
-    height: 0;
-    background: transparent;
+    width: rem(3);
+    height: rem(3);
   }
 }
 
@@ -66,37 +67,21 @@
         opacity: 1;
       }
     }
-    &-title {
-      pointer-events: none;
-
+    &--disabled {
       position: absolute;
-      z-index: -100;
-      top: 50%;
-      right: rem(-20);
-      transform: translate(100%, -50%);
-
-      padding: rem(4);
-      border-radius: 5px;
-
-      font-size: rem(16);
-      color: $text-heading;
-      text-wrap: nowrap;
-
-      opacity: 0;
-      background-color: $text-primary;
-
-      transition: opacity 0.3s;
-    }
-    &:hover > &-title {
       z-index: 100;
-      opacity: 1;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+
+      width: rem(20);
     }
 
-    &:hover > img {
+    &:hover > &-icon {
       filter: none;
     }
 
-    & > img {
+    &-icon {
       width: 100%;
       filter: grayscale(1);
       transition: filter 0.5s;
@@ -111,6 +96,7 @@
 
 @media (max-width: 576px) {
   .aside {
+    overflow-y: hidden;
     flex-direction: row;
     gap: rem(10);
 
@@ -122,9 +108,10 @@
     background-color: $border-primary;
   }
   .navbar {
-    flex-direction: row;
+    flex-direction: row-reverse;
     max-width: calc(100% - 50px);
     &__button {
+      position: relative;
       width: rem(35);
       height: rem(35);
       padding: rem(8);
@@ -139,14 +126,11 @@
           opacity: 0;
         }
       }
-      &-title {
-        display: none;
-      }
       &:hover > &-title {
         opacity: 0;
       }
 
-      &:hover > img {
+      &:hover > &-icon {
         filter: none;
       }
     }

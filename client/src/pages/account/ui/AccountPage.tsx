@@ -8,6 +8,7 @@ import { ExitFromAccount } from "@/features/user-account/inner/exit-from-account
 import { userInfoIsLoaded } from "@/entities/user/model/userSlice";
 import { routes } from "@/shared/config/routes";
 import styles from "./AccountPage.module.scss";
+import { Notifications } from "@/features/notifications";
 
 export const AccountPage = () => {
   const navigate = useNavigate();
@@ -19,11 +20,16 @@ export const AccountPage = () => {
   }
   return (
     <section className={styles.account}>
-      <h2 className={styles.account__title}>Личный кабинет</h2>
-      <UserNickname />
-      <UserDescription />
-      <ExitFromAccount />
+      <div className={styles.account__wrapper}>
+        <h2 className={styles.account__title}>Личный кабинет</h2>
+        <div className={styles.account__main}>
+          <UserNickname />
+          <UserDescription />
+        </div>
+        <ExitFromAccount />
+      </div>
       <UserRegistration />
+      <Notifications message="1123123" type="success" index={1} />
     </section>
   );
 };
