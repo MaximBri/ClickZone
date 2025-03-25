@@ -60,7 +60,7 @@ def login():
 
     response = {
         'id': user.id,
-        'nickname': user.name if user.name else '',
+        'nickname': user.name,
         'about_me': user.about_me if user.about_me else '',
         'upgrades': user_upgrades,
         'resources': {
