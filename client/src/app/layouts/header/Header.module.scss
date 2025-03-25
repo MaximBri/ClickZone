@@ -6,10 +6,11 @@
   justify-content: center;
 
   width: 100%;
+  padding-left: rem(70);
   border-bottom: 2px solid;
   &__link {
     margin: rem(10) 0;
-    font-family: 'LakesNeue';
+    font-family: "LakesNeue";
     font-size: rem(28);
     font-weight: 900;
   }
@@ -32,5 +33,43 @@
     white-space: nowrap;
 
     background-color: $button-thertialy;
+  }
+}
+
+@media (max-width: 1024px) {
+  .header {
+    &__link {
+      font-size: rem(24);
+    }
+    &__nickname {
+      right: rem(20);
+      font-size: rem(18);
+    }
+  }
+}
+
+@media (max-width: 768px) {
+  .header {
+    &__link {
+      font-size: rem(24);
+    }
+    &__nickname {
+      right: rem(20);
+      font-size: rem(16);
+    }
+  }
+}
+
+@media (max-width: 576px) {
+  .header {
+    padding-left: 0;
+    &__link {
+      font-size: rem(20);
+    }
+    &__nickname {
+      width: rem(50);
+      padding: rem(5) rem(10);
+      font-size: rem(16);
+    }
   }
 }

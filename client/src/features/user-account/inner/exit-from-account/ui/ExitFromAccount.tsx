@@ -11,14 +11,17 @@ export const ExitFromAccount = () => {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
   const exitFromAccount = async () => {
-    try{
-      const response = await authApi.logout();
+    try {
+      await authApi.logout();
       notificationManager(dispatch, "Вы вышли из аккаунта", "success");
-      dispatch(resetUserData())
+      dispatch(resetUserData());
       navigate(routes.base);
-      console.log(response);
-    } catch(error) {
-      notificationManager(dispatch, "Выход из аккаунта не был выполнен :(", "error");
+    } catch (error) {
+      notificationManager(
+        dispatch,
+        "Выход из аккаунта не был выполнен :(",
+        "error"
+      );
     }
   };
 

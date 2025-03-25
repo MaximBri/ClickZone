@@ -5,17 +5,19 @@ import { miglioramentiInterface } from "@/widgets/clicker-shop/model/miglioramen
 import coinSvg from "/images/resourses/coin.svg";
 import infinitySvg from "/images/miglioramenti/infinity.svg";
 import styles from "./Miglioramenti.module.scss";
+import { miglioramentiModel } from "../model/miglioramentiModel";
 
 export const Miglioramenti: FC<{
   data: miglioramentiInterface;
   coins: number;
 }> = ({ data, coins }) => {
+  const { buyImprovement, haveThisMiglioramenti } = miglioramentiModel(data);
   return (
     <li className={styles.miglioramenti}>
       <div className={styles.miglioramenti__about}>
         <img
           className={styles.miglioramenti__image}
-          src={`/${DOMAIN}/images/miglioramenti/${data.imagePath}`}
+          src={`${DOMAIN}/images/miglioramenti/${data.imagePath}`}
           alt="icon"
         />
         <h3 className={styles.miglioramenti__name}>{data.name}</h3>
@@ -32,9 +34,10 @@ export const Miglioramenti: FC<{
         </h4>
         <button
           className={styles.miglioramenti__button}
-          disabled={coins < data.cost}
+          disabled={coins < data.cost || haveThisMiglioramenti}
+          onClick={() => buyImprovement(data.id)}
         >
-          Купить
+          {haveThisMiglioramenti ? "Уже есть" : "Купить"}
         </button>
       </div>
       {data.isInfinite && (

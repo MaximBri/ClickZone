@@ -15,7 +15,7 @@ export const UserDescription: FC<{
     description !== userDescription
       ? setSaveButtonIsActive(true)
       : setSaveButtonIsActive(false);
-  }, [description]);
+  }, [description, userDescription]);
 
   return (
     <label className={styles.setting}>

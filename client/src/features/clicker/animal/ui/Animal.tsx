@@ -1,6 +1,6 @@
-import { DOMAIN } from '@/shared/config/routes';
-import { animalModel } from '../model/animalModel';
-import styles from './Animal.module.scss';
+import { DOMAIN } from "@/shared/config/routes";
+import { animalModel } from "../model/animalModel";
+import styles from "./Animal.module.scss";
 
 export const Animal = () => {
   const data = animalModel();
@@ -13,8 +13,8 @@ export const Animal = () => {
         onClick={(e) => data.addCoins(e)}
       >
         <img
-          className={styles['animal__button-image']}
-          src={`/${DOMAIN}/images/animals/${data.pet.image_path}`}
+          className={styles["animal__button-image"]}
+          src={`${DOMAIN}/images/animals/${data.pet.image_path}`}
           alt="pet"
           draggable={false}
         />
@@ -31,7 +31,7 @@ export const Animal = () => {
           </div>
         ))}
       </button>
-      <h3 className={styles['animal__next-level']}>{data.coinsToNextLevel}</h3>
+      <h3 className={styles["animal__next-level"]}>{data.coinsToNextLevel}</h3>
     </div>
   );
 };

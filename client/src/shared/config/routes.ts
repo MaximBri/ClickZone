@@ -1,4 +1,4 @@
-export const DOMAIN = 'ClickZone';
+export const DOMAIN = '/ClickZone';
 
 export const routes = {
   base: '/',

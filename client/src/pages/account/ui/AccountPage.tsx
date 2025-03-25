@@ -8,12 +8,17 @@ import { ExitFromAccount } from "@/features/user-account/inner/exit-from-account
 import {
   getGlobalsUserData,
   getIsAuthorized,
+  setDescription,
+  setNickname,
 } from "@/entities/user/model/userSlice";
 import { routes } from "@/shared/config/routes";
-import styles from "./AccountPage.module.scss";
 import { changeUserData } from "@/entities/user/account/changeUserData";
+import styles from "./AccountPage.module.scss";
+import { notificationManager } from "@/widgets/pop-ups/notifications/model/notificationManager";
+import { useDispatch } from "react-redux";
 
 export const AccountPage = () => {
+  const dispatch = useDispatch();
   const navigate = useNavigate();
   const isAuthorized = useAppSelector(getIsAuthorized);
   const userData = useAppSelector(getGlobalsUserData);
@@ -26,9 +31,29 @@ export const AccountPage = () => {
 
   const saveNewUserData = (key: "name" | "description", value: string) => {
     if (key === "description") {
-      changeUserData(userData.nickname, value);
+      try {
+        changeUserData(userData.nickname, value);
+        notificationManager(dispatch, "Описание успешно изменено", "success");
+        dispatch(setDescription(value));
+      } catch (error) {
+        notificationManager(
+          dispatch,
+          "Во время сохранения описания произошла ошибка",
+          "error"
+        );
+      }
     } else {
-      changeUserData(value, userData.description);
+      try {
+        changeUserData(value, userData.description);
+        notificationManager(dispatch, "Никнейм успешно изменён", "success");
+        dispatch(setNickname(value));
+      } catch (error) {
+        notificationManager(
+          dispatch,
+          "Во время сохранения никнейма произошла ошибка",
+          "error"
+        );
+      }
     }
   };
 

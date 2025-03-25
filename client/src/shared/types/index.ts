@@ -1,6 +1,12 @@
+import { miglioramentiInterface } from "@/widgets/clicker-shop/model/miglioramentiList";
+
 export interface userDataForRegister {
   login: string;
   password: string;
+}
+
+export interface UpgradeInterface extends miglioramentiInterface {
+  count: number;
 }
 
 export interface userDataInterface {
@@ -20,14 +26,8 @@ export interface userDataInterface {
     dateOfRegister: Date | null;
   };
   clicker: {
-    upgrades: clickerUpgradeInterface[];
+    upgrades: UpgradeInterface[];
   };
-}
-
-export interface clickerUpgradeInterface {
-  name: string;
-  description: string;
-  isInfinite: boolean;
 }
 
 export interface authErrorInterface {

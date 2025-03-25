@@ -15,7 +15,7 @@ export const UserNickname: FC<{
     userNickname !== nickname
       ? setSaveButtonIsActive(true)
       : setSaveButtonIsActive(false);
-  }, [nickname]);
+  }, [nickname, userNickname]);
 
   return (
     <label className={styles.setting}>

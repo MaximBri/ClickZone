@@ -1,6 +1,7 @@
 import { RootState } from "@/app/store/store";
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { clickerUpgradeInterface, userDataInterface } from "@/shared/types";
+import { UpgradeInterface, userDataInterface } from "@/shared/types";
+import { miglioramentiInterface } from "@/widgets/clicker-shop/model/miglioramentiList";
 
 const initialState: userDataInterface = {
   isAuthorized: null,
@@ -38,7 +39,10 @@ const UserSlice = createSlice({
       state.globals.id = action.payload;
     },
     // Wallet
-    setCoins(state) {
+    setCoins(state, action: PayloadAction<number>) {
+      state.finances.coins = action.payload;
+    },
+    addCoin(state) {
       state.finances.coins += state.coinsOnClick;
     },
     setCoinsOnClick(state, action: PayloadAction<number>) {
@@ -64,11 +68,21 @@ const UserSlice = createSlice({
         state.level = action.payload;
       }
     },
-    setUpgrades(state, action: PayloadAction<clickerUpgradeInterface[]>) {
+    // Upgrades
+    setUpgrades(state, action: PayloadAction<UpgradeInterface[]>) {
       state.clicker.upgrades = action.payload;
     },
-    addOneUpgrade(state, action: PayloadAction<clickerUpgradeInterface>) {
-      state.clicker.upgrades.push(action.payload);
+    addOneUpgrade(state, action: PayloadAction<miglioramentiInterface>) {
+      const duplicate = state.clicker.upgrades.findIndex(
+        (item) => (item.id === action.payload.id)
+      );
+      console.log(duplicate);
+      if (duplicate !== -1) {
+        state.clicker.upgrades[duplicate].count++;
+      } else {
+        console.log("Добавлен ", action.payload);
+        state.clicker.upgrades.push({ ...action.payload, count: 1 });
+      }
     },
   },
 });
@@ -82,11 +96,14 @@ export const getDescription = (state: RootState) =>
 export const getGlobalsUserData = (state: RootState) => state.user.globals;
 export const userInfoIsLoaded = (state: RootState) => state.user.dataIsLoaded;
 export const getIsAuthorized = (state: RootState) => state.user.isAuthorized;
+export const getMiglioramenti = (state: RootState) =>
+  state.user.clicker.upgrades;
 
 export const {
   setIsAuthorized,
   setDataIsLoaded,
   setCoins,
+  addCoin,
   setCoinsPerMinute,
   setLevel,
   setDiamonds,

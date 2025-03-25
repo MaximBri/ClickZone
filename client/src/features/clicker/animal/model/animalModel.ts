@@ -1,14 +1,14 @@
-import { useDispatch, useSelector } from 'react-redux';
-import { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from "react-redux";
+import { useEffect, useState } from "react";
 
-import { animalsList } from '@/pages/home/model/animalsList';
+import { animalsList } from "@/pages/home/model/animalsList";
 import {
+  addCoin,
   getCoinsOnClick,
   getFinances,
   getLevel,
-  setCoins,
   setLevel,
-} from '@/entities/user/model/userSlice';
+} from "@/entities/user/model/userSlice";
 
 export const animalModel = () => {
   const dispatch = useDispatch();
@@ -19,7 +19,7 @@ export const animalModel = () => {
   const pet = animalsList[level - 1];
   const coinsToNextLevel =
     level > 9
-      ? 'Максимальный уровень'
+      ? "Максимальный уровень"
       : `Нужно монет для следующего уровня: ${
           coinsRequiredForNextLevel * 5 * Math.pow(level, 1)
         }`;
@@ -31,15 +31,15 @@ export const animalModel = () => {
     const rect = event.currentTarget.getBoundingClientRect();
     const x = event.clientX - rect.left;
     const y = event.clientY - rect.top;
-  
+
     const newClick = { x, y, id: Date.now() };
     setClicks((prev) => [...prev, newClick]);
-  
+
     setTimeout(() => {
       setClicks((prev) => prev.filter((click) => click.id !== newClick.id));
     }, 500);
-    
-    dispatch(setCoins());
+
+    dispatch(addCoin());
   };
 
   useEffect(() => {
