@@ -5,6 +5,7 @@
 
   width: 100%;
   padding: rem(10) rem(30);
+  padding-left: rem(100);
 
   background-color: $border-primary;
   &__center {
@@ -33,6 +34,7 @@
 @media (max-width: 1024px) {
   .footer {
     padding: rem(10) rem(20);
+    padding-left: rem(90);
 
     &__center {
       gap: rem(20);

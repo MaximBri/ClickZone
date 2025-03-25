@@ -72,7 +72,7 @@ export const NavBar = memo(() => {
               >
                 <img
                   className={styles["navbar__button-icon"]}
-                  src={`/${DOMAIN}/images/services${item.iconLink}`}
+                  src={`${DOMAIN}/images/services${item.iconLink}`}
                   alt="page"
                 />
                 {checkDisabled(item.needAuth) && (

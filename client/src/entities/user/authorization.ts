@@ -12,7 +12,6 @@ import {
 } from "./model/userSlice";
 import { Dispatch, UnknownAction } from "@reduxjs/toolkit";
 import { authErrorInterface } from "@/shared/types";
-import { addNotification } from "@/widgets/pop-ups/notifications/model/notificationSlice";
 import { notificationManager } from "@/widgets/pop-ups/notifications/model/notificationManager";
 
 export const authorization = async (data: {

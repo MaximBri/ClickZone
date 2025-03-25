@@ -1,19 +1,55 @@
-import { useState } from "react";
+import { memo, useState } from "react";
+import { useAppDispatch, useAppSelector } from "@/app/store/store";
+import Tippy from "@tippyjs/react";
 
 import { ClickerShop } from "@/widgets/clicker-shop";
 import { useMediaQuery } from "react-responsive";
+import { getIsAuthorized } from "@/entities/user/model/userSlice";
+import { setImprovements } from "@/widgets/pop-ups/model/popUpsSlice";
 import infoSvg from "./icons/info.svg";
 import shopSvg from "./icons/shop.svg";
+import lockSvg from "/images/services/lock.svg";
+import improvementsSvg from "/images/services/lollipop.svg";
 import styles from "./NavBar.module.scss";
-import Tippy from "@tippyjs/react";
 
-export const NavBar = () => {
+export const NavBar = memo(() => {
+  const dispatch = useAppDispatch();
   const [shopIsActive, setShopIsActive] = useState<boolean>(false);
+  const isAuthorized = useAppSelector(getIsAuthorized);
   const isMobile = useMediaQuery({ query: "(max-width: 768px)" });
 
   return (
     <>
       <nav className={styles.nav}>
+        <Tippy
+          content={"Магазин улучшений"}
+          placement="left"
+          animation="scale"
+          disabled={isMobile}
+          arrow={true}
+          duration={150}
+          appendTo={document.body}
+          interactive={true}
+        >
+          <button
+            className={styles.nav__button}
+            disabled={!isAuthorized}
+            onClick={() => setShopIsActive(true)}
+          >
+            {!isAuthorized && (
+              <img
+                className={styles["nav__button--closed"]}
+                src={lockSvg}
+                alt="lock"
+              ></img>
+            )}
+            <img
+              src={shopSvg}
+              alt="shop"
+              className={styles["nav__button-icon"]}
+            />
+          </button>
+        </Tippy>
         <Tippy
           content={"Улучшения"}
           placement="left"
@@ -25,13 +61,13 @@ export const NavBar = () => {
           interactive={true}
         >
           <button
+            onClick={() => dispatch(setImprovements(true))}
             className={styles.nav__button}
-            onClick={() => setShopIsActive(true)}
           >
             <img
-              src={shopSvg}
-              alt="shop"
               className={styles["nav__button-icon"]}
+              src={improvementsSvg}
+              alt="improvements"
             />
           </button>
         </Tippy>
@@ -58,4 +94,4 @@ export const NavBar = () => {
       <ClickerShop active={shopIsActive} closeSection={setShopIsActive} />
     </>
   );
-};
+});

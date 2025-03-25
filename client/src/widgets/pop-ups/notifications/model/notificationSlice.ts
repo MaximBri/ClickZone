@@ -19,10 +19,7 @@ const notificationSlice = createSlice({
       state.data.push(action.payload);
     },
     deleteLastNotification: (state) => {
-      state.data.pop();
-    },
-    deleteFirstNotification: (state) => {
-      state.data = state.data.slice(1, state.data.length);
+      state.data.shift();
     },
   },
 });
@@ -32,7 +29,6 @@ export const getNotifications = (state: RootState) => state.notifications.data;
 export const {
   addNotification,
   deleteLastNotification,
-  deleteFirstNotification,
 } = notificationSlice.actions;
 
 export default notificationSlice.reducer;

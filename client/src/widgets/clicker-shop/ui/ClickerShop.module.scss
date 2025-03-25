@@ -1,14 +1,13 @@
 .shop {
-  position: absolute;
+  position: fixed;
   z-index: 100;
-  top: 0;
-  right: 0;
-  bottom: 0;
+  top: rem(73);
+  right: 2.5vw;
+  bottom: rem(90);
 
   overflow: hidden;
 
   width: 0;
-  height: 100%;
   border-radius: 15px 0 0 15px;
 
   background-color: $pop-up-background;
@@ -71,6 +70,8 @@
 
 @media (max-width: 1024px) {
   .shop {
+    bottom: rem(80);
+
     &__title {
       margin: rem(10) 0;
       font-size: rem(20);
@@ -87,10 +88,17 @@
   }
 }
 
+@media (max-width: 575px) {
+  .shop {
+    top: rem(125);
+    bottom: rem(70);
+  }
+}
+
 @media (max-width: 500px) {
   .shop {
     &--active {
-      width: 100%;
+      width: 95vw;
     }
     &__title {
       margin: rem(10) 0;

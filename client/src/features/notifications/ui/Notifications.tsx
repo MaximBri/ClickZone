@@ -1,21 +1,16 @@
-import { FC, memo, useEffect, useState } from "react";
+import { FC, memo } from "react";
 import { notificationDataInterface } from "@/shared/types";
 import styles from "./Notifications.module.scss";
 
 export const Notifications: FC<{
   data: notificationDataInterface;
 }> = memo(({ data }) => {
-  const [visible, setVisible] = useState<boolean>(false);
-
-  useEffect(() => {
-    setVisible(true);
-  }, []);
 
   return (
     <div
       className={`${styles["alert-card"]} ${
         styles[`alert-card--${data.type}`]
-      } ${visible ? styles["alert-card--visible"] : ""}`}
+      }`}
     >
       <svg
         stroke="currentColor"

@@ -1,10 +1,12 @@
 import { useSelector } from "react-redux";
-import { useEffect, useState } from "react";
+import { FC, useEffect, useState } from "react";
 
 import { getDescription } from "@/entities/user/model/userSlice";
 import styles from "./UserDescription.module.scss";
 
-export const UserDescription = () => {
+export const UserDescription: FC<{
+  onUpdate: (key: "name" | "description", value: string) => void;
+}> = ({ onUpdate }) => {
   const userDescription = useSelector(getDescription);
   const [description, setDescription] = useState<string>(userDescription || "");
   const [saveButtonIsActive, setSaveButtonIsActive] = useState<boolean>(false);
@@ -13,7 +15,7 @@ export const UserDescription = () => {
     description !== userDescription
       ? setSaveButtonIsActive(true)
       : setSaveButtonIsActive(false);
-  }, [description]);
+  }, [description, userDescription]);
 
   return (
     <label className={styles.setting}>
@@ -25,6 +27,7 @@ export const UserDescription = () => {
         onChange={(e) => setDescription(e.target.value)}
       ></textarea>
       <button
+        onClick={() => onUpdate("description", description)}
         className={`${styles.setting__button} ${
           saveButtonIsActive
             ? styles["setting__button--active"]
