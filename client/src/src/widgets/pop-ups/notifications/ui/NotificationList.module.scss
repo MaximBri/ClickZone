@@ -1,0 +1,13 @@
+.notif{
+  position: fixed;
+  z-index: 10000;
+  right: rem(30);
+  bottom: rem(30);
+
+  display: flex;
+  flex-direction: column;
+  gap: rem(10);
+  justify-content: end;
+
+  width: rem(350);
+}

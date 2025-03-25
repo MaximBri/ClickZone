@@ -6,6 +6,12 @@ from app import jwt
 from app.models import User
 
 
+@jwt.user_lookup_loader
+def load_user(_jwt_header, jwt_data):
+    identity = jwt_data.get('sub')
+    return User.query.filter_by(id=identity).first()
+
+
 @bp.route('/refresh', methods=['POST'])
 @jwt_required(refresh=True)
 def refresh():
@@ -18,7 +24,14 @@ def refresh():
     return response
 
 
-@jwt.user_lookup_loader
-def load_user(_jwt_header, jwt_data):
-    identity = jwt_data.get('sub')
-    return User.query.filter_by(id=identity).first()
+@bp.route('/check-auth', methods=['GET'])
+@jwt_required()
+def check_auth():
+    identity = get_jwt_identity()
+    user = User.query.get(int(identity))
+    if not user:
+        response = make_response({'errors': [{'msg': 'User not found'}]}, 401)
+        return response
+    response = make_response()
+    response.status_code = 200
+    return response
