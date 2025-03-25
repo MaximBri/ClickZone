@@ -1,0 +1,221 @@
+.window {
+  position: absolute;
+  z-index: 1000;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  width: rem(500);
+  max-width: 90vw;
+  max-height: 90vh;
+  padding: rem(40);
+  border: 2px solid $border-primary;
+  border-radius: 15px;
+
+  background-color: $button;
+  &--animated {
+    animation: slow-animate-full 0.3s;
+  }
+  &--closed {
+    animation: slow-animate-close-full 0.3s;
+  }
+  &__background {
+    position: fixed;
+    z-index: 900;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+
+    background-color: $pop-up-background;
+    &--animated {
+      animation: slow-animate-full 0.3s;
+    }
+    &--closed {
+      animation: slow-animate-close-full 0.3s;
+    }
+  }
+  &__title {
+    margin-bottom: rem(20);
+    font-size: rem(28);
+    font-weight: 600;
+  }
+  &__body {
+    display: flex;
+    flex-direction: column;
+    gap: rem(15);
+    width: 100%;
+    &-error {
+      height: 0;
+      border-radius: 10px;
+
+      font-size: rem(18);
+      font-weight: 600;
+      color: $text-heading;
+      text-align: center;
+
+      background-color: $error;
+
+      transition: height 0.3s, padding 0.3s;
+      &--active {
+        height: auto;
+        padding: rem(15) rem(15);
+      }
+    }
+    &-item {
+      display: flex;
+      flex-direction: column;
+      gap: rem(10);
+
+      font-size: rem(22);
+      font-weight: 500;
+    }
+    &-input {
+      width: 100%;
+      padding: rem(15) rem(20);
+      border: 1px solid $border-primary;
+      border-radius: 15px;
+
+      font-size: rem(20);
+    }
+    &-button {
+      width: min-content;
+      margin: 0 auto;
+      padding: rem(15) rem(30);
+      border-radius: 30px;
+
+      font-size: rem(20);
+      font-weight: 600;
+      color: $text-heading;
+
+      background-color: $button-secondary;
+
+      transition: background-color 0.3s;
+      &:disabled {
+        cursor: auto;
+        background-color: $button-disabled;
+      }
+    }
+  }
+  &__create-acc {
+    align-self: baseline;
+    margin-top: rem(20);
+    font-size: rem(18);
+    background-color: transparent;
+    & > span {
+      font-weight: 600;
+      color: $button-secondary;
+    }
+  }
+}
+
+@keyframes slow-animate-full {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+@keyframes slow-animate-close-full {
+  0% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+
+@media (max-width: 1024px) {
+  .window {
+    &__title {
+      margin-bottom: rem(15);
+      font-size: rem(24);
+    }
+    &__body {
+      &-error {
+        font-size: rem(16);
+      }
+      &-item {
+        font-size: rem(20);
+      }
+      &-input {
+        padding: rem(10) rem(15);
+        font-size: rem(18);
+      }
+      &-button {
+        padding: rem(10) rem(20);
+        font-size: rem(18);
+      }
+    }
+    &__create-acc {
+      margin-top: rem(15);
+    }
+  }
+}
+
+@media (max-width: 768px) {
+  .window {
+    width: rem(400);
+    padding: rem(30);
+
+    &__title {
+      font-size: rem(22);
+    }
+    &__body {
+      &-error {
+        &--active {
+          padding: rem(10) rem(10);
+        }
+      }
+      &-item {
+        font-size: rem(18);
+      }
+      &-input {
+        font-size: rem(16);
+      }
+      &-button {
+        font-size: rem(16);
+      }
+    }
+    &__create-acc {
+      font-size: rem(16);
+    }
+  }
+}
+
+@media (max-width: 420px) {
+  .window {
+    padding: rem(20);
+
+    &__title {
+      margin-bottom: rem(10);
+      font-size: rem(20);
+    }
+    &__body {
+      &-error {
+        &--active {
+          padding: rem(10) rem(10);
+        }
+      }
+      &-item {
+        font-size: rem(16);
+      }
+      &-input {
+        font-size: rem(14);
+      }
+      &-button {
+        font-size: rem(14);
+      }
+    }
+    &__create-acc {
+      font-size: rem(14);
+    }
+  }
+}

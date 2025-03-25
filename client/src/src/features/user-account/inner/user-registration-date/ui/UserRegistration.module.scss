@@ -1,0 +1,18 @@
+.date{
+  margin-bottom: rem(20);
+  font-size: rem(20);
+}
+
+@media(max-width: 1024px){
+  .date{
+    font-size: rem(18);
+  }
+}
+
+
+@media(max-width: 768px){
+  .date{
+    margin-bottom: rem(10);
+    font-size: rem(16);
+  }
+}

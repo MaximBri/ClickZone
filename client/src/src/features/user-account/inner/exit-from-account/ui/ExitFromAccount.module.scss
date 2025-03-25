@@ -1,0 +1,46 @@
+.exit {
+  display: flex;
+  gap: rem(30);
+  margin-top: rem(5);
+  font-size: rem(20);
+  &__button {
+    margin-top: rem(-5);
+    padding: rem(10) rem(25);
+    border: 2px solid $error-muted;
+    border-radius: 10px;
+
+    font-size: rem(20);
+    font-weight: 600;
+    color: $text-white;
+
+    background-color: $error;
+
+    transition: transform 0.3s ease, background-color 0.3s ease;
+    &:active {
+      transform: scale(0.95);
+      background-color: $error-muted;
+    }
+  }
+}
+
+@media (max-width: 1024px) {
+  .exit {
+    gap: rem(20);
+    font-size: rem(18);
+    &__button {
+      padding: rem(8) rem(20);
+      font-size: rem(18);
+    }
+  }
+}
+
+@media (max-width: 768px) {
+  .exit {
+    gap: rem(15);
+    font-size: rem(16);
+    &__button {
+      padding: rem(5) rem(15);
+      font-size: rem(16);
+    }
+  }
+}

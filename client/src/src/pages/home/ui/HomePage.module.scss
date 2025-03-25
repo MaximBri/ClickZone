@@ -1,0 +1,12 @@
+.home {
+  position: relative;
+
+  overflow-x: hidden;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+
+  width: 100%;
+  height: 100%;
+}
