@@ -1,12 +1,12 @@
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { memo, useEffect } from "react";
 import { Outlet, useLocation, useNavigate } from "react-router-dom";
+import { useAppSelector } from "../store/store";
 
-// import { getUserDataByToken } from "@/entities/user/getUserDataByToken";
-// import { refreshAccessToten } from '@/entities/user/refreshAccessToken';
 import {
   getIsAuthorized,
   setIsAuthorized,
+  userInfoIsLoaded,
 } from "@/entities/user/model/userSlice";
 import { AppPortals } from "./portal/AppPortal";
 import { Header } from "./header/Header";
@@ -15,13 +15,15 @@ import { NavBar } from "./navbar/NavBar";
 import { routes } from "@/shared/config/routes";
 import { useCheckUserAuth } from "@/entities/user/useCheckUserAuth";
 import { useAuthInterceptor } from "@/shared/api/useAuthInterceptor";
+import { getUserDataInClickerPage } from "@/entities/user/account/getUserDataInClickerPage";
 import styles from "./MainLayout.module.scss";
 
 export const MainLayout = memo(() => {
   const dispatch = useDispatch();
   const location = useLocation();
   const navigate = useNavigate();
-  const isAuthorized = useSelector(getIsAuthorized);
+  const isAuthorized = useAppSelector(getIsAuthorized);
+  const isLoadedClickerData = useAppSelector(userInfoIsLoaded);
 
   const checkAuth = async () => {
     try {
@@ -36,8 +38,6 @@ export const MainLayout = memo(() => {
   useAuthInterceptor();
   useEffect(() => {
     checkAuth();
-    // getUserDataByToken();
-    // refreshAccessToten()
   }, []);
 
   useEffect(() => {
@@ -53,6 +53,16 @@ export const MainLayout = memo(() => {
       }
     }
   }, [location.pathname, isAuthorized]);
+
+  useEffect(() => {
+    if (
+      !isLoadedClickerData &&
+      isAuthorized &&
+      location.pathname === routes.base
+    ) {
+      getUserDataInClickerPage(dispatch);
+    }
+  }, [isAuthorized, isLoadedClickerData, location.pathname]);
 
   return (
     <>
