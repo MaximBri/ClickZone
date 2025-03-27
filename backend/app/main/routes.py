@@ -24,15 +24,42 @@ def refresh():
     return response
 
 
-@bp.route('/check-auth', methods=['GET'])
+@bp.route('/check-auth', methods=['POST'])
 @jwt_required()
 def check_auth():
     user = get_current_user()
     if not user:
         response = make_response({'errors': [{'msg': 'User not found'}]}, 401)
         return response
-    response = make_response()
-    response.status_code = 200
+    user_upgrades = []
+    for user_upgrade in user.upgrades.all():
+        upgrade = user_upgrade.upgrade
+        user_upgrades.append(
+            {
+                'id': upgrade.id,
+                'name': upgrade.name,
+                'description': upgrade.description,
+                'quantity': user_upgrade.quantity,
+                'type': upgrade.upgrade_type,
+                'effect': upgrade.effect_type,
+                'cost_coins': upgrade.cost_coins,
+                'cost_diamonds': upgrade.cost_diamonds,
+                'multiplier': upgrade.multiplier
+            })
+
+    response = {
+        'id': user.id,
+        'nickname': user.name,
+        'about_me': user.about_me if user.about_me else '',
+        'upgrades': user_upgrades,
+        'resources': {
+            'coins': user.coins,
+            'diamonds': user.diamonds
+        },
+        'coins_per_minute': user.base_per_minute,
+        'coins_per_click': user.base_per_click
+    }
+    response = make_response(response, 200)
     return response
 
 
