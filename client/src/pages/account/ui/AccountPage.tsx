@@ -1,5 +1,6 @@
 import { useNavigate } from "react-router-dom";
 import { useAppSelector } from "@/app/store/store";
+import { useDispatch } from "react-redux";
 
 import { UserNickname } from "@/features/user-account/inner/user-nickname";
 import { UserDescription } from "@/features/user-account/inner/user-description";
@@ -13,9 +14,8 @@ import {
 } from "@/entities/user/model/userSlice";
 import { routes } from "@/shared/config/routes";
 import { changeUserData } from "@/entities/user/account/changeUserData";
-import styles from "./AccountPage.module.scss";
 import { notificationManager } from "@/widgets/pop-ups/notifications/model/notificationManager";
-import { useDispatch } from "react-redux";
+import styles from "./AccountPage.module.scss";
 
 export const AccountPage = () => {
   const dispatch = useDispatch();

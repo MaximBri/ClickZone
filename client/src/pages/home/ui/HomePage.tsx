@@ -1,9 +1,9 @@
-import { memo } from 'react';
+import { memo } from "react";
 
-import { Animal } from '@/features/clicker/animal';
-import { NavBar } from '@/features/clicker/navbar';
-import styles from './HomePage.module.scss';
-import { InfinityMiglioramenti } from '@/features/clicker/infinity-miglioramenti';
+import { Animal } from "@/features/clicker/animal";
+import { NavBar } from "@/features/clicker/navbar";
+import { InfinityMiglioramenti } from "@/features/clicker/infinity-miglioramenti";
+import styles from "./HomePage.module.scss";
 
 export const HomePage = memo(() => {
   return (
