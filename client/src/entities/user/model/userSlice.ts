@@ -1,4 +1,3 @@
-import { RootState } from "@/app/store/store";
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 import { UpgradeInterface, userDataInterface } from "@/shared/types";

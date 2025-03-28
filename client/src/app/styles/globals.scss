@@ -10,11 +10,12 @@ body {
   user-select: none;
   scroll-behavior: smooth;
   max-width: 100dvw;
-  max-height: 100dvh;
+  height: 100dvh;
   overflow: hidden;
   background-color: $background-primary;
   font-weight: 400;
   line-height: 1.1;
+  position: fixed;
 }
 
 body,
