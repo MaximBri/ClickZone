@@ -18,7 +18,6 @@ export const refreshAccessToten = async () => {
         },
       }
     );
-    console.log(response);
     return response.data;
   } catch (error: any) {
     throw new Error("Failed to refresh token");
