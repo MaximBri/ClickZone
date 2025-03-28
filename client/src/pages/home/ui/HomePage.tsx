@@ -2,7 +2,7 @@ import { memo } from "react";
 import { useAppSelector } from "@/app/store/store";
 
 import { Animal } from "@/features/clicker/animal";
-import { NavBar } from "@/features/clicker/navbar";
+import { ClickerNavBar } from "@/features/clicker/navbar";
 import { InfinityMiglioramenti } from "@/features/clicker/infinity-miglioramenti";
 import { userInfoIsLoaded } from "@/entities/user/model/selectors";
 import styles from "./HomePage.module.scss";
@@ -14,7 +14,7 @@ export const HomePage = memo(() => {
   return (
     <section className={styles.home}>
       <Animal />
-      <NavBar />
+      <ClickerNavBar />
       <InfinityMiglioramenti />
     </section>
   );
