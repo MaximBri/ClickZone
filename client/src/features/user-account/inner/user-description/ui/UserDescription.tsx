@@ -1,7 +1,7 @@
 import { useSelector } from "react-redux";
 import { FC, useEffect, useState } from "react";
 
-import { getDescription } from "@/entities/user/model/userSlice";
+import { getDescription } from "@/entities/user/model/selectors";
 import styles from "./UserDescription.module.scss";
 
 export const UserDescription: FC<{

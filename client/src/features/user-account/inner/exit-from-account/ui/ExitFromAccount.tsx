@@ -1,10 +1,9 @@
 import { useNavigate } from "react-router-dom";
 import { useAppDispatch } from "@/app/store/store";
 
-import { authApi } from "@/shared/api/auth";
 import { notificationManager } from "@/widgets/pop-ups/notifications/model/notificationManager";
 import { routes } from "@/shared/config/routes";
-import { resetUserData } from "@/entities/user/model/userSlice";
+import { logoutUser } from "@/entities/user/model/thunks";
 import styles from "./ExitFromAccount.module.scss";
 
 export const ExitFromAccount = () => {
@@ -12,9 +11,8 @@ export const ExitFromAccount = () => {
   const navigate = useNavigate();
   const exitFromAccount = async () => {
     try {
-      await authApi.logout();
+      dispatch(logoutUser());
       notificationManager(dispatch, "Вы вышли из аккаунта", "success");
-      dispatch(resetUserData());
       navigate(routes.base);
     } catch (error) {
       notificationManager(

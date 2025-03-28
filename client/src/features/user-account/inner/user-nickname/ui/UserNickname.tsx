@@ -1,7 +1,7 @@
 import { useSelector } from "react-redux";
 import { FC, useEffect, useState } from "react";
 
-import { getNickname } from "@/entities/user/model/userSlice";
+import { getNickname } from "@/entities/user/model/selectors";
 import styles from "./UserNickname.module.scss";
 
 export const UserNickname: FC<{

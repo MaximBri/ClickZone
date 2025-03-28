@@ -6,12 +6,11 @@ import { UserNickname } from "@/features/user-account/inner/user-nickname";
 import { UserDescription } from "@/features/user-account/inner/user-description";
 import { UserRegistration } from "@/features/user-account/inner/user-registration-date";
 import { ExitFromAccount } from "@/features/user-account/inner/exit-from-account";
+import { setDescription, setNickname } from "@/entities/user/model/userSlice";
 import {
   getGlobalsUserData,
   getIsAuthorized,
-  setDescription,
-  setNickname,
-} from "@/entities/user/model/userSlice";
+} from "@/entities/user/model/selectors";
 import { routes } from "@/shared/config/routes";
 import { changeUserData } from "@/entities/user/account/changeUserData";
 import { notificationManager } from "@/widgets/pop-ups/notifications/model/notificationManager";

@@ -1,8 +1,8 @@
 import { memo } from "react";
 import { useAppSelector } from "@/app/store/store";
 
-import { getMiglioramenti } from "@/entities/user/model/userSlice";
 import { DOMAIN } from "@/shared/config/routes";
+import { getMiglioramenti } from "@/entities/user/model/selectors";
 import styles from "./InfinityMiglioramenti.module.scss";
 
 export const InfinityMiglioramenti = memo(() => {

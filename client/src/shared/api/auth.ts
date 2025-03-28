@@ -1,4 +1,3 @@
-import { Dispatch, UnknownAction } from '@reduxjs/toolkit';
 import { apiRoutes } from '../config/apiRoutes';
 import { api } from './base';
 
@@ -8,12 +7,10 @@ export const authApi = {
   sendAuth: (
     login: string,
     password: string,
-    dispatch: Dispatch<UnknownAction>
   ) => {
     const response = api.post(apiRoutes.authorization, {
       login,
       password,
-      dispatch,
     });
     return response;
   },

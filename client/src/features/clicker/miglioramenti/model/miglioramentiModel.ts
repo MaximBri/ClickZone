@@ -1,7 +1,7 @@
 import { store, useAppDispatch, useAppSelector } from "@/app/store/store";
+import { getMiglioramenti } from "@/entities/user/model/selectors";
 import {
   addOneUpgrade,
-  getMiglioramenti,
   setCoins,
 } from "@/entities/user/model/userSlice";
 import {

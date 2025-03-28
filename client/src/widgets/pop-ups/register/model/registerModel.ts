@@ -1,17 +1,17 @@
-import { useAppDispatch } from '@/app/store/store';
-import { useRef, useState } from 'react';
+import { useAppDispatch } from "@/app/store/store";
+import { useRef, useState } from "react";
 import {
   getInProcess,
   setAuthWindow,
   setInProcess,
   setRegisterWindow,
-} from '../../model/popUpsSlice';
-import { registration } from '@/entities/user/registration';
-import styles from '../../shared/Auth&Register.module.scss';
-import { useSelector } from 'react-redux';
+} from "../../model/popUpsSlice";
+import { registration } from "@/entities/user/registration";
+import styles from "../../shared/Auth&Register.module.scss";
+import { useSelector } from "react-redux";
 
 export interface formDataSendInterface extends Partial<formDataInterface> {
-  item?: 'login' | 'pass' | 'repeatPass' | '';
+  item?: "login" | "pass" | "repeatPass" | "";
 }
 
 export interface formDataInterface {
@@ -26,9 +26,9 @@ export const registerModel = () => {
   const [loading, setLoading] = useState<boolean>(false);
   const [error, setError] = useState<formDataSendInterface>({});
   const [formData, setFormData] = useState<formDataInterface>({
-    login: '',
-    pass: '',
-    repeatPass: '',
+    login: "",
+    pass: "",
+    repeatPass: "",
   });
   const background = useRef<HTMLDivElement>(null);
   const body = useRef<HTMLElement>(null);
@@ -38,18 +38,18 @@ export const registerModel = () => {
     let check: boolean = false;
     if (formData.login.length < 4) {
       setError({
-        item: 'login',
-        login: 'Логин не может быть короче 4 символов',
+        item: "login",
+        login: "Логин не может быть короче 4 символов",
       });
       setCanSend(check);
     } else if (formData.pass.length < 4) {
       setError({
-        item: 'pass',
-        pass: 'Пароль не может быть короче 4 символов',
+        item: "pass",
+        pass: "Пароль не может быть короче 4 символов",
       });
       setCanSend(check);
     } else if (formData.pass !== formData.repeatPass) {
-      setError({ item: 'repeatPass', repeatPass: 'Пароли не совпадают' });
+      setError({ item: "repeatPass", repeatPass: "Пароли не совпадают" });
       setCanSend(check);
     } else {
       check = true;
@@ -60,7 +60,7 @@ export const registerModel = () => {
   };
 
   const onChangeData = (
-    key: 'login' | 'pass' | 'repeatPass' | '',
+    key: "login" | "pass" | "repeatPass" | "",
     value: string
   ) => {
     setFormData((prev) => {
@@ -69,7 +69,7 @@ export const registerModel = () => {
   };
 
   const openAuthWindow = () => {
-    body.current?.classList.add(styles['window--closed']);
+    body.current?.classList.add(styles["window--closed"]);
     setTimeout(() => {
       dispatch(setInProcess(true));
       dispatch(setRegisterWindow(false));
@@ -78,8 +78,8 @@ export const registerModel = () => {
   };
 
   const closeRegisterWindow = () => {
-    background.current?.classList.add(styles['window__background--closed']);
-    body.current?.classList.add(styles['window--closed']);
+    background.current?.classList.add(styles["window__background--closed"]);
+    body.current?.classList.add(styles["window--closed"]);
     setTimeout(() => {
       dispatch(setRegisterWindow(false));
       dispatch(setInProcess(false));
