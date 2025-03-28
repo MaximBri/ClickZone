@@ -1,0 +1,133 @@
+.tutorial {
+  position: fixed;
+  z-index: 200;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+
+  min-width: 80dvw;
+  max-height: 95dvh;
+  padding: rem(30);
+  border-radius: 15px;
+
+  opacity: 1;
+  background-color: $button;
+
+  transition: opacity 0.3s;
+  &__background {
+    position: fixed;
+    z-index: 100;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+
+    opacity: 1;
+    background-color: $pop-up-background;
+
+    transition: opacity 0.3s;
+  }
+  &--hidden {
+    opacity: 0;
+  }
+  &__title {
+    margin-bottom: rem(10);
+    font-size: rem(24);
+    font-weight: 600;
+    text-align: center;
+  }
+  &__close {
+    position: absolute;
+    top: rem(5);
+    left: rem(10);
+
+    box-sizing: content-box;
+    width: rem(30);
+    height: rem(30);
+    padding: rem(15);
+
+    background-color: transparent;
+    & > img {
+      width: 100%;
+    }
+  }
+  &__body {
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    max-height: 80dvh;
+    margin-right: rem(5);
+    &-button {
+      margin: 0 auto;
+      padding: rem(10) rem(20);
+      border: 2px solid $border-button;
+      border-radius: 10px;
+
+      font-size: rem(18);
+      font-weight: 600;
+      text-align: center;
+
+      background-color: $button-thertialy;
+    }
+    & p {
+      margin: rem(10) 0;
+      font-size: rem(18);
+      line-height: 1.5;
+    }
+    & ul,
+    ol {
+      padding-left: rem(20);
+      font-size: rem(18);
+      line-height: 1.5;
+    }
+    & h2 {
+      margin: rem(10) 0;
+
+      font-size: rem(22);
+      font-weight: 600;
+      line-height: 1.5;
+      text-align: center;
+    }
+    & strong {
+      font-weight: 600;
+    }
+  }
+}
+
+@media (max-width: 768px) {
+  .tutorial {
+    min-width: 95dvw;
+    padding: rem(15);
+    &__title {
+      font-size: rem(20);
+    }
+    &__close {
+      width: rem(20);
+      height: rem(20);
+      padding: rem(10);
+    }
+    &__body {
+      &-button {
+        padding: rem(5) rem(10);
+        font-size: rem(16);
+      }
+      & p {
+        margin: rem(5) 0;
+        font-size: rem(16);
+      }
+      & ul,
+      ol {
+        padding-left: rem(10);
+        font-size: rem(16);
+      }
+      & h2 {
+        margin: rem(5) 0;
+        font-size: rem(18);
+      }
+      & strong {
+      }
+    }
+  }
+}

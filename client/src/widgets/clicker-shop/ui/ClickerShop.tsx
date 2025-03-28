@@ -4,7 +4,7 @@ import { useAppSelector } from "@/app/store/store";
 import { Miglioramenti } from "@/features/clicker/miglioramenti";
 import { miglioramentiList } from "../model/miglioramentiList";
 import { getFinances, getIsAuthorized } from "@/entities/user/model/selectors";
-import crossSvg from "./icons/cross.svg";
+import crossSvg from "@/shared/icons/cross.svg";
 import styles from "./ClickerShop.module.scss";
 
 export const ClickerShop: FC<{

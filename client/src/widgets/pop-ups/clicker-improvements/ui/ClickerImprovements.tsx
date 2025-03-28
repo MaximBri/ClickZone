@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import { setImprovements } from "../../model/popUpsSlice";
 import { getMiglioramenti } from "@/entities/user/model/selectors";
 import { OneTimeMiglioramenti } from "@/features/clicker/one-time-miglioramenti";
-import crossSvg from "@/widgets/clicker-shop/ui/icons/cross.svg";
+import crossSvg from "@/shared/icons/cross.svg";
 import styles from "./ClickerImprovements.module.scss";
 
 export const ClickerImprovements = () => {

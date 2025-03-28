@@ -4,15 +4,18 @@ import Tippy from "@tippyjs/react";
 
 import { ClickerShop } from "@/widgets/clicker-shop";
 import { useMediaQuery } from "react-responsive";
-import { setImprovements } from "@/widgets/pop-ups/model/popUpsSlice";
+import {
+  setImprovements,
+  setTutorial,
+} from "@/widgets/pop-ups/model/popUpsSlice";
 import { getIsAuthorized } from "@/entities/user/model/selectors";
 import infoSvg from "./icons/info.svg";
 import shopSvg from "./icons/shop.svg";
 import lockSvg from "/images/services/lock.svg";
 import improvementsSvg from "/images/services/lollipop.svg";
-import styles from "./NavBar.module.scss";
+import styles from "./ClickerNavBar.module.scss";
 
-export const NavBar = memo(() => {
+export const ClickerNavBar = memo(() => {
   const dispatch = useAppDispatch();
   const [shopIsActive, setShopIsActive] = useState<boolean>(false);
   const isAuthorized = useAppSelector(getIsAuthorized);
@@ -81,7 +84,10 @@ export const NavBar = memo(() => {
           appendTo={document.body}
           interactive={true}
         >
-          <button className={styles.nav__button}>
+          <button
+            className={styles.nav__button}
+            onClick={() => dispatch(setTutorial(true))}
+          >
             <img
               className={styles["nav__button-icon"]}
               src={infoSvg}
