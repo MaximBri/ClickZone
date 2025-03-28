@@ -2,13 +2,12 @@ import { useDispatch, useSelector } from "react-redux";
 import { useEffect, useState } from "react";
 
 import { animalsList } from "@/pages/home/model/animalsList";
+import { addCoin, setLevel } from "@/entities/user/model/userSlice";
 import {
-  addCoin,
   getCoinsOnClick,
   getFinances,
   getLevel,
-  setLevel,
-} from "@/entities/user/model/userSlice";
+} from "@/entities/user/model/selectors";
 
 export const animalModel = () => {
   const dispatch = useDispatch();

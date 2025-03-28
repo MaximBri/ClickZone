@@ -1,7 +1,10 @@
 import { RootState } from "@/app/store/store";
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+
 import { UpgradeInterface, userDataInterface } from "@/shared/types";
 import { miglioramentiInterface } from "@/widgets/clicker-shop/model/miglioramentiList";
+import { processUserData } from "./thunks/shared/processData";
+import { fetchClickerData, loginUser, logoutUser } from "./thunks";
 
 const initialState: userDataInterface = {
   isAuthorized: null,
@@ -61,7 +64,6 @@ const UserSlice = createSlice({
     setNickname(state, action: PayloadAction<string>) {
       state.globals.nickname = action.payload;
     },
-    resetUserData: () => initialState,
     // Clicker
     setLevel(state, action: PayloadAction<number>) {
       if (action.payload <= 10 && action.payload > 0) {
@@ -74,7 +76,7 @@ const UserSlice = createSlice({
     },
     addOneUpgrade(state, action: PayloadAction<miglioramentiInterface>) {
       const duplicate = state.clicker.upgrades.findIndex(
-        (item) => (item.id === action.payload.id)
+        (item) => item.id === action.payload.id
       );
       console.log(duplicate);
       if (duplicate !== -1) {
@@ -85,19 +87,35 @@ const UserSlice = createSlice({
       }
     },
   },
+  extraReducers: (builder) => {
+    builder
+      .addCase(fetchClickerData.pending, (state) => {
+        state.dataIsLoaded = false;
+      })
+      .addCase(fetchClickerData.fulfilled, (state, action) => {
+        processUserData(state, action.payload);
+      })
+      .addCase(fetchClickerData.rejected, (state) => {
+        state.dataIsLoaded = false;
+      });
+    builder
+      .addCase(loginUser.pending, (state) => {
+        state.dataIsLoaded = false;
+      })
+      .addCase(loginUser.fulfilled, (state, action) => {
+        processUserData(state, action.payload);
+      })
+      .addCase(loginUser.rejected, (state) => {
+        state.dataIsLoaded = false;
+        state.isAuthorized = false;
+      });
+    builder.addCase(logoutUser.fulfilled, (state) => {
+      Object.assign(state, initialState);
+      state.dataIsLoaded = false;
+      state.isAuthorized = false;
+    });
+  },
 });
-
-export const getLevel = (state: RootState) => state.user.level;
-export const getFinances = (state: RootState) => state.user.finances;
-export const getCoinsOnClick = (state: RootState) => state.user.coinsOnClick;
-export const getNickname = (state: RootState) => state.user.globals.nickname;
-export const getDescription = (state: RootState) =>
-  state.user.globals.description;
-export const getGlobalsUserData = (state: RootState) => state.user.globals;
-export const userInfoIsLoaded = (state: RootState) => state.user.dataIsLoaded;
-export const getIsAuthorized = (state: RootState) => state.user.isAuthorized;
-export const getMiglioramenti = (state: RootState) =>
-  state.user.clicker.upgrades;
 
 export const {
   setIsAuthorized,
@@ -113,7 +131,6 @@ export const {
   setId,
   addOneUpgrade,
   setUpgrades,
-  resetUserData,
 } = UserSlice.actions;
 
 export default UserSlice.reducer;

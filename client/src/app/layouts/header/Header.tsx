@@ -3,7 +3,7 @@ import { useAppSelector } from "@/app/store/store";
 import { memo } from "react";
 
 import { routes } from "@/shared/config/routes";
-import { getNickname } from "@/entities/user/model/userSlice";
+import { getNickname } from "@/entities/user/model/selectors";
 import styles from "./Header.module.scss";
 
 export const Header = memo(() => {

@@ -4,8 +4,8 @@ import Tippy from "@tippyjs/react";
 
 import { ClickerShop } from "@/widgets/clicker-shop";
 import { useMediaQuery } from "react-responsive";
-import { getIsAuthorized } from "@/entities/user/model/userSlice";
 import { setImprovements } from "@/widgets/pop-ups/model/popUpsSlice";
+import { getIsAuthorized } from "@/entities/user/model/selectors";
 import infoSvg from "./icons/info.svg";
 import shopSvg from "./icons/shop.svg";
 import lockSvg from "/images/services/lock.svg";
