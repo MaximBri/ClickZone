@@ -1,1 +1,1 @@
-export { NavBar } from './ui/NavBar';
+export { ClickerNavBar } from './ui/ClickerNavBar';
