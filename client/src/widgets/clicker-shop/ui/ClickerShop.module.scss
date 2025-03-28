@@ -70,6 +70,7 @@
 
 @media (max-width: 1024px) {
   .shop {
+    top: rem(68);
     bottom: rem(80);
 
     &__title {
@@ -90,7 +91,7 @@
 
 @media (max-width: 575px) {
   .shop {
-    top: rem(125);
+    top: rem(118);
     bottom: rem(70);
   }
 }
