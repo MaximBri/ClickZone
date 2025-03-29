@@ -1,4 +1,6 @@
 .setting {
+  position: relative;
+
   display: flex;
   flex-direction: column;
   gap: rem(10);
@@ -16,6 +18,22 @@
     font-size: rem(18);
     &::placeholder {
       color: $text-primary;
+    }
+    &-length {
+      position: absolute;
+      top: rem(70);
+      left: rem(280);
+
+      padding: rem(3);
+      border-radius: 5px;
+
+      font-size: rem(14);
+      font-weight: 600;
+
+      background-color: $border-secondary;
+      &--red {
+        color: $error;
+      }
     }
   }
   &__button {
@@ -52,6 +70,9 @@
     &__input {
       padding: rem(8) rem(15);
       font-size: rem(18);
+      &-length {
+        top: rem(60);
+      }
     }
     &__button {
       &--active {
@@ -69,11 +90,27 @@
     &__input {
       padding: rem(5) rem(10);
       font-size: rem(16);
+      &-length {
+        top: rem(50);
+        // left: rem(280);
+      }
     }
     &__button {
       &--active {
         padding: rem(5) rem(10);
         font-size: rem(16);
+      }
+    }
+  }
+}
+
+@media(max-width: 360px){
+  .setting {
+    &__input {
+      &-length {
+        top: rem(45);
+        left: 100%;
+        transform: translateX(-50%);
       }
     }
   }

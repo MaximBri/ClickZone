@@ -10,12 +10,18 @@ export const UserDescription: FC<{
   const userDescription = useSelector(getDescription);
   const [description, setDescription] = useState<string>(userDescription || "");
   const [saveButtonIsActive, setSaveButtonIsActive] = useState<boolean>(false);
+  const maxLength = 256;
 
   useEffect(() => {
     description !== userDescription
       ? setSaveButtonIsActive(true)
       : setSaveButtonIsActive(false);
   }, [description, userDescription]);
+
+  const onDescriptionChange = (text: string) => {
+    if (text.length > maxLength) text = text.slice(0, maxLength);
+    setDescription(text);
+  };
 
   return (
     <label className={styles.setting}>
@@ -24,8 +30,17 @@ export const UserDescription: FC<{
         className={styles.setting__input}
         value={description}
         placeholder="Напишите что-нибудь о себе"
-        onChange={(e) => setDescription(e.target.value)}
+        onChange={(e) => onDescriptionChange(e.target.value)}
       ></textarea>
+      <span
+        className={`${styles["setting__input-length"]} ${
+          maxLength > description.length
+            ? ""
+            : styles["setting__input-length--red"]
+        }`}
+      >
+        {description.length}/{maxLength}
+      </span>
       <button
         onClick={() => onUpdate("description", description)}
         className={`${styles.setting__button} ${
