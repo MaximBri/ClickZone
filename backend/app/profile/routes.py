@@ -16,27 +16,28 @@ def edit_profile():
         with DBSessionManager():
             form = EditProfileForm(**request.get_json())
             user = get_current_user()
-            user.name = form.name
             user.about_me = form.about_me
-            if user.can_change_name:
-                user.can_change_name = False
-                db.session.add(user)
-                db.session.flush()
-            else:
-                cost = user.nickname_change_cost
-                if user.coins >= cost['coins'] and user.diamonds >= cost['diamonds']:
-                    user.coins -= cost['coins']
-                    user.diamonds -= cost['diamonds']
+            if user.name != form.name:
+                if user.can_change_name:
+                    user.name = form.name
+                    user.can_change_name = False
+                    db.session.add(user)
+                    db.session.flush()
                 else:
-                    raise InsufficientMoneyError("Not enough coins or diamonds to change name")
+                    cost = user.nickname_change_cost
+                    if user.coins >= cost['coins'] and user.diamonds >= cost['diamonds']:
+                        user.coins -= cost['coins']
+                        user.diamonds -= cost['diamonds']
+                        user.name = form.name
+                    else:
+                        raise InsufficientMoneyError("Not enough coins or diamonds to change name")
 
-            return jsonify({
-                'msg': 'Successfully updated name and about_me fields',
-                'resources': {
-                    'coins': user.coins,
-                    'diamonds': user.diamonds
-                }
-            }), 200
+            return jsonify({'msg': 'Successfully updated name or(and) about_me fields',
+                            'resources': {
+                                'coins': user.coins,
+                                'diamonds': user.diamonds
+                            }
+                            }), 200
 
     except ValidationError as e:
         return validation_error(e)
