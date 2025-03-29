@@ -31,4 +31,5 @@ jobs:
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}  # Автоматически генерируется
           publish_dir: ./client/build                # Путь к собранным файлам
+          destination_branch: gh-pages
           keep_files: true                           # Не удалять старые файлы в gh-pages
