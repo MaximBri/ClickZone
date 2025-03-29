@@ -10,6 +10,12 @@ export const UserNickname: FC<{
   const userNickname = useSelector(getNickname) || "User";
   const [nickname, setNickname] = useState<string>(userNickname || "User");
   const [saveButtonIsActive, setSaveButtonIsActive] = useState<boolean>(false);
+  const maxLength = 64;
+
+  const onNicknameChange = (text: string) => {
+    if (text.length > 64) text = text.slice(0, maxLength);
+    setNickname(text);
+  };
 
   useEffect(() => {
     userNickname !== nickname
@@ -24,10 +30,19 @@ export const UserNickname: FC<{
         className={styles.setting__input}
         type="text"
         placeholder="Никнейм"
-        onChange={(e) => setNickname(e.target.value)}
+        onChange={(e) => onNicknameChange(e.target.value)}
         value={nickname}
         // disabled
       />
+      <span
+        className={`${styles["setting__input-length"]} ${
+          maxLength > nickname.length
+            ? ""
+            : styles["setting__input-length--red"]
+        }`}
+      >
+        {nickname.length}/{maxLength}
+      </span>
       <button
         onClick={() => onUpdate("name", nickname)}
         className={`${styles.setting__button} ${

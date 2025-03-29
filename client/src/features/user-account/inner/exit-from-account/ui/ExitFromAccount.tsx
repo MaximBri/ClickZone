@@ -24,11 +24,11 @@ export const ExitFromAccount = () => {
   };
 
   return (
-    <label className={styles.exit}>
+    <div className={styles.exit}>
       Выйти из аккаунта
       <button className={styles.exit__button} onClick={() => exitFromAccount()}>
         Выйти
       </button>
-    </label>
+    </div>
   );
 };
