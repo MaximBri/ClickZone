@@ -45,6 +45,19 @@
     font-size: rem(28);
     font-weight: 600;
   }
+  &__close-button {
+    position: absolute;
+    top: rem(20);
+    right: rem(20);
+
+    width: rem(30);
+    height: rem(30);
+
+    background-color: transparent;
+    & > img {
+      width: 100%;
+    }
+  }
   &__body {
     display: flex;
     flex-direction: column;
@@ -167,6 +180,10 @@
 
     &__title {
       font-size: rem(22);
+    }
+    &__close-button {
+      width: rem(20);
+      height: rem(20);
     }
     &__body {
       &-error {
