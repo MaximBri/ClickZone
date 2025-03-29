@@ -1,10 +1,11 @@
-from flask import Flask, current_app
+from flask import Flask, current_app, jsonify
 from flask_migrate import Migrate
 from flask_cors import CORS
 from flask_sqlalchemy import SQLAlchemy
 from flask_jwt_extended import JWTManager
 
 from config import Config
+from .errors import InsufficientMoneyError
 
 db = SQLAlchemy()
 migrate = Migrate()
@@ -21,6 +22,10 @@ def create_app(config_class=Config):
     jwt.init_app(app)
 
     cors.init_app(app)
+
+    @app.errorhandler(InsufficientMoneyError)
+    def handle_insufficient_funds(error):
+        return jsonify({'msg': str(error)}), 402
 
     from app.auth import bp as auth_bp
     app.register_blueprint(auth_bp, url_prefix='/api/auth')
