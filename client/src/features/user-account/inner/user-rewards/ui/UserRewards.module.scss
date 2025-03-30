@@ -1,0 +1,44 @@
+.rewards {
+  overflow: hidden;
+  margin: rem(10) 0 rem(50);
+
+  &__title {
+    margin-bottom: rem(15);
+    font-size: rem(24);
+    text-align: center;
+  }
+  &__list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: rem(20);
+    align-items: center;
+    justify-content: center;
+  }
+}
+
+@media (max-width: 1024px) {
+  .rewards {
+    margin: rem(10) 0 rem(30);
+
+    &__title {
+      margin-bottom: rem(10);
+      font-size: rem(20);
+    }
+    &__list {
+      gap: rem(15);
+    }
+  }
+}
+
+@media (max-width: 768px) {
+  .rewards {
+    margin: rem(5) 0 rem(20);
+
+    &__title {
+      font-size: rem(18);
+    }
+    &__list {
+      gap: rem(10);
+    }
+  }
+}

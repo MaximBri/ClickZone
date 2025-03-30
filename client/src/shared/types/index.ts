@@ -13,6 +13,7 @@ export interface achievementInterface {
   name: string;
   description: string;
   imagePath: string;
+  has_achievement: boolean;
 }
 
 export interface userDataInterface {
@@ -44,7 +45,7 @@ export interface userDataInterface {
   flags: {
     clickerData: boolean | null;
     accountData: boolean | null;
-  }
+  };
 }
 
 export interface authErrorInterface {

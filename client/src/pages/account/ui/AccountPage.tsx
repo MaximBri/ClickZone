@@ -6,21 +6,22 @@ import { UserNickname } from "@/features/user-account/inner/user-nickname";
 import { UserDescription } from "@/features/user-account/inner/user-description";
 import { UserRegistration } from "@/features/user-account/inner/user-registration-date";
 import { ExitFromAccount } from "@/features/user-account/inner/exit-from-account";
+import { routes } from "@/shared/config/routes";
+import { changeUserData } from "@/entities/user/account/changeUserData";
+import { notificationManager } from "@/widgets/pop-ups/notifications/model/notificationManager";
 import {
   setCoins,
   setDescription,
   setDiamonds,
   setNickname,
 } from "@/entities/user/model/userSlice";
-import { routes } from "@/shared/config/routes";
-import { changeUserData } from "@/entities/user/account/changeUserData";
-import { notificationManager } from "@/widgets/pop-ups/notifications/model/notificationManager";
 import {
   getFinances,
   getGlobalsUserData,
   getIsAuthorized,
 } from "@/entities/user/model/selectors";
 import styles from "./AccountPage.module.scss";
+import { UserRewards } from "@/features/user-account/inner/user-rewards";
 
 export const AccountPage = () => {
   const dispatch = useDispatch();
@@ -100,6 +101,7 @@ export const AccountPage = () => {
           <UserNickname onUpdate={saveNewUserData} />
           <UserDescription onUpdate={saveNewUserData} />
         </div>
+        <UserRewards />
         <ExitFromAccount />
       </div>
       <UserRegistration />

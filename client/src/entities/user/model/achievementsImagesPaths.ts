@@ -3,7 +3,6 @@ export const achievementsImagesPaths: string[] = [
   "millioner.png",
   "billioner.png",
   "magnat.png",
-  "legioner.png",
   "lucker.png",
   "saler.png",
   "businessman.png",

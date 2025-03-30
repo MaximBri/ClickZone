@@ -13,11 +13,10 @@ export const processAccountData = (
   state.finances = payloadData.resources;
   state.globals.dateOfRegister = payloadData.timestamp;
   payloadData.achievements.forEach((item: any, index: number) => {
-    if (item.has_achievement) {
-      state.globals.achievements.push({
-        ...item,
-        imagePath: achievementsImagesPaths[index],
-      });
-    }
+    state.globals.achievements.push({
+      ...item,
+      description: item.condition,
+      imagePath: achievementsImagesPaths[index],
+    });
   });
 };
