@@ -5,6 +5,7 @@ import { createAsyncThunk } from "@reduxjs/toolkit";
 export const fetchAccountData = createAsyncThunk(
   "user/fetchAccountData",
   async () => {
-    return await api.post(apiRoutes.getAccountInfo, {});
+    const response = await api.post(apiRoutes.getAccountInfo, {});
+    return response.data;
   }
 );

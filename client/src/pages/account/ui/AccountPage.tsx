@@ -54,14 +54,11 @@ export const AccountPage = () => {
         description,
         changeNicknamePrice
       );
-      console.log(response);
       notificationManager(dispatch, successMessage, "success");
       dispatch(setNickname(nickname));
       dispatch(setDescription(description));
-      dispatch(setCoins(userFinances.coins - changeNicknamePrice.coins));
-      dispatch(
-        setDiamonds(userFinances.diamonds - changeNicknamePrice.diamonds)
-      );
+      dispatch(setCoins(response.data.resources.coins));
+      dispatch(setDiamonds(response.data.resources.diamonds));
     } catch (error) {
       console.log(error);
       notificationManager(

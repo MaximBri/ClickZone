@@ -23,7 +23,7 @@ export const authModel = () => {
   localStorage.removeItem(TEMP_USER_DATA);
 
   const [login, setLogin] = useState<string>(data.login);
-  const [pass, setPass] = useState<string>(data.password);
+  const [pass, setPass] = useState<string>('');
   const [canSend, setCanSend] = useState<boolean>(false);
   const [isLoaded, setIsLoaded] = useState<boolean>(false);
   const [error, setError] = useState<authErrorInterface>({});
