@@ -33,6 +33,7 @@ def edit_profile():
                         raise InsufficientMoneyError("Not enough coins or diamonds to change name")
 
             return jsonify({'msg': 'Successfully updated name or(and) about_me fields',
+                            'nickname_price': user.nickname_change_cost,
                             'resources': {
                                 'coins': user.coins,
                                 'diamonds': user.diamonds
