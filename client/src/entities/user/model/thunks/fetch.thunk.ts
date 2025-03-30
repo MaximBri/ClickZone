@@ -5,7 +5,7 @@ import { createAsyncThunk } from "@reduxjs/toolkit";
 export const fetchClickerData = createAsyncThunk(
   "user/fetchClickerData",
   async () => {
-    const response = await api.post(apiRoutes.getClickerInfo, {});
+    const response = await api.post(apiRoutes.checkAuthorization, {});
     return response.data;
   }
 );

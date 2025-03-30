@@ -4,13 +4,9 @@ import { RootState } from "@/app/store/store";
 import styles from "./UserRegistration.module.scss";
 
 export const UserRegistration = () => {
-  const formatDate = (date: Date | null): string => {
+  const formatDate = (date: string | null): string => {
     if (!date) return "Не определено";
-    const day = String(date.getDate()).padStart(2, "0");
-    const month = String(date.getMonth() + 1).padStart(2, "0");
-    const year = date.getFullYear();
-
-    return `${day}.${month}.${year}`;
+    return date.slice(0, 10).split("-").reverse().join(".");
   };
   const userRegisterData = useSelector(
     (state: RootState) => state.user.globals.dateOfRegister

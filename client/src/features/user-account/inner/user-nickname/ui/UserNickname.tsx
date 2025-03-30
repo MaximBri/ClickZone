@@ -1,15 +1,23 @@
-import { useSelector } from "react-redux";
+import { useAppSelector } from "@/app/store/store";
 import { FC, useEffect, useState } from "react";
 
 import { getNickname } from "@/entities/user/model/selectors";
+import coinSvg from "/images/resourses/coin.svg";
+import diamondSvg from "/images/resourses/diamond.svg";
 import styles from "./UserNickname.module.scss";
 
 export const UserNickname: FC<{
   onUpdate: (key: "name" | "description", value: string) => void;
 }> = ({ onUpdate }) => {
-  const userNickname = useSelector(getNickname) || "User";
+  const userNickname = useAppSelector(getNickname) || "User";
   const [nickname, setNickname] = useState<string>(userNickname || "User");
   const [saveButtonIsActive, setSaveButtonIsActive] = useState<boolean>(false);
+  const canChangeNickname = useAppSelector(
+    (state) => state.user.globals.canChangeNickname
+  );
+  const changeNicknamePrice = useAppSelector(
+    (state) => state.user.account.nicknamePrice
+  );
   const maxLength = 64;
 
   const onNicknameChange = (text: string) => {
@@ -51,7 +59,22 @@ export const UserNickname: FC<{
             : styles["setting__button--disabled"]
         }`}
       >
-        Сохранить
+        Сохранить{" "}
+        {canChangeNickname ? (
+          ""
+        ) : (
+          <>
+            за {changeNicknamePrice.coins} <img src={coinSvg} alt="coin"></img>{" "}
+            {changeNicknamePrice.diamonds ? (
+              <>
+                и {changeNicknamePrice.diamonds}
+                <img src={diamondSvg} alt="diamond"></img>
+              </>
+            ) : (
+              ""
+            )}
+          </>
+        )}
       </button>
     </label>
   );

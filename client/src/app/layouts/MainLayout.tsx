@@ -9,8 +9,10 @@ import { Footer } from "./footer/Footer";
 import { NavBar } from "./navbar/NavBar";
 import { routes } from "@/shared/config/routes";
 import { fetchClickerData } from "@/entities/user/model/thunks";
+import { fetchAccountData } from "@/entities/user/account/thunks";
 import {
   getIsAuthorized,
+  getUserFlags,
   userInfoIsLoaded,
 } from "@/entities/user/model/selectors";
 import styles from "./MainLayout.module.scss";
@@ -20,6 +22,7 @@ export const MainLayout = memo(() => {
   const location = useLocation();
   const navigate = useNavigate();
   const isAuthorized = useAppSelector(getIsAuthorized);
+  const loadingFlags = useAppSelector(getUserFlags);
   const isLoadedClickerData = useAppSelector(userInfoIsLoaded);
 
   useAuthInterceptor();
@@ -37,6 +40,13 @@ export const MainLayout = memo(() => {
         ].includes(location.pathname)
       ) {
         navigate(routes.base);
+      }
+    } else {
+      if (
+        location.pathname === routes.pages.userPage &&
+        !loadingFlags.accountData && isAuthorized
+      ) {
+        dispatch(fetchAccountData());
       }
     }
   }, [location.pathname, isAuthorized]);

@@ -8,8 +8,8 @@ import { userInfoIsLoaded } from "@/entities/user/model/selectors";
 import styles from "./HomePage.module.scss";
 
 export const HomePage = memo(() => {
-  const dataIsLoaded = useAppSelector(userInfoIsLoaded);
-  if (dataIsLoaded === null)
+  const clickerData = useAppSelector(userInfoIsLoaded);
+  if (clickerData === null)
     return <h2 className={styles.home__loading}>Загрузка...</h2>;
   return (
     <section className={styles.home}>

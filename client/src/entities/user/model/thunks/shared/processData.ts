@@ -2,7 +2,7 @@ import { userDataInterface } from "@/shared/types";
 
 export const processUserData = (state: userDataInterface, payloadData: any) => {
   state.isAuthorized = true;
-  state.dataIsLoaded = true;
+  state.flags.clickerData = true;
 
   state.globals.description = payloadData.about_me;
   state.globals.nickname = payloadData.nickname;

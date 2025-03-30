@@ -4,10 +4,11 @@ import { UpgradeInterface, userDataInterface } from "@/shared/types";
 import { miglioramentiInterface } from "@/widgets/clicker-shop/model/miglioramentiList";
 import { processUserData } from "./thunks/shared/processData";
 import { fetchClickerData, loginUser, logoutUser } from "./thunks";
+import { fetchAccountData } from "../account/thunks";
+import { processAccountData } from "../account/processAccountData";
 
 const initialState: userDataInterface = {
   isAuthorized: null,
-  dataIsLoaded: null,
   level: 1,
   coinsPerMinute: 0,
   coinsOnClick: 1,
@@ -20,9 +21,21 @@ const initialState: userDataInterface = {
     nickname: "",
     description: "",
     dateOfRegister: null,
+    achievements: [],
+    canChangeNickname: false,
   },
   clicker: {
     upgrades: [],
+  },
+  account: {
+    nicknamePrice: {
+      coins: 0,
+      diamonds: 0,
+    },
+  },
+  flags: {
+    clickerData: null,
+    accountData: null,
   },
 };
 
@@ -35,7 +48,7 @@ const UserSlice = createSlice({
       state.isAuthorized = action.payload;
     },
     setDataIsLoaded(state, action: PayloadAction<boolean>) {
-      state.dataIsLoaded = action.payload;
+      state.flags.clickerData = action.payload;
     },
     setId(state, action: PayloadAction<number>) {
       state.globals.id = action.payload;
@@ -77,11 +90,9 @@ const UserSlice = createSlice({
       const duplicate = state.clicker.upgrades.findIndex(
         (item) => item.id === action.payload.id
       );
-      console.log(duplicate);
       if (duplicate !== -1) {
         state.clicker.upgrades[duplicate].count++;
       } else {
-        console.log("Добавлен ", action.payload);
         state.clicker.upgrades.push({ ...action.payload, count: 1 });
       }
     },
@@ -89,30 +100,43 @@ const UserSlice = createSlice({
   extraReducers: (builder) => {
     builder
       .addCase(fetchClickerData.pending, (state) => {
-        state.dataIsLoaded = false;
+        state.flags.clickerData = false;
       })
       .addCase(fetchClickerData.fulfilled, (state, action) => {
         processUserData(state, action.payload);
       })
       .addCase(fetchClickerData.rejected, (state) => {
-        state.dataIsLoaded = false;
+        state.flags.clickerData = false;
       });
     builder
       .addCase(loginUser.pending, (state) => {
-        state.dataIsLoaded = false;
+        state.flags.clickerData = false;
       })
       .addCase(loginUser.fulfilled, (state, action) => {
         processUserData(state, action.payload);
       })
       .addCase(loginUser.rejected, (state) => {
-        state.dataIsLoaded = false;
+        state.flags.clickerData = false;
         state.isAuthorized = false;
       });
-    builder.addCase(logoutUser.fulfilled, (state) => {
-      Object.assign(state, initialState);
-      state.dataIsLoaded = false;
-      state.isAuthorized = false;
+    builder.addCase(logoutUser.fulfilled, () => {
+      return {
+        ...initialState,
+        flags: {
+          ...initialState.flags,
+          clickerData: false,
+          accountData: false,
+        },
+        isAuthorized: false,
+      };
     });
+    builder
+      .addCase(fetchAccountData.fulfilled, (state, action) => {
+        processAccountData(state, action.payload);
+      })
+      .addCase(fetchAccountData.rejected, (state) => {
+        state.flags.accountData = false;
+      });
   },
 });
 
