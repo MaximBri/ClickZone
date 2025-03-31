@@ -1,9 +1,9 @@
 import { notificationsErrorsTypes } from "@/shared/types";
-import { Dispatch, UnknownAction } from "@reduxjs/toolkit";
 import { addNotification, deleteLastNotification } from "./notificationSlice";
+import { AppDispatch } from "@/app/store/store";
 
 export const notificationManager = (
-  dispatch: Dispatch<UnknownAction>,
+  dispatch: AppDispatch,
   message: string,
   type: notificationsErrorsTypes
 ) => {

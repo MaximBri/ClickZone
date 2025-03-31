@@ -1,65 +1,17 @@
-import { memo, useEffect } from "react";
-import { Outlet, useLocation, useNavigate } from "react-router-dom";
-import { useAppDispatch, useAppSelector } from "../store/store";
-import { useAuthInterceptor } from "@/shared/api/useAuthInterceptor";
+import { memo } from "react";
+import { Outlet } from "react-router-dom";
+import { useAppDispatch } from "../store/store";
 
 import { AppPortals } from "./portal/AppPortal";
 import { Header } from "./header/Header";
 import { Footer } from "./footer/Footer";
 import { NavBar } from "./navbar/NavBar";
-import { routes } from "@/shared/config/routes";
-import { fetchClickerData } from "@/entities/user/model/thunks";
-import { fetchAccountData } from "@/entities/user/account/thunks";
-import {
-  getIsAuthorized,
-  getUserFlags,
-  userInfoIsLoaded,
-} from "@/entities/user/model/selectors";
+import { mainLayoutModel } from "./model/mainLayoutModel";
 import styles from "./MainLayout.module.scss";
 
 export const MainLayout = memo(() => {
   const dispatch = useAppDispatch();
-  const location = useLocation();
-  const navigate = useNavigate();
-  const isAuthorized = useAppSelector(getIsAuthorized);
-  const loadingFlags = useAppSelector(getUserFlags);
-  const isLoadedClickerData = useAppSelector(userInfoIsLoaded);
-
-  useAuthInterceptor();
-  useEffect(() => {
-    dispatch(fetchClickerData());
-  }, []);
-
-  useEffect(() => {
-    if (isAuthorized === false) {
-      if (
-        [
-          routes.pages.globalMap,
-          routes.pages.shop,
-          routes.pages.userPage,
-        ].includes(location.pathname)
-      ) {
-        navigate(routes.base);
-      }
-    } else {
-      if (
-        location.pathname === routes.pages.userPage &&
-        !loadingFlags.accountData && isAuthorized
-      ) {
-        dispatch(fetchAccountData());
-      }
-    }
-  }, [location.pathname, isAuthorized]);
-
-  useEffect(() => {
-    if (
-      !isLoadedClickerData &&
-      isAuthorized &&
-      location.pathname === routes.base
-    ) {
-      dispatch(fetchClickerData());
-    }
-  }, [isAuthorized, isLoadedClickerData, location.pathname]);
+  mainLayoutModel(dispatch);
 
   return (
     <>

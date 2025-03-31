@@ -1,4 +1,4 @@
-import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { createSlice, Middleware, PayloadAction } from "@reduxjs/toolkit";
 
 import { UpgradeInterface, userDataInterface } from "@/shared/types";
 import { miglioramentiInterface } from "@/widgets/clicker-shop/model/miglioramentiList";
@@ -6,6 +6,7 @@ import { processUserData } from "./thunks/shared/processData";
 import { fetchClickerData, loginUser, logoutUser } from "./thunks";
 import { fetchAccountData } from "../account/thunks";
 import { processAccountData } from "../account/processAccountData";
+import { checkCoinsCount } from "../account/checkCoinsCount";
 
 const initialState: userDataInterface = {
   isAuthorized: null,
@@ -56,9 +57,11 @@ const UserSlice = createSlice({
     // Wallet
     setCoins(state, action: PayloadAction<number>) {
       state.finances.coins = action.payload;
+      checkCoinsCount(state, state.finances.coins);
     },
     addCoin(state) {
       state.finances.coins += state.coinsOnClick;
+      checkCoinsCount(state, state.finances.coins);
     },
     setCoinsOnClick(state, action: PayloadAction<number>) {
       state.coinsOnClick = action.payload;
@@ -75,6 +78,15 @@ const UserSlice = createSlice({
     },
     setNickname(state, action: PayloadAction<string>) {
       state.globals.nickname = action.payload;
+    },
+    setNicknamePrice(
+      state,
+      action: PayloadAction<{ coins: number; diamonds: number }>
+    ) {
+      state.account.nicknamePrice = action.payload;
+    },
+    setCanChangeNickname(state, action: PayloadAction<boolean>) {
+      state.globals.canChangeNickname = action.payload;
     },
     // Clicker
     setLevel(state, action: PayloadAction<number>) {
@@ -153,6 +165,8 @@ export const {
   setNickname,
   setId,
   addOneUpgrade,
+  setNicknamePrice,
+  setCanChangeNickname,
   setUpgrades,
 } = UserSlice.actions;
 
