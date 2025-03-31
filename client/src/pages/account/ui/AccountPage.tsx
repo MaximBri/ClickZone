@@ -1,22 +1,14 @@
 import { useNavigate } from "react-router-dom";
-import { useAppSelector } from "@/app/store/store";
-import { useDispatch } from "react-redux";
+import { useAppDispatch, useAppSelector } from "@/app/store/store";
 
 import { UserNickname } from "@/features/user-account/inner/user-nickname";
 import { UserDescription } from "@/features/user-account/inner/user-description";
 import { UserRegistration } from "@/features/user-account/inner/user-registration-date";
 import { ExitFromAccount } from "@/features/user-account/inner/exit-from-account";
 import { routes } from "@/shared/config/routes";
-import { changeUserData } from "@/entities/user/account/changeUserData";
+import { changeUserData } from "@/entities/user/account/thunks/changeUserData.thunk";
 import { notificationManager } from "@/widgets/pop-ups/notifications/model/notificationManager";
-import {
-  setCanChangeNickname,
-  setCoins,
-  setDescription,
-  setDiamonds,
-  setNickname,
-  setNicknamePrice,
-} from "@/entities/user/model/userSlice";
+import { setDescription, setNickname } from "@/entities/user/model/userSlice";
 import {
   getFinances,
   getGlobalsUserData,
@@ -26,7 +18,7 @@ import styles from "./AccountPage.module.scss";
 import { UserRewards } from "@/features/user-account/inner/user-rewards";
 
 export const AccountPage = () => {
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const navigate = useNavigate();
   const isAuthorized = useAppSelector(getIsAuthorized);
   const userData = useAppSelector(getGlobalsUserData);
@@ -52,19 +44,16 @@ export const AccountPage = () => {
     errorMessage?: string
   ) => {
     try {
-      const response = await changeUserData(
-        nickname,
-        description,
-        changeNicknamePrice
+      dispatch(
+        changeUserData({
+          name: nickname,
+          about_me: description,
+          nickname_price: changeNicknamePrice,
+        })
       );
-      console.log(response);
-      notificationManager(dispatch, successMessage, "success");
       dispatch(setNickname(nickname));
       dispatch(setDescription(description));
-      dispatch(setCoins(response.data.resources.coins));
-      dispatch(setDiamonds(response.data.resources.diamonds));
-      dispatch(setNicknamePrice(response.data.nickname_price));
-      dispatch(setCanChangeNickname(false));
+      notificationManager(dispatch, successMessage, "success");
     } catch (error) {
       console.log(error);
       notificationManager(

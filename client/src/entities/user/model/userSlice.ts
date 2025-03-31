@@ -7,6 +7,7 @@ import { fetchClickerData, loginUser, logoutUser } from "./thunks";
 import { fetchAccountData } from "../account/thunks";
 import { processAccountData } from "../account/processAccountData";
 import { checkCoinsCount } from "../account/checkCoinsCount";
+import { changeUserData } from "../account/thunks/changeUserData.thunk";
 
 const initialState: userDataInterface = {
   isAuthorized: null,
@@ -79,15 +80,6 @@ const UserSlice = createSlice({
     setNickname(state, action: PayloadAction<string>) {
       state.globals.nickname = action.payload;
     },
-    setNicknamePrice(
-      state,
-      action: PayloadAction<{ coins: number; diamonds: number }>
-    ) {
-      state.account.nicknamePrice = action.payload;
-    },
-    setCanChangeNickname(state, action: PayloadAction<boolean>) {
-      state.globals.canChangeNickname = action.payload;
-    },
     // Clicker
     setLevel(state, action: PayloadAction<number>) {
       if (action.payload <= 10 && action.payload > 0) {
@@ -110,6 +102,7 @@ const UserSlice = createSlice({
     },
   },
   extraReducers: (builder) => {
+    // Получение данных о кликере
     builder
       .addCase(fetchClickerData.pending, (state) => {
         state.flags.clickerData = false;
@@ -120,6 +113,7 @@ const UserSlice = createSlice({
       .addCase(fetchClickerData.rejected, (state) => {
         state.flags.clickerData = false;
       });
+    // Вход пользователя
     builder
       .addCase(loginUser.pending, (state) => {
         state.flags.clickerData = false;
@@ -131,6 +125,7 @@ const UserSlice = createSlice({
         state.flags.clickerData = false;
         state.isAuthorized = false;
       });
+    // Выход пользователя
     builder.addCase(logoutUser.fulfilled, () => {
       return {
         ...initialState,
@@ -142,6 +137,7 @@ const UserSlice = createSlice({
         isAuthorized: false,
       };
     });
+    // Получение данных о юзере
     builder
       .addCase(fetchAccountData.fulfilled, (state, action) => {
         processAccountData(state, action.payload);
@@ -149,6 +145,13 @@ const UserSlice = createSlice({
       .addCase(fetchAccountData.rejected, (state) => {
         state.flags.accountData = false;
       });
+    // Изменение данных о юзере
+    builder.addCase(changeUserData.fulfilled, (state, action) => {
+      state.globals.canChangeNickname = false;
+      state.finances.coins = action.payload.resources.coins;
+      state.finances.diamonds = action.payload.resources.diamonds;
+      state.account.nicknamePrice = action.payload.nickname_price;
+    });
   },
 });
 
@@ -165,8 +168,6 @@ export const {
   setNickname,
   setId,
   addOneUpgrade,
-  setNicknamePrice,
-  setCanChangeNickname,
   setUpgrades,
 } = UserSlice.actions;
 
