@@ -10,6 +10,7 @@ export interface UpgradeInterface extends miglioramentiInterface {
 }
 
 export interface achievementInterface {
+  id: number;
   name: string;
   description: string;
   imagePath: string;

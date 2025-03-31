@@ -10,10 +10,12 @@ import { routes } from "@/shared/config/routes";
 import { changeUserData } from "@/entities/user/account/changeUserData";
 import { notificationManager } from "@/widgets/pop-ups/notifications/model/notificationManager";
 import {
+  setCanChangeNickname,
   setCoins,
   setDescription,
   setDiamonds,
   setNickname,
+  setNicknamePrice,
 } from "@/entities/user/model/userSlice";
 import {
   getFinances,
@@ -55,11 +57,14 @@ export const AccountPage = () => {
         description,
         changeNicknamePrice
       );
+      console.log(response);
       notificationManager(dispatch, successMessage, "success");
       dispatch(setNickname(nickname));
       dispatch(setDescription(description));
       dispatch(setCoins(response.data.resources.coins));
       dispatch(setDiamonds(response.data.resources.diamonds));
+      dispatch(setNicknamePrice(response.data.nickname_price));
+      dispatch(setCanChangeNickname(false));
     } catch (error) {
       console.log(error);
       notificationManager(

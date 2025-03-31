@@ -1,5 +1,6 @@
 import { userDataInterface } from "@/shared/types";
 import { achievementsImagesPaths } from "../model/achievementsImagesPaths";
+import { checkCoinsCount } from "./checkCoinsCount";
 
 export const processAccountData = (
   state: userDataInterface,
@@ -16,7 +17,9 @@ export const processAccountData = (
     state.globals.achievements.push({
       ...item,
       description: item.condition,
+      id: index + 1,
       imagePath: achievementsImagesPaths[index],
     });
   });
+  checkCoinsCount(state, payloadData.resources.coins);
 };

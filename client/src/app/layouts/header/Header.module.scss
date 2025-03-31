@@ -14,6 +14,18 @@
     font-size: rem(28);
     font-weight: 900;
   }
+  &__rewards{
+    position: absolute;
+    top: 50%;
+    left: 0;
+    transform: translate(rem(20), -50%);
+
+    width: rem(35);
+    height: rem(35);
+    &>img{
+      width: 100%;
+    }
+  }
   &__nickname {
     position: absolute;
     top: 50%;
