@@ -17,7 +17,7 @@ export const ClickerTutorial = () => {
   const buttonHandle = () => {
     setIsActive(false);
     setTimeout(() => {
-      dispatch(setTutorial(false));
+      dispatch(setTutorial({ key: "clicker", value: false }));
     }, 300);
   };
 
@@ -49,7 +49,12 @@ export const ClickerTutorial = () => {
           >
             {clickerTutorialText}
           </ReactMarkdown>
-          <button onClick={buttonHandle} className={styles['tutorial__body-button']}>Закрыть</button>
+          <button
+            onClick={buttonHandle}
+            className={styles["tutorial__body-button"]}
+          >
+            Закрыть
+          </button>
         </div>
       </section>
     </>

@@ -12,15 +12,19 @@ import {
   getAuthWindow,
   getImprovements,
   getRegisterWindow,
-  getTutorial,
+  getClickerTutorial,
 } from "@/widgets/pop-ups/model/popUpsSlice";
+import { RewardsTutorial } from "@/widgets/pop-ups/rewards-tutorial";
 
 export const AppPortals = memo(() => {
   const authWindow = useAppSelector(getAuthWindow);
   const registerWindow = useAppSelector(getRegisterWindow);
   const notifications = useAppSelector(getNotifications);
   const improvements = useAppSelector(getImprovements);
-  const tutorial = useAppSelector(getTutorial);
+  const clickerTutorial = useAppSelector(getClickerTutorial);
+  const rewardsTutorial = useAppSelector(
+    (state) => state.windows.tutorials.rewards
+  );
 
   return (
     <Portal>
@@ -28,7 +32,8 @@ export const AppPortals = memo(() => {
       {registerWindow && <Register />}
       {notifications.length > 0 && <NotificationList />}
       {improvements && <ClickerImprovements />}
-      {tutorial && <ClickerTutorial />}
+      {clickerTutorial && <ClickerTutorial />}
+      {rewardsTutorial && <RewardsTutorial />}
     </Portal>
   );
 });

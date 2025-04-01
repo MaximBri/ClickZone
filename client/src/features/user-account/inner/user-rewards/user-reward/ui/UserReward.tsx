@@ -9,7 +9,6 @@ export const UserReward: FC<{ data: achievementInterface }> = ({ data }) => {
     <li className={styles.reward}>
       <img className={`${styles.reward__image} ${data.has_achievement ?'' : styles['reward__image--grey']}`} src={`${DOMAIN}/images/rewards/${data.imagePath}`} alt="reward" />
       <h4 className={styles.reward__title}>{data.name}</h4>
-      <p className={styles.reward__description}>{data.description}</p>
     </li>
   );
 };

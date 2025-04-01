@@ -19,33 +19,6 @@
     font-size: rem(18);
     text-align: center;
   }
-  &__description {
-    position: absolute;
-    z-index: -100;
-    top: 0;
-    left: 50%;
-    transform: translate(-50%, -50%);
-
-    width: rem(200);
-    padding: rem(10);
-    border: 1px solid $button-thertialy;
-    border-radius: 15px;
-
-    font-size: rem(14);
-    hyphens: auto;
-    text-align: center;
-
-    opacity: 0;
-    background-color: $button-active;
-
-    transition: z-index 0.3s, opacity 0.5s;
-  }
-  &:hover {
-    .reward__description {
-      z-index: 200;
-      opacity: 1;
-    }
-  }
 }
 
 @media (max-width: 1024px) {
@@ -53,10 +26,6 @@
     width: rem(130);
     &__image {
       height: rem(70);
-    }
-    &__description {
-      width: rem(135);
-      padding: rem(10) rem(5);
     }
   }
 }
@@ -69,9 +38,6 @@
     }
     &__title {
       font-size: rem(16);
-    }
-    &__description {
-      display: none;
     }
   }
 }
