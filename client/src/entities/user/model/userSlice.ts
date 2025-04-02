@@ -1,4 +1,4 @@
-import { createSlice, Middleware, PayloadAction } from "@reduxjs/toolkit";
+import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 import { UpgradeInterface, userDataInterface } from "@/shared/types";
 import { miglioramentiInterface } from "@/widgets/clicker-shop/model/miglioramentiList";

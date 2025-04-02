@@ -44,7 +44,7 @@ export const DailyReward: FC<{ data: dailyRewardInterface }> = ({ data }) => {
             {data.rewards.diamonds}
             <img
               className={styles.reward__improvements}
-              src={`${DOMAIN}/images/${data.rewards.custom}`}
+              src={`${DOMAIN}/images${data.rewards.custom}`}
               alt="custom"
             ></img>
           </>

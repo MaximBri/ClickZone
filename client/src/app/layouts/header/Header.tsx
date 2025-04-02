@@ -3,13 +3,13 @@ import { useAppSelector } from "@/app/store/store";
 import { memo } from "react";
 
 import { routes } from "@/shared/config/routes";
-import { getIsAuthorized, getNickname } from "@/entities/user/model/selectors";
+import { getNickname } from "@/entities/user/model/selectors";
 import dailyRewardsSvg from "./icons/dailyRewards.svg";
 import styles from "./Header.module.scss";
 
 export const Header = memo(() => {
   const nickname = useAppSelector(getNickname);
-  const isAuthorized = useAppSelector(getIsAuthorized);
+  // const isAuthorized = useAppSelector(getIsAuthorized);
 
   return (
     <header className={styles.header}>

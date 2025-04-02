@@ -1,0 +1,19 @@
+.progress {
+  position: absolute;
+  top: 5%;
+  left: rem(10);
+  transform: translate(0%, -50%);
+
+  display: none;
+
+  padding: rem(5);
+  border-radius: 10px;
+
+  background-color: $border-secondary;
+}
+
+@media(max-width: 576px){
+  .progress{
+    display: block;
+  }
+}
