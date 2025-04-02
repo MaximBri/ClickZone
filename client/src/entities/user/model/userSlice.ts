@@ -39,6 +39,7 @@ const initialState: userDataInterface = {
     clickerData: null,
     accountData: null,
   },
+  dailyRewards: [],
 };
 
 const UserSlice = createSlice({
