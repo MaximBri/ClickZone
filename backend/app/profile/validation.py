@@ -8,9 +8,12 @@ from app.models import User
 
 class EditProfileForm(BaseModel):
     model_config = ConfigDict(extra='forbid')
+
     name: str = Field(..., min_length=1)
     about_me: str = Field(...)
+    nickname_price: dict[str, int] = Field()
 
+    @classmethod
     @field_validator('name')
     def validate_name(cls, value):
         user = db.session.scalar(
@@ -20,3 +23,11 @@ class EditProfileForm(BaseModel):
             if not user.id == get_current_user().id:
                 raise ValueError('Имя занято')
         return value
+
+    @classmethod
+    @field_validator('nickname_price')
+    def validate_nickname_price(cls, value: dict[str, int]):
+        nickname_price = get_current_user().nickname_change_cost
+        if nickname_price == value:
+            return value
+        raise ValueError('Цена сфальсифицирована')

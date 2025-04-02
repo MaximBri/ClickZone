@@ -9,9 +9,16 @@ export interface UpgradeInterface extends miglioramentiInterface {
   count: number;
 }
 
+export interface achievementInterface {
+  id: number;
+  name: string;
+  description: string;
+  imagePath: string;
+  has_achievement: boolean;
+}
+
 export interface userDataInterface {
   isAuthorized: boolean | null;
-  dataIsLoaded: boolean | null;
   level: number;
   coinsPerMinute: number;
   coinsOnClick: number;
@@ -23,11 +30,24 @@ export interface userDataInterface {
     id: number | null;
     nickname: string;
     description: string;
-    dateOfRegister: Date | null;
+    dateOfRegister: string | null;
+    achievements: achievementInterface[];
+    canChangeNickname: boolean;
   };
   clicker: {
     upgrades: UpgradeInterface[];
   };
+  account: {
+    nicknamePrice: {
+      coins: number;
+      diamonds: number;
+    };
+  };
+  flags: {
+    clickerData: boolean | null;
+    accountData: boolean | null;
+  };
+  dailyRewards: boolean[];
 }
 
 export interface authErrorInterface {

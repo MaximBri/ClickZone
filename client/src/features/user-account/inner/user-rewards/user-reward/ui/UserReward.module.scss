@@ -1,0 +1,43 @@
+.reward {
+  position: relative;
+
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+  align-items: center;
+
+  width: rem(170);
+  max-width: rem(180);
+  height: 100%;
+  &__image {
+    height: rem(100);
+    &--grey {
+      filter: grayscale(1);
+    }
+  }
+  &__title {
+    font-size: rem(18);
+    text-align: center;
+  }
+}
+
+@media (max-width: 1024px) {
+  .reward {
+    width: rem(130);
+    &__image {
+      height: rem(70);
+    }
+  }
+}
+
+@media (max-width: 768px) {
+  .reward {
+    width: rem(100);
+    &__image {
+      height: rem(50);
+    }
+    &__title {
+      font-size: rem(16);
+    }
+  }
+}

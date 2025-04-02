@@ -16,6 +16,9 @@ def register():
         with DBSessionManager():
             form = RegistrationForm(**request.get_json())
             user = User(username=form.login)
+            user.coins = 1000
+            user.diamonds = 100
+            user.can_change_name = True
             user.set_password(form.password)
             db.session.add(user)
             db.session.flush()

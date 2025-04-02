@@ -1,0 +1,30 @@
+.rewards {
+  position: relative;
+
+  overflow-x: hidden;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+
+  width: 100%;
+  height: 100%;
+  padding: rem(20) rem(40);
+  &__title {
+    margin-bottom: rem(20);
+    font-size: rem(24);
+    text-align: center;
+  }
+  &__subtitle{
+    margin-bottom: rem(20);
+    font-size: rem(20);
+    text-align: center;
+  }
+  &__list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: rem(20);
+    align-items: center;
+    justify-content: center;
+  }
+}

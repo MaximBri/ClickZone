@@ -5,15 +5,23 @@ import { useAppDispatch } from "@/app/store/store";
 import { setIsAuthorized } from "@/entities/user/model/userSlice";
 import { setAuthWindow } from "@/widgets/pop-ups/model/popUpsSlice";
 import { refreshAccessToten } from "@/entities/user/refreshAccessToken";
+import { apiRoutes } from "../config/apiRoutes";
 
 export const useAuthInterceptor = () => {
   const dispatch = useAppDispatch();
 
   useEffect(() => {
     const requestInterceptor = api.interceptors.request.use((config) => {
-      const token = Cookies.get(CSRF_TOKEN);
-      if (token) {
-        config.headers["X-CSRF-TOKEN"] = token;
+      const isAuthRequest =
+        config.url?.includes(apiRoutes.authorization) ||
+        config.url?.includes(apiRoutes.registration);
+      console.log(isAuthRequest);
+
+      if (!isAuthRequest) {
+        const token = Cookies.get(CSRF_TOKEN);
+        if (token) {
+          config.headers["X-CSRF-TOKEN"] = token;
+        }
       }
       return config;
     });
@@ -22,6 +30,15 @@ export const useAuthInterceptor = () => {
       (response) => response,
       async (error) => {
         const originalRequest = error.config;
+
+        const isAuthRequest =
+          originalRequest.url?.includes(apiRoutes.authorization) ||
+          originalRequest.url?.includes(apiRoutes.registration);
+        console.log(isAuthRequest);
+        if (isAuthRequest) {
+          return Promise.reject(error);
+        }
+
         if (error.response?.status === 401 && !originalRequest._retry) {
           try {
             originalRequest._retry = true;

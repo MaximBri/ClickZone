@@ -9,7 +9,7 @@ import {
   setTutorial,
 } from "@/widgets/pop-ups/model/popUpsSlice";
 import { getIsAuthorized } from "@/entities/user/model/selectors";
-import infoSvg from "./icons/info.svg";
+import infoSvg from "@/shared/icons/info.svg";
 import shopSvg from "./icons/shop.svg";
 import lockSvg from "/images/services/lock.svg";
 import improvementsSvg from "/images/services/lollipop.svg";
@@ -86,7 +86,9 @@ export const ClickerNavBar = memo(() => {
         >
           <button
             className={styles.nav__button}
-            onClick={() => dispatch(setTutorial(true))}
+            onClick={() =>
+              dispatch(setTutorial({ key: "clicker", value: true }))
+            }
           >
             <img
               className={styles["nav__button-icon"]}

@@ -7,7 +7,9 @@ export const getNickname = (state: RootState) => state.user.globals.nickname;
 export const getDescription = (state: RootState) =>
   state.user.globals.description;
 export const getGlobalsUserData = (state: RootState) => state.user.globals;
-export const userInfoIsLoaded = (state: RootState) => state.user.dataIsLoaded;
+export const userInfoIsLoaded = (state: RootState) =>
+  state.user.flags.clickerData;
 export const getIsAuthorized = (state: RootState) => state.user.isAuthorized;
 export const getMiglioramenti = (state: RootState) =>
   state.user.clicker.upgrades;
+export const getUserFlags = (state: RootState) => state.user.flags;

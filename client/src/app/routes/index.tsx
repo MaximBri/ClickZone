@@ -1,13 +1,14 @@
-import { HashRouter, Route, Routes } from 'react-router-dom';
+import { HashRouter, Route, Routes } from "react-router-dom";
 
-import { routes } from '@/shared/config/routes';
-import { MainLayout } from '../layouts/MainLayout';
-import { HomePage } from '@/pages/home';
-import { RandomizePage } from '@/pages/randomizer';
-import { ShopPage } from '@/pages/shop';
-import { GlobalMapPage } from '@/pages/global-map';
-import { LeaderBoardPage } from '@/pages/leaderbord';
-import { AccountPage } from '@/pages/account';
+import { routes } from "@/shared/config/routes";
+import { MainLayout } from "../layouts/MainLayout";
+import { HomePage } from "@/pages/home";
+import { RandomizePage } from "@/pages/randomizer";
+import { ShopPage } from "@/pages/shop";
+import { GlobalMapPage } from "@/pages/global-map";
+import { LeaderBoardPage } from "@/pages/leaderbord";
+import { AccountPage } from "@/pages/account";
+import { DailyRewardsPage } from "@/pages/dialy-rewards";
 
 export const AppRoutes = () => {
   return (
@@ -28,6 +29,10 @@ export const AppRoutes = () => {
           <Route
             path={routes.pages.leaderboard}
             element={<LeaderBoardPage />}
+          ></Route>
+          <Route
+            path={routes.pages.dailyRewards}
+            element={<DailyRewardsPage />}
           ></Route>
         </Route>
       </Routes>
