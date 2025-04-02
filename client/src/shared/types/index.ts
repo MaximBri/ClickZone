@@ -47,6 +47,7 @@ export interface userDataInterface {
     clickerData: boolean | null;
     accountData: boolean | null;
   };
+  dailyRewards: boolean[];
 }
 
 export interface authErrorInterface {

@@ -1,0 +1,36 @@
+.reward {
+  padding: rem(10);
+  border-radius: 10px;
+  background-color: $border-primary;
+  &__image {
+    &-container {
+      position: relative;
+    }
+  }
+  &__number {
+    position: absolute;
+    top: 40%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+
+    font-size: rem(24);
+    font-weight: 700;
+  }
+  &__coins{
+    width: rem(20);
+    height: rem(20);
+    height: rem(40);
+  }
+  &__improvements{
+    width: rem(40);
+    height: rem(40);
+  }
+  &__inner{
+    display: flex;
+    gap: rem(10);
+    align-items: center;
+    justify-content: center;
+
+    font-size: rem(24);
+  }
+}
