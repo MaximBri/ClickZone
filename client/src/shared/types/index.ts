@@ -17,6 +17,12 @@ export interface achievementInterface {
   has_achievement: boolean;
 }
 
+export interface ContainerInterface {
+  imagePath: string;
+  name: string;
+  description: string;
+}
+
 export interface userDataInterface {
   isAuthorized: boolean | null;
   level: number;
@@ -48,6 +54,7 @@ export interface userDataInterface {
     accountData: boolean | null;
   };
   dailyRewards: boolean[];
+  containers: ContainerInterface[];
 }
 
 export interface authErrorInterface {

@@ -55,4 +55,5 @@ export const mainLayoutModel = (dispatch: AppDispatch) => {
       dispatch(fetchClickerData());
     }
   }, [isAuthorized, isLoadedClickerData, location.pathname]);
+  return { isLoadedClickerData };
 };

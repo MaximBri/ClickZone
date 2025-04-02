@@ -60,7 +60,7 @@
     max-height: 80dvh;
     margin-right: rem(5);
     &-button {
-      margin: 0 auto;
+      margin: rem(20) auto 0;
       padding: rem(10) rem(20);
       border: 2px solid $border-button;
       border-radius: 10px;
@@ -125,8 +125,6 @@
       & h2 {
         margin: rem(5) 0;
         font-size: rem(18);
-      }
-      & strong {
       }
     }
   }

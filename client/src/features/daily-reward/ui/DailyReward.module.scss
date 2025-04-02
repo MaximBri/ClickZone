@@ -1,7 +1,12 @@
 .reward {
-  // flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+
   padding: rem(10);
   border-radius: 10px;
+
   background-color: $border-primary;
   &__image {
     &-container {
@@ -34,7 +39,6 @@
     align-items: center;
     justify-content: center;
 
-    height: rem(60);
     margin: rem(10) 0;
 
     font-size: rem(24);

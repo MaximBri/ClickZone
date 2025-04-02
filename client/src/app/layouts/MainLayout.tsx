@@ -11,7 +11,8 @@ import styles from "./MainLayout.module.scss";
 
 export const MainLayout = memo(() => {
   const dispatch = useAppDispatch();
-  mainLayoutModel(dispatch);
+  const data = mainLayoutModel(dispatch);
+  if (data.isLoadedClickerData === null) return <h1 className={styles.wrapper__loading}>Загрузка...</h1>;
 
   return (
     <>
