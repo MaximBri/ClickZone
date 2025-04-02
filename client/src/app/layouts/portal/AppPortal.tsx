@@ -7,14 +7,15 @@ import { Auth } from "@/widgets/pop-ups/auth/Auth";
 import { getNotifications } from "@/widgets/pop-ups/notifications/model/notificationSlice";
 import { NotificationList } from "@/widgets/pop-ups/notifications";
 import { ClickerImprovements } from "@/widgets/pop-ups/clicker-improvements";
-import { ClickerTutorial } from "@/widgets/pop-ups/clicker-tutorial";
 import {
   getAuthWindow,
   getImprovements,
   getRegisterWindow,
   getClickerTutorial,
 } from "@/widgets/pop-ups/model/popUpsSlice";
-import { RewardsTutorial } from "@/widgets/pop-ups/rewards-tutorial";
+import { Tutorial } from "@/widgets/pop-ups/tutorial";
+import { clickerTutorialText } from "@/widgets/pop-ups/tutorial/model/clickerTutorialText";
+import { rewardsTutorialText } from "@/widgets/pop-ups/tutorial/model/rewardsTutorialText";
 
 export const AppPortals = memo(() => {
   const authWindow = useAppSelector(getAuthWindow);
@@ -32,8 +33,24 @@ export const AppPortals = memo(() => {
       {registerWindow && <Register />}
       {notifications.length > 0 && <NotificationList />}
       {improvements && <ClickerImprovements />}
-      {clickerTutorial && <ClickerTutorial />}
-      {rewardsTutorial && <RewardsTutorial />}
+      {clickerTutorial && (
+        <Tutorial
+          data={{
+            title: "Обучение",
+            tutorialName: "clicker",
+            text: clickerTutorialText,
+          }}
+        />
+      )}
+      {rewardsTutorial && (
+        <Tutorial
+          data={{
+            title: "О наградах:",
+            tutorialName: "rewards",
+            text: rewardsTutorialText,
+          }}
+        />
+      )}
     </Portal>
   );
 });
