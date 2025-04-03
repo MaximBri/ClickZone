@@ -10,6 +10,7 @@ class RegistrationForm(BaseModel):
     login: str = Field(..., min_length=4)
     password: str = Field(..., min_length=4)
 
+    @classmethod
     @field_validator('login')
     def validate_login(cls, value):
         user = db.session.scalar(

@@ -17,6 +17,7 @@ class Upgrade(db.Model):
 
     upgrade_type: so.Mapped[str] = so.mapped_column(sa.Enum('consumable', 'permanent', name='upgrade_type'))
     effect_type: so.Mapped[str] = so.mapped_column(sa.Enum('click', 'income', 'other', name='effect_type'))
+    image_path: so.Mapped[str] = so.mapped_column(nullable=True)
 
     cost_coins: so.Mapped[int] = so.mapped_column(default=0)
     cost_diamonds: so.Mapped[int] = so.mapped_column(default=0)
@@ -27,6 +28,18 @@ class Upgrade(db.Model):
         back_populates='upgrade',
         cascade='all, delete-orphan'
     )
+
+    @classmethod
+    def to_dict(cls) -> list[dict[str, str | int]]:
+        res: list[dict[str, str | int]] = []
+
+        for upgrade in cls.query.order_by(cls.id).all():
+            data = {'id': upgrade.id, 'name': upgrade.name, 'description': upgrade.description,
+                    'upgrade_type': upgrade.upgrade_type, 'cost_coins': upgrade.cost_coins,
+                    'cost_diamonds': upgrade.cost_diamonds, 'image_path': upgrade.image_path}
+            res.append(data)
+
+        return res
 
     def __repr__(self):
         return f'<Upgrade {self.name}>'
@@ -43,7 +56,7 @@ class UserUpgrade(db.Model):
     )
 
     quantity: so.Mapped[int] = so.mapped_column(default=1)
-    active: so.Mapped[bool] = so.mapped_column(default=True)
+    active: so.Mapped[bool] = so.mapped_column(default=False)
 
     user: so.Mapped['User'] = so.relationship(back_populates='upgrades')
     upgrade: so.Mapped[Upgrade] = so.relationship(back_populates='user_upgrades')
@@ -56,8 +69,14 @@ class UserUpgrade(db.Model):
 @event.listens_for(UserUpgrade, 'before_update')
 def validate_user_upgrade(mapper, connection, target):
     upgrade = db.session.get(Upgrade, target.upgrade_id)
-    if upgrade.upgrade_type == 'permanent' and target.quantity != 1:
-        raise ValueError('Permanent upgrades can only have quantity 1')
+    if upgrade.upgrade_type == 'permanent':
+        existing = db.session.query(UserUpgrade).filter_by(
+            user_id=target.user_id,
+            upgrade_id=target.upgrade_id).first()
+        if existing:
+            raise ValueError('Permanent upgrade already exists')
+        if target.quantity != 1:
+            raise ValueError('Permanent upgrades can only have quantity 1')
 
 
 class DBSessionManager:
@@ -154,7 +173,7 @@ class User(db.Model):
     def check_password(self, password):
         return check_password_hash(self.password_hash, password)
 
-    def user_dto(self):
+    def user_dto(self) -> dict[str, int | str]:
         return {'user_id': self.id, 'username': self.username}
 
     def __repr__(self):
@@ -168,3 +187,26 @@ def create_unique_name(mapper, connection, target):
         target.name = f'User_{max_id + 1}'
     else:
         target.name = 'User_0'
+
+
+class DailyReward(db.Model):
+    id: so.Mapped[int] = so.mapped_column(primary_key=True)
+    coins: so.Mapped[int] = so.mapped_column(nullable=True)
+    diamonds: so.Mapped[int] = so.mapped_column(nullable=True)
+    custom: so.Mapped[str] = so.mapped_column(nullable=True)
+
+    @classmethod
+    def to_dict(cls) -> list[dict[str, str | int]]:
+        res: list[dict[str, str | int]] = []
+
+        rewards = cls.query.order_by(cls.id).all()
+        for reward in rewards:
+            data = {}
+            if reward.coins is not None:
+                data['coins'] = reward.coins
+            if reward.diamonds is not None:
+                data['diamonds'] = reward.diamonds
+            if reward.custom is not None:
+                data['custom'] = reward.custom
+            res.append({'id': reward.id, 'rewards': data})
+        return res
