@@ -43,6 +43,7 @@ def check_auth():
                 'name': upgrade.name,
                 'description': upgrade.description,
                 'quantity': user_upgrade.quantity,
+                'image_path': upgrade.image_path,
                 'type': upgrade.upgrade_type,
                 'effect': upgrade.effect_type,
                 'cost_coins': upgrade.cost_coins,
