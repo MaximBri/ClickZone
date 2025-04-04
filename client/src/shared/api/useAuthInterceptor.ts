@@ -15,7 +15,6 @@ export const useAuthInterceptor = () => {
       const isAuthRequest =
         config.url?.includes(apiRoutes.authorization) ||
         config.url?.includes(apiRoutes.registration);
-      console.log(isAuthRequest);
 
       if (!isAuthRequest) {
         const token = Cookies.get(CSRF_TOKEN);
@@ -34,7 +33,6 @@ export const useAuthInterceptor = () => {
         const isAuthRequest =
           originalRequest.url?.includes(apiRoutes.authorization) ||
           originalRequest.url?.includes(apiRoutes.registration);
-        console.log(isAuthRequest);
         if (isAuthRequest) {
           return Promise.reject(error);
         }

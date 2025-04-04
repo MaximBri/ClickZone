@@ -11,6 +11,7 @@ const initialState: {
   tutorials: {
     clicker: boolean;
     rewards: boolean;
+    randomizer: boolean;
   };
 } = {
   register: false,
@@ -20,6 +21,7 @@ const initialState: {
   tutorials: {
     clicker: false,
     rewards: false,
+    randomizer: false,
   },
 };
 

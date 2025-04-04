@@ -1,11 +1,15 @@
 from flask import jsonify
 
 
-def validation_error(e):
+def validation_error(e: Exception):
     errors = []
 
     for error in e.errors():
-        field = error.get('loc', [""])[0]
+        field = error.get('loc', [""])
+        if field:
+            field = field[0]
+        else:
+            field = ''
         message = error.get('msg', 'Validation error')
 
         if field == 'login':
@@ -34,5 +38,5 @@ def validation_error(e):
 
 
 def default_error(e):
-    print(f'Unexpected error: {e}')
-    return jsonify({'msg': 'Произошла ошибка на сервере'}), 500
+    print(f'Unexpected server error: {e}')
+    return jsonify({'msg': f'Произошла ошибка на сервере {e}'}), 500

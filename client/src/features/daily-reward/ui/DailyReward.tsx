@@ -1,6 +1,6 @@
 import { FC } from "react";
 
-import { dailyRewardInterface } from "@/pages/dialy-rewards/model/dailyRewardsList";
+import { dailyRewardInterface } from "@/pages/dialy-rewards/model/dailyRewardsSlice";
 import { DOMAIN } from "@/shared/config/routes";
 import dailyRewardPng from "./icons/dailyReward.png";
 import coinSvg from "/images/resourses/coin.svg";
@@ -44,7 +44,7 @@ export const DailyReward: FC<{ data: dailyRewardInterface }> = ({ data }) => {
             {data.rewards.diamonds}
             <img
               className={styles.reward__improvements}
-              src={`${DOMAIN}/images/${data.rewards.custom}`}
+              src={`${DOMAIN}/images${data.rewards.custom}`}
               alt="custom"
             ></img>
           </>

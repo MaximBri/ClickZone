@@ -1,4 +1,6 @@
 .footer {
+  position: relative;
+
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -8,6 +10,31 @@
   padding-left: rem(100);
 
   background-color: $border-primary;
+  &__finances {
+    position: absolute;
+    top: 50%;
+    left: rem(20);
+    transform: translateY(-50%);
+
+    display: flex;
+    flex-direction: column;
+    gap: rem(5);
+
+    padding: rem(10);
+    border-radius: 15px;
+
+    font-size: rem(18);
+
+    background-color: $button;
+    &-item {
+      display: flex;
+      gap: rem(5);
+      align-items: center;
+      & > img {
+        width: rem(20);
+      }
+    }
+  }
   &__center {
     display: flex;
     gap: rem(30);
@@ -35,7 +62,16 @@
   .footer {
     padding: rem(10) rem(20);
     padding-left: rem(90);
-
+    &__finances {
+      left: rem(20);
+      padding: rem(7);
+      font-size: rem(16);
+      &-item{
+        &>img{
+          width: rem(15);
+        }
+      }
+    }
     &__center {
       gap: rem(20);
       padding: rem(5) rem(10);
@@ -49,9 +85,11 @@
   }
 }
 
-
 @media (max-width: 576px) {
   .footer {
     padding: rem(5) rem(20);
+    &__finances{
+      display: none;
+    }
   }
 }

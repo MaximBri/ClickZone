@@ -1,23 +1,23 @@
 import { store, useAppDispatch, useAppSelector } from "@/app/store/store";
+
+import { buyMiglioramenti } from "@/entities/user/miglioramenti/thunks/buyMiglioramenti.thunk";
 import { getMiglioramenti } from "@/entities/user/model/selectors";
-import {
-  addOneUpgrade,
-  setCoins,
-} from "@/entities/user/model/userSlice";
-import {
-  miglioramentiInterface,
-  miglioramentiList,
-} from "@/widgets/clicker-shop/model/miglioramentiList";
 import { notificationManager } from "@/widgets/pop-ups/notifications/model/notificationManager";
+import { addOneUpgrade } from "@/entities/user/model/userSlice";
+import {
+  getMiglioramentiList,
+  miglioramentiInterface,
+} from "@/widgets/clicker-shop/model/miglioramentiSlice";
 
 export const miglioramentiModel = (improvement: miglioramentiInterface) => {
   const dispatch = useAppDispatch();
   const userImprovements = useAppSelector(getMiglioramenti);
+  const miglioramentiList = useAppSelector(getMiglioramentiList);
   const haveThisMiglioramenti =
     userImprovements.find((item) => item.id === improvement.id) &&
     improvement.isInfinite;
 
-  const buyImprovement = (id: number) => {
+  const buyImprovement = async (id: number) => {
     const improvement = miglioramentiList.find((item) => item.id === id);
     if (!improvement) {
       notificationManager(dispatch, "Ошибка при покупке", "error");
@@ -25,7 +25,7 @@ export const miglioramentiModel = (improvement: miglioramentiInterface) => {
     }
     const coins = store.getState().user.finances.coins;
     if (coins >= improvement.cost) {
-      dispatch(setCoins(coins - improvement.cost));
+      await dispatch(buyMiglioramenti({ id, cost_coins: improvement.cost }));
       dispatch(addOneUpgrade(improvement));
       notificationManager(
         dispatch,

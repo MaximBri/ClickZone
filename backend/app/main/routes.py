@@ -1,9 +1,12 @@
 from flask_jwt_extended import jwt_required, get_jwt_identity, create_access_token, set_access_cookies, get_current_user
-from flask import make_response
+from flask import make_response, request, jsonify
+from pydantic import ValidationError
 
 from app.main import bp
-from app import jwt
-from app.models import User
+from app import jwt, db
+from app.models import User, DailyReward, Upgrade, DBSessionManager, UserUpgrade
+from app.errors import validation_error, default_error
+from .validation import UpgradeForm
 
 
 @jwt.user_lookup_loader
@@ -40,6 +43,7 @@ def check_auth():
                 'name': upgrade.name,
                 'description': upgrade.description,
                 'quantity': user_upgrade.quantity,
+                'image_path': upgrade.image_path,
                 'type': upgrade.upgrade_type,
                 'effect': upgrade.effect_type,
                 'cost_coins': upgrade.cost_coins,
@@ -61,3 +65,51 @@ def check_auth():
     }
     response = make_response(response, 200)
     return response
+
+
+@bp.route('/daily-rewards', methods=['GET'])
+@jwt_required()
+def daily_rewards():
+    return make_response(DailyReward.to_dict(), 200)
+
+
+@bp.route('/upgrades', methods=['POST', 'GET'])
+@jwt_required()
+def upgrades():
+    if request.method == 'GET':
+        response = make_response(Upgrade.to_dict(), 200)
+        return response
+    try:
+        with DBSessionManager():
+            form = UpgradeForm(**request.get_json())
+            upgrade = Upgrade.query.get(form.id)
+            user = get_current_user()
+
+            if upgrade.upgrade_type == 'permanent':
+                existing = db.session.query(UserUpgrade).filter_by(user_id=user.id, upgrade_id=upgrade.id).first()
+                if existing:
+                    return jsonify({'errors': [{'msg': 'Upgrade already purchased'}]}, 400)
+            if user.coins < upgrade.cost_coins or user.diamonds < upgrade.cost_diamonds:
+                return jsonify({'errors': [{'msg': 'Not enough coins or diamonds'}]})
+
+            user.coins -= upgrade.cost_coins
+            user.diamonds -= upgrade.cost_diamonds
+
+            if upgrade.upgrade_type == 'permanent':
+                user_upgrade = UserUpgrade(user=user, upgrade=upgrade, quantity=1)
+                db.session.add(user_upgrade)
+            else:
+                user_upgrade = user.upgrades.filter_by(upgrade_id=upgrade.id).first()
+                if user_upgrade:
+                    user_upgrade.quantity += 1
+                else:
+                    user_upgrade = UserUpgrade(user=user, upgrade=upgrade)
+                    db.session.add(user_upgrade)
+
+        response = make_response({'user_coins': user.coins, 'user_diamonds': user.diamonds}, 200)
+        return response
+
+    except ValidationError as e:
+        return validation_error(e)
+    except Exception as e:
+        return default_error(e)

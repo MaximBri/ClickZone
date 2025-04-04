@@ -12,4 +12,8 @@ export const apiRoutes = {
   getAccountInfo: "profile/me",
   // Clicker
   getClickerInfo: "me",
+  // Daily rewards
+  getDailyRewards: "daily-rewards",
+  // Upgrades
+  upgrades: "upgrades",
 };

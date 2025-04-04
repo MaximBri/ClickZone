@@ -1,10 +1,19 @@
 .reward {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+
   padding: rem(10);
   border-radius: 10px;
+
   background-color: $border-primary;
   &__image {
     &-container {
       position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
     }
   }
   &__number {
@@ -16,21 +25,62 @@
     font-size: rem(24);
     font-weight: 700;
   }
-  &__coins{
+  &__coins {
     width: rem(20);
     height: rem(20);
-    height: rem(40);
   }
-  &__improvements{
+  &__improvements {
     width: rem(40);
     height: rem(40);
   }
-  &__inner{
+  &__inner {
     display: flex;
     gap: rem(10);
     align-items: center;
     justify-content: center;
 
+    margin: rem(10) 0;
+
     font-size: rem(24);
+  }
+}
+
+@media (max-width: 1024px) {
+  .reward {
+    &__number {
+      font-size: rem(20);
+    }
+    &__inner {
+      font-size: rem(20);
+    }
+  }
+}
+
+@media (max-width: 768px) {
+  .reward {
+    padding: rem(5);
+    &__number {
+      font-size: rem(18);
+    }
+    &__image {
+      &-container {
+        & > img {
+          width: rem(60);
+        }
+      }
+    }
+    // &__coins {
+    //   // width: rem(20);
+    //   // height: rem(20);
+    // }
+    &__improvements {
+      width: rem(30);
+      height: rem(30);
+    }
+    &__inner {
+      // gap: rem(10);
+      margin: rem(5) 0;
+      font-size: rem(18);
+    }
   }
 }

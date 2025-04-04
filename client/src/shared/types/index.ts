@@ -1,4 +1,4 @@
-import { miglioramentiInterface } from "@/widgets/clicker-shop/model/miglioramentiList";
+import { miglioramentiInterface } from "@/widgets/clicker-shop/model/miglioramentiSlice";
 
 export interface userDataForRegister {
   login: string;
@@ -15,6 +15,12 @@ export interface achievementInterface {
   description: string;
   imagePath: string;
   has_achievement: boolean;
+}
+
+export interface ContainerInterface {
+  imagePath: string;
+  name: string;
+  description: string;
 }
 
 export interface userDataInterface {
@@ -48,6 +54,7 @@ export interface userDataInterface {
     accountData: boolean | null;
   };
   dailyRewards: boolean[];
+  containers: ContainerInterface[];
 }
 
 export interface authErrorInterface {

@@ -1,9 +1,7 @@
 import { FC } from "react";
-import { useAppSelector } from "@/app/store/store";
 
 import { Miglioramenti } from "@/features/clicker/miglioramenti";
-import { miglioramentiList } from "../model/miglioramentiList";
-import { getFinances, getIsAuthorized } from "@/entities/user/model/selectors";
+import { miglioramentiModel } from "../model/miglioramentiModel";
 import crossSvg from "@/shared/icons/cross.svg";
 import styles from "./ClickerShop.module.scss";
 
@@ -11,9 +9,8 @@ export const ClickerShop: FC<{
   active: boolean;
   closeSection: React.Dispatch<React.SetStateAction<boolean>>;
 }> = ({ active, closeSection }) => {
-  const userCoins = useAppSelector(getFinances);
-  const isAuthorized = useAppSelector(getIsAuthorized);
-  if (!isAuthorized) return null;
+  const data = miglioramentiModel();
+  if (!data.isAuthorized || !data.miglioramenti.length) return null;
 
   return (
     <>
@@ -33,12 +30,12 @@ export const ClickerShop: FC<{
           />
           <h2 className={styles.shop__title}>Улучшения для кликера</h2>
           <ul className={styles.shop__list}>
-            {miglioramentiList.map((item) => {
+            {data.miglioramenti.map((item) => {
               return (
                 <Miglioramenti
                   data={item}
                   key={item.id}
-                  coins={userCoins.coins}
+                  coins={data.userCoins.coins}
                 />
               );
             })}
