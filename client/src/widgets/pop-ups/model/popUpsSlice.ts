@@ -1,7 +1,7 @@
 import { RootState } from "@/app/store/store";
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
-export type tutorialsType = "clicker" | "rewards";
+export type tutorialsType = keyof typeof initialState.tutorials;
 
 const initialState: {
   register: boolean;

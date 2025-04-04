@@ -17,12 +17,6 @@ export interface achievementInterface {
   has_achievement: boolean;
 }
 
-export interface ContainerInterface {
-  imagePath: string;
-  name: string;
-  description: string;
-}
-
 export interface userDataInterface {
   isAuthorized: boolean | null;
   level: number;
@@ -68,3 +62,27 @@ export interface notificationDataInterface {
 }
 
 export type notificationsErrorsTypes = "success" | "error" | "warning";
+
+
+// Containers
+
+export interface ContainerInterface {
+  name: string;
+  imagePath: string;
+  price: {
+    coins: number;
+    diamonds: number;
+  };
+  rewards: RewardTuple[];
+}
+
+export type RewardType =
+  | { coins: number }
+  | { diamonds: number }
+  | { improvement_id: number; imagePath: string; count: number }
+  | { container_id: number; imagePath: string; count: number };
+
+export type RewardTuple =
+  | [RewardType]
+  | [RewardType, RewardType]
+  | [RewardType, RewardType, RewardType];

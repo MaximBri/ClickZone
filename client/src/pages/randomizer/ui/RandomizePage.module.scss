@@ -32,4 +32,12 @@
       width: 100%;
     }
   }
+  &__shop {
+    display: flex;
+    flex-wrap: wrap;
+    gap: rem(30);
+    align-items: stretch;
+    align-items: center;
+    justify-content: center;
+  }
 }

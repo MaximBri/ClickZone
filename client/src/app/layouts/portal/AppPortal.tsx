@@ -16,6 +16,7 @@ import {
 import { Tutorial } from "@/widgets/pop-ups/tutorial";
 import { clickerTutorialText } from "@/widgets/pop-ups/tutorial/model/clickerTutorialText";
 import { rewardsTutorialText } from "@/widgets/pop-ups/tutorial/model/rewardsTutorialText";
+import { randomizerTutorialText } from "@/widgets/pop-ups/tutorial/model/randomizerTutorialText";
 
 export const AppPortals = memo(() => {
   const authWindow = useAppSelector(getAuthWindow);
@@ -25,6 +26,9 @@ export const AppPortals = memo(() => {
   const clickerTutorial = useAppSelector(getClickerTutorial);
   const rewardsTutorial = useAppSelector(
     (state) => state.windows.tutorials.rewards
+  );
+  const randomizerTutorial = useAppSelector(
+    (state) => state.windows.tutorials.randomizer
   );
 
   return (
@@ -48,6 +52,15 @@ export const AppPortals = memo(() => {
             title: "О наградах:",
             tutorialName: "rewards",
             text: rewardsTutorialText,
+          }}
+        />
+      )}
+      {randomizerTutorial && (
+        <Tutorial
+          data={{
+            title: "О контейнерах:",
+            tutorialName: "randomizer",
+            text: randomizerTutorialText,
           }}
         />
       )}

@@ -1,23 +1,4 @@
-export interface ContainerInterface {
-  name: string;
-  imagePath: string;
-  price: {
-    coins: number;
-    diamonds: number;
-  };
-  rewards: RewardTuple[];
-}
-
-export type RewardType =
-  | { coins: number }
-  | { diamonds: number }
-  | { improvement_id: number; imagePath: string; count: number }
-  | { container_id: number; imagePath: string; count: number };
-
-export type RewardTuple =
-  | [RewardType]
-  | [RewardType, RewardType]
-  | [RewardType, RewardType, RewardType];
+import { ContainerInterface } from "@/shared/types";
 
 export const containerList: ContainerInterface[] = [
   {

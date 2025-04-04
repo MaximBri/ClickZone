@@ -3,7 +3,6 @@ import { userDataInterface } from "@/shared/types";
 export const processUserData = (state: userDataInterface, payloadData: any) => {
   state.isAuthorized = true;
   state.flags.clickerData = true;
-  console.log(payloadData);
 
   state.globals.description = payloadData.about_me;
   state.globals.nickname = payloadData.nickname;
@@ -26,8 +25,5 @@ export const processUserData = (state: userDataInterface, payloadData: any) => {
       imagePath: item.image_path,
     };
   });
-  console.log(payloadData.upgrades);
-  console.log(payloadData.improvements);
-  console.log(upgrades);
   state.clicker.upgrades = upgrades;
 };
