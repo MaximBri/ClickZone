@@ -1,6 +1,6 @@
 import { FC } from "react";
 
-import { dailyRewardInterface } from "@/pages/dialy-rewards/model/dailyRewardsList";
+import { dailyRewardInterface } from "@/pages/dialy-rewards/model/dailyRewardsSlice";
 import { DOMAIN } from "@/shared/config/routes";
 import dailyRewardPng from "./icons/dailyReward.png";
 import coinSvg from "/images/resourses/coin.svg";

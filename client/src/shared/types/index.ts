@@ -1,4 +1,4 @@
-import { miglioramentiInterface } from "@/widgets/clicker-shop/model/miglioramentiList";
+import { miglioramentiInterface } from "@/widgets/clicker-shop/model/miglioramentiSlice";
 
 export interface userDataForRegister {
   login: string;

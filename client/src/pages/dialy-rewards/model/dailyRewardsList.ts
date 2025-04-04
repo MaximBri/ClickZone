@@ -1,11 +1,4 @@
-export interface dailyRewardInterface {
-  id: number;
-  rewards: {
-    coins?: number;
-    diamonds?: number;
-    custom?: string;
-  };
-}
+import { dailyRewardInterface } from "./dailyRewardsSlice";
 
 export const dailyRewardsList: dailyRewardInterface[] = [
   { id: 1, rewards: { coins: 50 } },

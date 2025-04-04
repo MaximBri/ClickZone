@@ -1,18 +1,16 @@
 import { store, useAppDispatch, useAppSelector } from "@/app/store/store";
 import { getMiglioramenti } from "@/entities/user/model/selectors";
+import { addOneUpgrade, setCoins } from "@/entities/user/model/userSlice";
 import {
-  addOneUpgrade,
-  setCoins,
-} from "@/entities/user/model/userSlice";
-import {
+  getMiglioramentiList,
   miglioramentiInterface,
-  miglioramentiList,
-} from "@/widgets/clicker-shop/model/miglioramentiList";
+} from "@/widgets/clicker-shop/model/miglioramentiSlice";
 import { notificationManager } from "@/widgets/pop-ups/notifications/model/notificationManager";
 
 export const miglioramentiModel = (improvement: miglioramentiInterface) => {
   const dispatch = useAppDispatch();
   const userImprovements = useAppSelector(getMiglioramenti);
+  const miglioramentiList = useAppSelector(getMiglioramentiList);
   const haveThisMiglioramenti =
     userImprovements.find((item) => item.id === improvement.id) &&
     improvement.isInfinite;
