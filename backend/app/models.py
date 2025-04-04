@@ -33,7 +33,7 @@ class Upgrade(db.Model):
     def to_dict(cls) -> list[dict[str, str | int]]:
         res: list[dict[str, str | int]] = []
 
-        for upgrade in cls.query.order_by(cls.id).all():
+        for upgrade in cls.query.filter(cls.name != 'nickname_change').order_by(cls.id).all():
             data = {'id': upgrade.id, 'name': upgrade.name, 'description': upgrade.description,
                     'upgrade_type': upgrade.upgrade_type, 'cost_coins': upgrade.cost_coins,
                     'cost_diamonds': upgrade.cost_diamonds, 'image_path': upgrade.image_path}
