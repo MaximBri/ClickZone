@@ -1,13 +1,14 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 import { UpgradeInterface, userDataInterface } from "@/shared/types";
-import { miglioramentiInterface } from "@/widgets/clicker-shop/model/miglioramentiList";
 import { processUserData } from "./thunks/shared/processData";
 import { fetchClickerData, loginUser, logoutUser } from "./thunks";
 import { fetchAccountData } from "../account/thunks";
 import { processAccountData } from "../account/processAccountData";
 import { checkCoinsCount } from "../account/checkCoinsCount";
 import { changeUserData } from "../account/thunks/changeUserData.thunk";
+import { buyMiglioramenti } from "../miglioramenti/thunks/buyMiglioramenti.thunk";
+import { miglioramentiInterface } from "@/widgets/clicker-shop/model/miglioramentiSlice";
 
 const initialState: userDataInterface = {
   isAuthorized: null,
@@ -40,7 +41,7 @@ const initialState: userDataInterface = {
     accountData: null,
   },
   dailyRewards: [],
-  containers: []
+  containers: [],
 };
 
 const UserSlice = createSlice({
@@ -153,6 +154,10 @@ const UserSlice = createSlice({
       state.finances.coins = action.payload.resources.coins;
       state.finances.diamonds = action.payload.resources.diamonds;
       state.account.nicknamePrice = action.payload.nickname_price;
+    });
+    // Покупка улучшения
+    builder.addCase(buyMiglioramenti.fulfilled, (state, action) => {
+      state.finances.coins = action.payload.user_coins;
     });
   },
 });

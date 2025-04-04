@@ -13,6 +13,7 @@ export const ClickerImprovements = () => {
   const improvements = useSelector(getMiglioramenti).filter(
     (item) => !item.isInfinite
   );
+  console.log(improvements);
 
   const closeWindow = () => {
     setActive(false);
