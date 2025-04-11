@@ -48,7 +48,6 @@ export interface userDataInterface {
     accountData: boolean | null;
   };
   dailyRewards: boolean[];
-  containers: ContainerInterface[];
 }
 
 export interface authErrorInterface {
@@ -59,13 +58,15 @@ export interface authErrorInterface {
 export interface notificationDataInterface {
   message: string;
   type: notificationsErrorsTypes;
+  id: string;
 }
 
 export type notificationsErrorsTypes = "success" | "error" | "warning";
 
-
 // Containers
-
+export interface ContainerSliceInterface extends ContainerInterface {
+  count: number;
+}
 export interface ContainerInterface {
   name: string;
   imagePath: string;

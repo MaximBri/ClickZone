@@ -9,7 +9,7 @@
   box-shadow: 2px 2px 4px 2px #0000003d;
 
   transition: all 0.3s ease-in-out;
-  animation: creating-and-destroying 3s ease-in-out;
+  animation: creating-and-destroying 3s ease-in-out forwards;
   &__icon {
     flex-shrink: 0;
     width: rem(32);

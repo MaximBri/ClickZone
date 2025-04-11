@@ -11,6 +11,7 @@ export const notificationManager = (
     addNotification({
       message,
       type,
+      id: crypto.randomUUID()
     })
   );
   setTimeout(() => {
