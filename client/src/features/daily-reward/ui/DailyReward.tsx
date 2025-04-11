@@ -3,8 +3,8 @@ import { FC } from "react";
 import { dailyRewardInterface } from "@/pages/dialy-rewards/model/dailyRewardsSlice";
 import { DOMAIN } from "@/shared/config/routes";
 import dailyRewardPng from "./icons/dailyReward.png";
-import coinSvg from "/images/resourses/coin.svg";
-import diamondsSvg from "/images/resourses/diamond.svg";
+import coinSvg from "/images/resources/coin.svg";
+import diamondsSvg from "/images/resources/diamond.svg";
 import styles from "./DailyReward.module.scss";
 
 export const DailyReward: FC<{ data: dailyRewardInterface }> = ({ data }) => {

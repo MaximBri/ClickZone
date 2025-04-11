@@ -2,9 +2,10 @@ import { useAppSelector } from "@/app/store/store";
 import { FC, useEffect, useState } from "react";
 
 import { getNickname } from "@/entities/user/model/selectors";
-import coinSvg from "/images/resourses/coin.svg";
-import diamondSvg from "/images/resourses/diamond.svg";
+import coinSvg from "/images/resources/coin.svg";
+import diamondSvg from "/images/resources/diamond.svg";
 import styles from "./UserNickname.module.scss";
+import { DOMAIN } from "@/shared/config/routes";
 
 export const UserNickname: FC<{
   onUpdate: (key: "name" | "description", value: string) => void;
@@ -64,11 +65,15 @@ export const UserNickname: FC<{
           ""
         ) : (
           <>
-            за {changeNicknamePrice.coins} <img src={coinSvg} alt="coin"></img>{" "}
+            за {changeNicknamePrice.coins}{" "}
+            <img src={coinSvg} alt="coin"></img>{" "}
             {changeNicknamePrice.diamonds ? (
               <>
                 и {changeNicknamePrice.diamonds}
-                <img src={diamondSvg} alt="diamond"></img>
+                <img
+                  src={diamondSvg}
+                  alt="diamond"
+                ></img>
               </>
             ) : (
               ""

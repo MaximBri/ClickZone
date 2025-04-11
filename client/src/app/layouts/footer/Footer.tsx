@@ -2,13 +2,13 @@ import { memo } from "react";
 import { useAppSelector } from "@/app/store/store";
 
 import { UserFinanceInfo } from "./model/UserFinanceInfo";
-import coinSvg from "/images/resourses/coin.svg";
+import coinSvg from "/images/resources/coin.svg";
 import styles from "./Footer.module.scss";
 
 export const Footer = memo(() => {
   const coinsOnClick = useAppSelector((state) => state.user.coinsOnClick);
   const cointPerMinute = useAppSelector((state) => state.user.coinsPerMinute);
-  
+
   return (
     <footer className={styles.footer}>
       <div className={styles.footer__finances}>

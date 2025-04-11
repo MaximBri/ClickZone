@@ -1,10 +1,10 @@
 import { useNavigate } from "react-router-dom";
 import { useAppDispatch, useAppSelector } from "@/app/store/store";
 
-import { UserNickname } from "@/features/user-account/inner/user-nickname";
-import { UserDescription } from "@/features/user-account/inner/user-description";
-import { UserRegistration } from "@/features/user-account/inner/user-registration-date";
-import { ExitFromAccount } from "@/features/user-account/inner/exit-from-account";
+import { UserNickname } from "@/features/user-account/user-nickname";
+import { UserDescription } from "@/features/user-account/user-description";
+import { UserRegistration } from "@/features/user-account/user-registration-date";
+import { ExitFromAccount } from "@/features/user-account/exit-from-account";
 import { routes } from "@/shared/config/routes";
 import { changeUserData } from "@/entities/user/account/thunks/changeUserData.thunk";
 import { notificationManager } from "@/widgets/pop-ups/notifications/model/notificationManager";
@@ -15,7 +15,7 @@ import {
   getIsAuthorized,
 } from "@/entities/user/model/selectors";
 import styles from "./AccountPage.module.scss";
-import { UserRewards } from "@/features/user-account/inner/user-rewards";
+import { UserRewards } from "@/features/user-account/user-rewards";
 
 export const AccountPage = () => {
   const dispatch = useAppDispatch();

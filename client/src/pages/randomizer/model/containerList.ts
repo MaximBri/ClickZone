@@ -5,8 +5,10 @@ export const containerList: ContainerInterface[] = [
     name: "Простой",
     imagePath: "container-simple.png",
     price: {
-      coins: 500,
-      diamonds: 3,
+      coins: 5,
+      diamonds: 2,
+      // coins: 500,
+      // diamonds: 3,
     },
     rewards: [
       [
@@ -127,8 +129,10 @@ export const containerList: ContainerInterface[] = [
     name: "Редкий",
     imagePath: "container-rare.png",
     price: {
-      coins: 1500,
-      diamonds: 10,
+      coins: 5,
+      diamonds: 2,
+      // coins: 1500,
+      // diamonds: 10,
     },
     rewards: [
       [
@@ -253,8 +257,10 @@ export const containerList: ContainerInterface[] = [
     name: "Эпический",
     imagePath: "container-epic.png",
     price: {
-      coins: 5000,
-      diamonds: 30,
+      coins: 5,
+      diamonds: 2,
+      // coins: 5000,
+      // diamonds: 30,
     },
     rewards: [
       [
@@ -381,8 +387,10 @@ export const containerList: ContainerInterface[] = [
     name: "Мифический",
     imagePath: "container-mythical.png",
     price: {
-      coins: 20000,
-      diamonds: 150,
+      coins: 5,
+      diamonds: 2,
+      // coins: 20000,
+      // diamonds: 150,
     },
     rewards: [
       [
@@ -507,8 +515,10 @@ export const containerList: ContainerInterface[] = [
     name: "Легендарный",
     imagePath: "container-legendary.png",
     price: {
-      coins: 80000,
-      diamonds: 600,
+      coins: 5,
+      diamonds: 2,
+      // coins: 80000,
+      // diamonds: 600,
     },
     rewards: [
       [
@@ -630,3 +640,11 @@ export const containerList: ContainerInterface[] = [
     ],
   },
 ];
+
+export const key = {
+  name: "Ключ",
+  description:
+    "Позволяет увеличить шанс выпадения редких предметов из контейнеров",
+  price: 10,
+  imagePath: "key.svg",
+};

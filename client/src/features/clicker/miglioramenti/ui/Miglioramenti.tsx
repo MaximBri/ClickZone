@@ -3,7 +3,7 @@ import { FC } from "react";
 import { DOMAIN } from "@/shared/config/routes";
 import { miglioramentiModel } from "../model/miglioramentiModel";
 import { miglioramentiInterface } from "@/widgets/clicker-shop/model/miglioramentiSlice";
-import coinSvg from "/images/resourses/coin.svg";
+import coinSvg from "/images/resources/coin.svg";
 import infinitySvg from "/images/miglioramenti/infinity.svg";
 import styles from "./Miglioramenti.module.scss";
 

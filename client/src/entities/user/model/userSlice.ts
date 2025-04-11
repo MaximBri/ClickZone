@@ -41,7 +41,6 @@ const initialState: userDataInterface = {
     accountData: null,
   },
   dailyRewards: [],
-  containers: [],
 };
 
 const UserSlice = createSlice({
