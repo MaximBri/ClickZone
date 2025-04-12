@@ -74,3 +74,50 @@
     transform: translateX(0);
   }
 }
+
+@media (max-width: 1024px) {
+  .alert-card {
+    &__icon {
+      width: rem(32);
+      height: rem(32);
+      margin-right: rem(5);
+    }
+
+    &__message {
+      font-size: rem(16);
+    }
+  }
+}
+
+@media (max-width: 768px) {
+  .alert-card {
+    padding: rem(5);
+
+    &__icon {
+      width: rem(24);
+      height: rem(24);
+      margin-right: rem(5);
+    }
+
+    &__message {
+      font-size: rem(14);
+    }
+    &--success {
+      &:hover {
+        background-color: #b9ffce;
+      }
+    }
+
+    &--warning {
+      &:hover {
+        background-color: #fef08a;
+      }
+    }
+
+    &--error {
+      &:hover {
+        background-color: #fcb6b6;
+      }
+    }
+  }
+}
