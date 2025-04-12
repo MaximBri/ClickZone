@@ -10,6 +10,7 @@
   justify-content: space-between;
 
   width: rem(250);
+  max-width: 40vw;
 
   &__name {
     font-size: rem(18);
@@ -53,6 +54,53 @@
         width: rem(20);
         height: rem(20);
         filter: drop-shadow(0px 1px 2px #000);
+      }
+    }
+  }
+}
+
+@media (max-width: 1024px) {
+  .container {
+    gap: rem(10);
+    width: rem(200);
+
+    &__name {
+      font-size: rem(18);
+    }
+    &__image {
+      max-width: rem(300);
+    }
+  }
+}
+
+@media (max-width: 768px) {
+  .container {
+    width: rem(130);
+    max-width: 40vw;
+
+    &__name {
+      font-size: rem(16);
+    }
+    &__image {
+      max-width: rem(180);
+    }
+    &__info {
+      width: rem(20);
+      height: rem(20);
+    }
+    &__nav {
+      gap: rem(5);
+      justify-content: space-around;
+      width: 100%;
+
+      &-button {
+        gap: rem(10);
+        padding: rem(5) rem(10);
+        font-size: rem(16);
+        & > img {
+          width: rem(15);
+          height: rem(15);
+        }
       }
     }
   }

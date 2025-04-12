@@ -19,6 +19,27 @@
   &__subtitle {
     font-size: rem(22);
   }
+  &__key {
+    position: absolute;
+    top: rem(30);
+    left: rem(20);
+
+    display: flex;
+    gap: rem(10);
+    align-items: center;
+
+    padding: rem(10);
+    border-radius: 10px;
+
+    font-size: rem(20);
+    font-weight: 700;
+
+    background-color: $border-primary;
+    & > img {
+      width: rem(30);
+      height: rem(30);
+    }
+  }
   &__info {
     position: absolute;
     top: rem(30);
@@ -44,6 +65,70 @@
       font-size: rem(20);
       font-weight: 600;
       text-align: left;
+    }
+  }
+}
+
+@media (max-width: 1024px) {
+  .containers {
+    padding: rem(20) rem(30) rem(40);
+
+    &__title {
+      font-size: rem(22);
+    }
+    &__subtitle {
+      font-size: rem(20);
+    }
+    &__key {
+      top: rem(20);
+      left: rem(10);
+      font-size: rem(18);
+      & > img {
+        width: rem(25);
+        height: rem(25);
+      }
+    }
+    &__shop {
+      gap: rem(20);
+      &-title {
+        font-size: rem(18);
+      }
+    }
+  }
+}
+
+@media (max-width: 768px) {
+  .containers {
+    padding: rem(15) rem(20) rem(30);
+
+    &__title {
+      font-size: rem(20);
+    }
+    &__subtitle {
+      font-size: rem(18);
+    }
+    &__key {
+      top: rem(20);
+      left: rem(10);
+      padding: rem(7);
+      font-size: rem(18);
+      & > img {
+        width: rem(20);
+        height: rem(20);
+      }
+    }
+    &__info {
+      top: rem(20);
+      right: rem(20);
+      width: rem(30);
+      height: rem(30);
+    }
+    &__shop {
+      gap: rem(10);
+      justify-content: space-around;
+      &-title {
+        font-size: rem(16);
+      }
     }
   }
 }
