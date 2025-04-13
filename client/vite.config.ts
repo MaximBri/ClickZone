@@ -7,7 +7,8 @@ import StylelintPlugin from "vite-plugin-stylelint";
 // https://vite.dev/config/
 export default defineConfig(({ mode }) => {
   const env = loadEnv(mode, process.cwd(), "");
-  // console.log(env.VITE_API_URL);
+  const isProduction = mode === "production";
+  console.log(env.VITE_API_URL, isProduction);
 
   return {
     plugins: [
@@ -46,26 +47,16 @@ export default defineConfig(({ mode }) => {
     server: {
       port: 3000,
       open: true,
-      proxy: {
-        "/api": {
-          target: env.VITE_API_URL,
-          changeOrigin: true,
-          rewrite: (path) => path.replace(/^\/api/, ""),
-          configure: (proxy) => {
-            proxy.on("error", (err) => {
-              console.log("proxy error", err);
-            });
-
-            proxy.on("proxyReq", (_proxyReq, req) => {
-              console.log("Sending Request to:", req.url);
-            });
-
-            proxy.on("proxyRes", (_proxyRes, req) => {
-              console.log("Received Response from:", req.url);
-            });
-          },
-        },
-      },
+      proxy: !isProduction
+        ? {
+            "/api": {
+              target: env.VITE_API_URL,
+              changeOrigin: true,
+              rewrite: (path) => path.replace(/^\/api/, ""),
+              secure: false,
+            },
+          }
+        : undefined,
     },
     resolve: {
       alias: {
