@@ -1,24 +1,25 @@
-import { defineConfig, loadEnv } from 'vite';
-import react from '@vitejs/plugin-react';
-import path from 'path';
-import svgr from 'vite-plugin-svgr';
-import StylelintPlugin from 'vite-plugin-stylelint';
+import { defineConfig, loadEnv } from "vite";
+import react from "@vitejs/plugin-react";
+import path from "path";
+import svgr from "vite-plugin-svgr";
+import StylelintPlugin from "vite-plugin-stylelint";
 
 // https://vite.dev/config/
 export default defineConfig(({ mode }) => {
-  const env = loadEnv(mode, process.cwd(), '');
-  
+  const env = loadEnv(mode, process.cwd(), "");
+  // console.log(env.VITE_API_URL);
+
   return {
     plugins: [
       react(),
       svgr({
         svgrOptions: {
-          plugins: ['@svgr/plugin-svgo', '@svgr/plugin-jsx'],
+          plugins: ["@svgr/plugin-svgo", "@svgr/plugin-jsx"],
           svgoConfig: {
             multipass: true,
             plugins: [
               {
-                name: 'preset-default',
+                name: "preset-default",
                 params: {
                   overrides: {
                     removeViewBox: false,
@@ -35,32 +36,32 @@ export default defineConfig(({ mode }) => {
       StylelintPlugin({
         fix: true,
         cache: false,
-        include: ['src/**/*.scss'],
+        include: ["src/**/*.scss"],
       }),
     ],
-    base: '/ClickZone/',
+    base: "/ClickZone/",
     build: {
-      outDir: 'build',
+      outDir: "build",
     },
     server: {
       port: 3000,
       open: true,
       proxy: {
-        '/api': {
+        "/api": {
           target: env.VITE_API_URL,
           changeOrigin: true,
-          rewrite: (path) => path.replace(/^\/api/, ''),
+          rewrite: (path) => path.replace(/^\/api/, ""),
           configure: (proxy) => {
-            proxy.on('error', (err) => {
-              console.log('proxy error', err);
+            proxy.on("error", (err) => {
+              console.log("proxy error", err);
             });
 
-            proxy.on('proxyReq', (_proxyReq, req) => {
-              console.log('Sending Request to:', req.url);
+            proxy.on("proxyReq", (_proxyReq, req) => {
+              console.log("Sending Request to:", req.url);
             });
 
-            proxy.on('proxyRes', (_proxyRes, req) => {
-              console.log('Received Response from:', req.url);
+            proxy.on("proxyRes", (_proxyRes, req) => {
+              console.log("Received Response from:", req.url);
             });
           },
         },
@@ -68,7 +69,7 @@ export default defineConfig(({ mode }) => {
     },
     resolve: {
       alias: {
-        '@': path.resolve(__dirname, './src'),
+        "@": path.resolve(__dirname, "./src"),
       },
     },
     css: {
