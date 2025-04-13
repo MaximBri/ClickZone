@@ -5,7 +5,6 @@ import { getNickname } from "@/entities/user/model/selectors";
 import coinSvg from "/images/resources/coin.svg";
 import diamondSvg from "/images/resources/diamond.svg";
 import styles from "./UserNickname.module.scss";
-import { DOMAIN } from "@/shared/config/routes";
 
 export const UserNickname: FC<{
   onUpdate: (key: "name" | "description", value: string) => void;
