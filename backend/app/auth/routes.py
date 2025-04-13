@@ -16,8 +16,8 @@ def register():
         with DBSessionManager():
             form = RegistrationForm(**request.get_json())
             user = User(username=form.login)
-            user.coins = 1000
-            user.diamonds = 100
+            user.coins = 1000000
+            user.diamonds = 100000
             user.can_change_name = True
             user.set_password(form.password)
             db.session.add(user)
@@ -61,12 +61,19 @@ def login():
                 'cost_diamonds': upgrade.cost_diamonds,
                 'multiplier': upgrade.multiplier
             })
+    user_containers = []
+    for user_container in user.containers:
+        container = user_container.container
+        container_dict = container.to_dict_self()
+        container_dict['quantity'] = user_container.quantity
+        user_containers.append(container_dict)
 
     response = {
         'id': user.id,
         'nickname': user.name,
         'about_me': user.about_me if user.about_me else '',
         'upgrades': user_upgrades,
+        'containers': user_containers,
         'resources': {
             'coins': user.coins,
             'diamonds': user.diamonds

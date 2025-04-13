@@ -4,9 +4,9 @@ from pydantic import ValidationError
 
 from app.main import bp
 from app import jwt, db
-from app.models import User, DailyReward, Upgrade, DBSessionManager, UserUpgrade
+from app.models import User, DailyReward, Upgrade, DBSessionManager, UserUpgrade, Container, UserContainer
 from app.errors import validation_error, default_error
-from .validation import UpgradeForm
+from .validation import UpgradeForm, ContainerForm
 
 
 @jwt.user_lookup_loader
@@ -50,12 +50,19 @@ def check_auth():
                 'cost_diamonds': upgrade.cost_diamonds,
                 'multiplier': upgrade.multiplier
             })
+    user_containers = []
+    for user_container in user.containers:
+        container = user_container.container
+        container_dict = container.to_dict_self()
+        container_dict['quantity'] = user_container.quantity
+        user_containers.append(container_dict)
 
     response = {
         'id': user.id,
         'nickname': user.name,
         'about_me': user.about_me if user.about_me else '',
         'upgrades': user_upgrades,
+        'containers': user_containers,
         'resources': {
             'coins': user.coins,
             'diamonds': user.diamonds
@@ -63,6 +70,7 @@ def check_auth():
         'coins_per_minute': user.base_per_minute,
         'coins_per_click': user.base_per_click
     }
+
     response = make_response(response, 200)
     return response
 
@@ -105,6 +113,40 @@ def upgrades():
                 else:
                     user_upgrade = UserUpgrade(user=user, upgrade=upgrade)
                     db.session.add(user_upgrade)
+
+        response = make_response({'user_coins': user.coins, 'user_diamonds': user.diamonds}, 200)
+        return response
+
+    except ValidationError as e:
+        return validation_error(e)
+    except Exception as e:
+        return default_error(e)
+
+
+@bp.route('/containers', methods=['GET', 'POST'])
+@jwt_required()
+def containers():
+    if request.method == 'GET':
+        response = make_response(Container.to_dict_all(), 200)
+        return response
+    try:
+        with DBSessionManager():
+            form = ContainerForm(**request.get_json())
+            container: Container = Container.query.get(form.id)
+            user = get_current_user()
+
+            if user.coins < form.price_coins or user.diamonds < form.price_diamonds:
+                return jsonify({'errors': [{'msg': 'Not enough coins or diamonds'}]})
+
+            user.coins -= form.price_coins
+            user.diamonds -= form.price_diamonds
+
+            user_container = user.containers.filter_by(container_id=container.id).first()
+            if user_container:
+                user_container.quantity += 1
+            else:
+                user_container = UserContainer(user=user, container=container)
+                db.session.add(user_container)
 
         response = make_response({'user_coins': user.coins, 'user_diamonds': user.diamonds}, 200)
         return response
