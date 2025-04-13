@@ -8,8 +8,8 @@ export const NotificationList = () => {
 
   return (
     <ul className={styles.notif}>
-      {notifications.map((item, index) => {
-        return <Notifications key={index} data={item} />;
+      {notifications.map((item) => {
+        return <Notifications key={item.id} data={item} />;
       })}
     </ul>
   );

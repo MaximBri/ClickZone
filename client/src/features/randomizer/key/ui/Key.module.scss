@@ -1,0 +1,80 @@
+.key {
+  display: flex;
+  flex-direction: column;
+  gap: rem(10);
+  align-items: center;
+  justify-content: center;
+
+  width: rem(290);
+  &__image {
+    width: 100%;
+    max-width: rem(100);
+  }
+  &__name {
+    font-size: rem(20);
+    text-align: center;
+  }
+  &__description {
+    font-size: rem(16);
+    text-align: center;
+  }
+  &__button {
+    display: flex;
+    gap: rem(10);
+    align-items: center;
+
+    padding: rem(10) rem(20);
+    border: 2px solid $border-button;
+    border-radius: 10px;
+
+    font-size: rem(18);
+    font-weight: 600;
+
+    background-color: $button-thertialy;
+    & > img {
+      width: rem(20);
+      height: rem(20);
+      border-radius: 50%;
+      box-shadow: 0px 0px 1px 1px $black-shadow;
+    }
+  }
+}
+
+@media (max-width: 1024px) {
+  .key {
+    width: rem(190);
+    &__image {
+      max-width: rem(80);
+    }
+    &__name {
+      font-size: rem(18);
+    }
+    &__description {
+      font-size: rem(14);
+    }
+    &__button {
+      font-size: rem(16);
+    }
+  }
+}
+
+@media (max-width: 768px) {
+  .key {
+    // gap: rem(10);
+    width: rem(150);
+    &__image {
+      max-width: rem(50);
+    }
+    &__name {
+      font-size: rem(16);
+    }
+    &__button {
+      padding: rem(5) rem(10);
+      font-size: rem(16);
+      & > img {
+        width: rem(15);
+        height: rem(15);
+      }
+    }
+  }
+}

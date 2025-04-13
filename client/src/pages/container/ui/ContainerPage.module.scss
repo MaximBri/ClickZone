@@ -1,0 +1,42 @@
+.container {
+  overflow-x: hidden;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  width: 100%;
+  padding: rem(20) rem(40);
+  &__title {
+    font-size: rem(28);
+    text-align: center;
+  }
+  &__image {
+    width: 50%;
+  }
+  &__nav {
+    display: flex;
+    gap: rem(20);
+    align-items: center;
+    justify-content: center;
+    &-button {
+      display: flex;
+      gap: rem(10);
+      align-items: center;
+
+      padding: rem(20) rem(30);
+      border: 2px solid $button-thertialy;
+      border-radius: 10px;
+
+      font-size: rem(24);
+
+      background-color: $button-active;
+      & > img {
+        width: rem(25);
+        height: rem(25);
+        filter: drop-shadow(0px 1px 2px #000);
+      }
+    }
+  }
+}

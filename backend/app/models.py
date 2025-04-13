@@ -145,6 +145,13 @@ class User(db.Model):
 
     user_achievements: so.Mapped[list[UserAchievement]] = so.relationship(
         back_populates='user',
+        lazy='dynamic',
+        cascade='all, delete-orphan'
+    )
+
+    containers: so.Mapped[list['UserContainer']] = so.relationship(
+        back_populates='user',
+        lazy='dynamic',
         cascade='all, delete-orphan'
     )
 
@@ -210,3 +217,119 @@ class DailyReward(db.Model):
                 data['custom'] = reward.custom
             res.append({'id': reward.id, 'rewards': data})
         return res
+
+    def __repr__(self):
+        return f'<DailyReward: {self.id}>'
+
+
+class Container(db.Model):
+    id: so.Mapped[int] = so.mapped_column(primary_key=True)
+    name: so.Mapped[str] = so.mapped_column(unique=True, nullable=False)
+    image_path: so.Mapped[str] = so.mapped_column(nullable=False)
+    price_coins: so.Mapped[int] = so.mapped_column(default=0)
+    price_diamonds: so.Mapped[int] = so.mapped_column(default=0)
+
+    rewards: so.Mapped[list['ContainerReward']] = so.relationship(
+        back_populates='container', foreign_keys='[ContainerReward.container_id]',
+        cascade='all, delete-orphan')
+
+    user_containers: so.Mapped[list['UserContainer']] = so.relationship(
+        back_populates='container',
+        cascade='all, delete-orphan')
+
+    @classmethod
+    def to_dict_all(cls) -> list[dict]:
+        res = []
+
+        for container in cls.query.all():
+            rewards = []
+            for reward in container.rewards:
+                reward_data = {}
+                if reward.coins is not None:
+                    reward_data['coins'] = reward.coins
+                elif reward.diamonds is not None:
+                    reward_data['diamonds'] = reward.diamonds
+                elif reward.improvement_id:
+                    reward_data['improvement_id'] = reward.improvement_id
+                    reward_data['count'] = reward.count
+                    reward_data['imagePath'] = reward.image_path
+                elif reward.awarded_container_id:
+                    reward_data['container_id'] = reward.awarded_container_id
+                    reward_data['count'] = reward.count
+                    reward_data['imagePath'] = reward.image_path
+                rewards.append(reward_data)
+            res.append({
+                'name': container.name,
+                'imagePath': container.image_path,
+                'price': {'coins': container.price_coins, 'diamonds': container.price_diamonds},
+                'rewards': rewards
+            })
+        return res
+
+    def to_dict_self(self):
+        rewards = []
+        for reward in self.rewards:
+            reward_data = {}
+            if reward.coins is not None:
+                reward_data['coins'] = reward.coins
+            elif reward.diamonds is not None:
+                reward_data['diamonds'] = reward.diamonds
+            elif reward.improvement_id:
+                reward_data['improvement_id'] = reward.improvement_id
+                reward_data['count'] = reward.count
+                reward_data['imagePath'] = reward.image_path
+            elif reward.awarded_container_id:
+                reward_data['container_id'] = reward.awarded_container_id
+                reward_data['count'] = reward.count
+                reward_data['imagePath'] = reward.image_path
+            rewards.append(reward_data)
+        res = {
+            'name': self.name,
+            'imagePath': self.image_path,
+            'price': {'coins': self.price_coins, 'diamonds': self.price_diamonds},
+            'rewards': rewards
+        }
+
+        return res
+
+    def __repr__(self):
+        return f'<Container: {self.name}'
+
+
+class ContainerReward(db.Model):
+    id: so.Mapped[int] = so.mapped_column(primary_key=True)
+    container_id: so.Mapped[int] = so.mapped_column(
+        sa.ForeignKey('container.id', name='fk_containerreward_container'))
+
+    coins: so.Mapped[Optional[int]] = so.mapped_column(nullable=True)
+    diamonds: so.Mapped[Optional[int]] = so.mapped_column(nullable=True)
+    improvement_id: so.Mapped[Optional[int]] = so.mapped_column(
+        sa.ForeignKey('upgrade.id'), name='fk_upgrade_container',
+        nullable=True)
+    awarded_container_id: so.Mapped[Optional[int]] = so.mapped_column(
+        sa.ForeignKey('container.id'), name='fk_awardedcontainer_container',
+        nullable=True)
+    count: so.Mapped[int] = so.mapped_column(default=1)
+    image_path: so.Mapped[Optional[str]] = so.mapped_column(nullable=False)
+
+    container: so.Mapped[Container] = so.relationship(back_populates='rewards', foreign_keys=[container_id])
+    improvement: so.Mapped[Optional[Upgrade]] = so.relationship()
+    awarded_container: so.Mapped[Optional[Container]] = so.relationship(foreign_keys=[awarded_container_id])
+
+    def __repr__(self):
+        return f'<ContainerReward {self.id} for container {self.container_id}>'
+
+
+class UserContainer(db.Model):
+    user_id: so.Mapped[int] = so.mapped_column(sa.ForeignKey('user.id', name='fk_usercontainer_user'),
+                                               primary_key=True)
+    container_id: so.Mapped[int] = so.mapped_column(sa.ForeignKey('container.id', name='fk_usercontainer_container'),
+                                                    primary_key=True)
+
+    quantity: so.Mapped[int] = so.mapped_column(default=1)
+
+    container: so.Mapped[Container] = so.relationship(back_populates='user_containers')
+    user: so.Mapped[User] = so.relationship(back_populates='containers')
+
+    def __repr__(self):
+        return f'<UserContainer {self.user_id}::{self.container_id}>'

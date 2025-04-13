@@ -11,3 +11,16 @@
 
   width: rem(350);
 }
+
+@media(max-width: 1024px){
+  .notif{
+    right: rem(20);
+    bottom: rem(20);
+  }
+}
+
+@media(max-width: 768px){
+  .notif{
+    width: rem(250);
+  }
+}
