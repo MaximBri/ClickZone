@@ -21,7 +21,7 @@ def create_app(config_class=Config):
     migrate.init_app(app, db)
     jwt.init_app(app)
 
-    cors.init_app(app)
+    cors.init_app(app, supports_credentials=True)
 
     @app.errorhandler(InsufficientMoneyError)
     def handle_insufficient_funds(error):
