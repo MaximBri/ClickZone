@@ -24,7 +24,7 @@ jobs:
 
       - name: Build project
         working-directory: ./client
-        run: npm run build
+        run: npm run build:dev
 
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v3
