@@ -1,4 +1,5 @@
-export const DOMAIN = "/ClickZone";
+export const DOMAIN =
+  import.meta.env.MODE === "production" ? "" : "/ClickZone";
 
 export const routes = {
   base: "/",

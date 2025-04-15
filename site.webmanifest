@@ -5,12 +5,12 @@
   "short_name": "ClickZone",
   "icons": [
     {
-      "src": "icon192.png",
+      "src": "/ClickZone/icon192.png",
       "sizes": "192x192",
       "type": "image/png"
     },
     {
-      "src": "icon512.png",
+      "src": "/ClickZone/icon512.png",
       "sizes": "512x512",
       "type": "image/png"
     }
@@ -21,3 +21,4 @@
   "start_url": "/*",
   "scope": "/"
 }
+

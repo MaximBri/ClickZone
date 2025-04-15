@@ -40,7 +40,7 @@ export default defineConfig(({ mode }) => {
         include: ["src/**/*.scss"],
       }),
     ],
-    base: "/ClickZone/",
+    base: isProduction ? "/" : "/ClickZone/",
     build: {
       outDir: "build",
     },
