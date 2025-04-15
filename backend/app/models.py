@@ -259,6 +259,7 @@ class Container(db.Model):
                     reward_data['imagePath'] = reward.image_path
                 rewards.append(reward_data)
             res.append({
+                'id': container.id,
                 'name': container.name,
                 'imagePath': container.image_path,
                 'price': {'coins': container.price_coins, 'diamonds': container.price_diamonds},
