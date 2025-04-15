@@ -25,7 +25,7 @@ def create_app(config_class=Config):
         app,
         supports_credentials=True,
         origins=['https://clickzoneserver.ru',
-                 'http://localhost:5000']
+                 'http://localhost:3000']
     )
 
     @app.errorhandler(InsufficientMoneyError)
