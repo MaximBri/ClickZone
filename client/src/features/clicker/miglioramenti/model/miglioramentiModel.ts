@@ -4,6 +4,7 @@ import { buyMiglioramenti } from "@/entities/user/miglioramenti/thunks/buyMiglio
 import { getMiglioramenti } from "@/entities/user/model/selectors";
 import { notificationManager } from "@/widgets/pop-ups/notifications/model/notificationManager";
 import { addOneUpgrade } from "@/entities/user/model/userSlice";
+import { updateUserFinancesThunk } from "@/entities/user/account/thunks/updateUserFinances.thunk";
 import {
   getMiglioramentiList,
   miglioramentiInterface,
@@ -25,13 +26,24 @@ export const miglioramentiModel = (improvement: miglioramentiInterface) => {
     }
     const coins = store.getState().user.finances.coins;
     if (coins >= improvement.cost) {
-      await dispatch(buyMiglioramenti({ id, cost_coins: improvement.cost }));
-      dispatch(addOneUpgrade(improvement));
-      notificationManager(
-        dispatch,
-        `Куплено улучшение: ${improvement.name}`,
-        "success"
-      );
+      try {
+        const userFinances = store.getState().user.finances;
+        await dispatch(updateUserFinancesThunk(userFinances));
+        await dispatch(buyMiglioramenti({ id, cost_coins: improvement.cost }));
+        dispatch(addOneUpgrade(improvement));
+        notificationManager(
+          dispatch,
+          `Куплено улучшение: ${improvement.name}`,
+          "success"
+        );
+      } catch (error) {
+        console.error(error);
+        notificationManager(
+          dispatch,
+          `Произошла ошибка при покупке улучшения`,
+          "error"
+        );
+      }
     }
   };
   return { buyImprovement, haveThisMiglioramenti };

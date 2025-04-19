@@ -1,4 +1,5 @@
 import { useAppDispatch } from "@/app/store/store";
+import { useNavigate } from "react-router-dom";
 
 import { key } from "../model/containerList";
 import { setTutorial } from "@/widgets/pop-ups/model/popUpsSlice";
@@ -6,14 +7,20 @@ import { randomizePageModel } from "../model/randomizePageModel";
 import { Container } from "@/features/randomizer/container";
 import { OwnContainer } from "@/features/randomizer/own-container";
 import { Key } from "@/features/randomizer/key";
-import { DOMAIN } from "@/shared/config/routes";
+import { DOMAIN, routes } from "@/shared/config/routes";
 import infoSvg from "@/shared/icons/info.svg";
 import styles from "./RandomizePage.module.scss";
 
 export const RandomizePage = () => {
   const dispatch = useAppDispatch();
-  const { userKeys, userContainers, allContainers } =
+  const navigate = useNavigate();
+  const { userKeys, userContainers, allContainers, userAuth } =
     randomizePageModel(dispatch);
+
+  if (userAuth === false) {
+    navigate(routes.base);
+    return null;
+  }
 
   return (
     <section className={styles.containers}>

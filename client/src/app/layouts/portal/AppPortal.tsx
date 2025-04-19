@@ -14,6 +14,7 @@ import {
   getClickerTutorial,
 } from "@/widgets/pop-ups/model/popUpsSlice";
 import { Tutorial } from "@/widgets/pop-ups/tutorial";
+import { DailyReward } from "@/widgets/pop-ups/daily-reward";
 import { clickerTutorialText } from "@/widgets/pop-ups/tutorial/model/clickerTutorialText";
 import { rewardsTutorialText } from "@/widgets/pop-ups/tutorial/model/rewardsTutorialText";
 import { randomizerTutorialText } from "@/widgets/pop-ups/tutorial/model/randomizerTutorialText";
@@ -30,6 +31,10 @@ export const AppPortals = memo(() => {
   const randomizerTutorial = useAppSelector(
     (state) => state.windows.tutorials.randomizer
   );
+  const dailyReward = useAppSelector(
+    (state) => state.dialyRewards.canGetReward
+  );
+  console.log(dailyReward);
 
   return (
     <Portal>
@@ -37,6 +42,7 @@ export const AppPortals = memo(() => {
       {registerWindow && <Register />}
       {notifications.length > 0 && <NotificationList />}
       {improvements && <ClickerImprovements />}
+      {dailyReward && <DailyReward />}
       {clickerTutorial && (
         <Tutorial
           data={{

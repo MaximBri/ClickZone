@@ -1,10 +1,12 @@
 import { AppDispatch } from "@/app/store/store";
+
+import { api } from "@/shared/api/base";
+import { apiRoutes } from "@/shared/config/apiRoutes";
 import { addContainer } from "@/pages/randomizer/model/containtersSlice";
 import { ContainerInterface } from "@/shared/types";
 import { notificationManager } from "@/widgets/pop-ups/notifications/model/notificationManager";
-import { api } from "@/shared/api/base";
-import { apiRoutes } from "@/shared/config/apiRoutes";
 import { setCoins, setDiamonds } from "../model/userSlice";
+import { updateUserFinancesThunk } from "../account/thunks/updateUserFinances.thunk";
 
 export const buyContainer = async (
   dispatch: AppDispatch,
@@ -21,12 +23,12 @@ export const buyContainer = async (
     message: string
   ) => {
     try {
+      await dispatch(updateUserFinancesThunk(userFinances));
       const responce = await api.post(apiRoutes.containers, {
         id: data.id,
-        price_coins: coins,
-        price_diamonds: diamonds,
+        cost_coins: coins,
+        cost_diamonds: diamonds,
       });
-      console.log(responce);
       dispatch(addContainer(data));
       dispatch(setCoins(responce.data.user_coins));
       dispatch(setDiamonds(responce.data.user_diamonds));

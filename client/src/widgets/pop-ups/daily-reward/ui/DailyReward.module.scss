@@ -1,0 +1,53 @@
+.reward {
+  position: absolute;
+  z-index: 200;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+
+  display: flex;
+  flex-direction: column;
+  gap: rem(30);
+  align-items: center;
+
+  width: 40vw;
+  max-height: 80dvh;
+  padding: rem(20);
+  border-radius: 20px;
+
+  background-color: $button;
+  &__background {
+    position: fixed;
+    z-index: 100;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+
+    background-color: $pop-up-background;
+
+    transition: opacity 0.3s;
+  }
+  &__title {
+    font-size: rem(24);
+    text-align: center;
+  }
+  &__button {
+    padding: rem(10) rem(20);
+    font-size: rem(20);
+    text-align: center;
+  }
+  &__reward {
+    display: flex;
+    gap: rem(10);
+    align-items: center;
+    font-size: rem(40);
+  }
+  &__coin {
+    width: rem(50);
+    height: rem(50);
+  }
+  &--hidden {
+    opacity: 0;
+  }
+}

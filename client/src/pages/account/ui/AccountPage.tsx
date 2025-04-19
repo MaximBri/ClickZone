@@ -16,6 +16,7 @@ import {
 } from "@/entities/user/model/selectors";
 import styles from "./AccountPage.module.scss";
 import { UserRewards } from "@/features/user-account/user-rewards";
+import { updateUserFinancesThunk } from "@/entities/user/account/thunks/updateUserFinances.thunk";
 
 export const AccountPage = () => {
   const dispatch = useAppDispatch();
@@ -44,7 +45,8 @@ export const AccountPage = () => {
     errorMessage?: string
   ) => {
     try {
-      dispatch(
+      await dispatch(updateUserFinancesThunk(userFinances));
+      await dispatch(
         changeUserData({
           name: nickname,
           about_me: description,

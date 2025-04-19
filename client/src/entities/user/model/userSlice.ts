@@ -9,6 +9,7 @@ import { checkCoinsCount } from "../account/checkCoinsCount";
 import { changeUserData } from "../account/thunks/changeUserData.thunk";
 import { buyMiglioramenti } from "../miglioramenti/thunks/buyMiglioramenti.thunk";
 import { miglioramentiInterface } from "@/widgets/clicker-shop/model/miglioramentiSlice";
+import { getCurrentRewardThunk } from "../daily-rewards/thunks/getCurrentReward.thunk";
 
 const initialState: userDataInterface = {
   isAuthorized: null,
@@ -157,6 +158,10 @@ const UserSlice = createSlice({
     // Покупка улучшения
     builder.addCase(buyMiglioramenti.fulfilled, (state, action) => {
       state.finances.coins = action.payload.user_coins;
+    });
+    // Обновление ресурсов после получения ежедневной награды
+    builder.addCase(getCurrentRewardThunk.fulfilled, (state, action) => {
+      state.finances = action.payload.user_resources;
     });
   },
 });

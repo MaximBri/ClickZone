@@ -4,20 +4,22 @@ import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 export type tutorialsType = keyof typeof initialState.tutorials;
 
 const initialState: {
+  inProcess: boolean;
   register: boolean;
   auth: boolean;
   improvements: boolean;
-  inProcess: boolean;
+  dailyReward: boolean;
   tutorials: {
     clicker: boolean;
     rewards: boolean;
     randomizer: boolean;
   };
 } = {
+  inProcess: false,
   register: false,
   auth: false,
-  inProcess: false,
   improvements: false,
+  dailyReward: false,
   tutorials: {
     clicker: false,
     rewards: false,
@@ -47,6 +49,9 @@ const WindowsSlice = createSlice({
     setImprovements(state, action: PayloadAction<boolean>) {
       state.improvements = action.payload;
     },
+    setDailyReward(state, action) {
+      state.dailyReward = action.payload;
+    },
   },
 });
 export const getAuthWindow = (state: RootState) => state.windows.auth;
@@ -55,6 +60,8 @@ export const getClickerTutorial = (state: RootState) =>
   state.windows.tutorials.clicker;
 export const getImprovements = (state: RootState) => state.windows.improvements;
 export const getInProcess = (state: RootState) => state.windows.inProcess;
+export const getDailyRewardsPopUp = (state: RootState) =>
+  state.windows.dailyReward;
 
 export const {
   setAuthWindow,
@@ -62,5 +69,6 @@ export const {
   setInProcess,
   setTutorial,
   setImprovements,
+  setDailyReward,
 } = WindowsSlice.actions;
 export default WindowsSlice.reducer;

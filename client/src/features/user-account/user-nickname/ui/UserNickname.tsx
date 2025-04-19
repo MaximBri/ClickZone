@@ -40,7 +40,6 @@ export const UserNickname: FC<{
         placeholder="Никнейм"
         onChange={(e) => onNicknameChange(e.target.value)}
         value={nickname}
-        // disabled
       />
       <span
         className={`${styles["setting__input-length"]} ${

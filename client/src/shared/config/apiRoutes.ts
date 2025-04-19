@@ -14,8 +14,12 @@ export const apiRoutes = {
   getClickerInfo: "me",
   // Daily rewards
   getDailyRewards: "daily-rewards",
+  getDailyRewardsStatus: "daily-rewards/status",
+  getDailyRewardsClaim: "daily-rewards/claim",
   // Upgrades
   upgrades: "upgrades",
   // containers
-  containers: 'containers'
+  containers: "containers",
+  // Globals
+  updateFinaces: "resource-sync",
 };

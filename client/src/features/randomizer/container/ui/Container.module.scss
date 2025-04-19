@@ -10,7 +10,7 @@
   justify-content: space-between;
 
   width: rem(260);
-  max-width: 40vw;
+  max-width: rem(300);
 
   &__name {
     font-size: rem(22);
@@ -39,8 +39,8 @@
     }
   }
   &__nav {
-    overflow: hidden;
     display: flex;
+    gap: rem(15);
     align-items: center;
     justify-content: space-between;
 
@@ -125,30 +125,3 @@
     }
   }
 }
-
-// @media (max-width: 420px) {
-//   .container {
-//     width: rem(170);
-//     max-width: 40vw;
-
-//     &__name {
-//       font-size: rem(16);
-//     }
-//     &__image {
-//       max-width: rem(100);
-//     }
-//     &__buy {
-//       font-size: rem(14);
-//     }
-//     &__nav {
-//       font-size: rem(14);
-
-//       &-button {
-//         & > img {
-//           width: rem(10);
-//           height: rem(10);
-//         }
-//       }
-//     }
-//   }
-// }

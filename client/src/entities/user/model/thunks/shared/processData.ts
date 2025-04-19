@@ -1,7 +1,6 @@
 import { userDataInterface } from "@/shared/types";
 
 export const processUserData = (state: userDataInterface, payloadData: any) => {
-  console.log(payloadData)
   state.isAuthorized = true;
   state.flags.clickerData = true;
 
@@ -15,22 +14,15 @@ export const processUserData = (state: userDataInterface, payloadData: any) => {
   state.coinsOnClick = payloadData.coins_per_click;
   state.coinsPerMinute = payloadData.coins_per_minute;
 
-  const upgrades = payloadData.upgrades.map((item: any) => {
+  state.clicker.upgrades = payloadData.upgrades.map((item: any) => {
     return {
       id: item.id,
       name: item.name,
       description: item.description,
       cost: item.cost_coins,
-      isInfinite: item.type === 'permanent',
+      isInfinite: item.type === "permanent",
       count: item.quantity,
       imagePath: item.image_path,
     };
   });
-  state.clicker.upgrades = upgrades;
-
-  const container = payloadData.containers.map((item: any) => {
-    return {
-      id: item.id
-    }
-  })
 };

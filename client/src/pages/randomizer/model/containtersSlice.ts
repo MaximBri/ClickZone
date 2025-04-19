@@ -1,4 +1,5 @@
 import { getContainers } from "@/entities/user/containers/thunks/getContainers.thunk";
+import { fetchClickerData, loginUser } from "@/entities/user/model/thunks";
 import { ContainerInterface, ContainerSliceInterface } from "@/shared/types";
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
@@ -10,6 +11,26 @@ const initialState: {
   data: [],
   keys: 0,
   allContainers: [],
+};
+
+const setContainersData = (
+  state: {
+    data: ContainerSliceInterface[];
+    keys: number;
+    allContainers: ContainerInterface[];
+  },
+  data: any
+) => {
+  state.data = data.map((item: any) => {
+    return {
+      id: item.id,
+      name: item.name,
+      imagePath: item.imagePath,
+      price: item.price,
+      rewards: item.rewards,
+      count: item.quantity,
+    };
+  });
 };
 
 const containersSlice = createSlice({
@@ -40,6 +61,12 @@ const containersSlice = createSlice({
   extraReducers(builder) {
     builder.addCase(getContainers.fulfilled, (state, action) => {
       state.allContainers = action.payload;
+    });
+    builder.addCase(fetchClickerData.fulfilled, (state, action) => {
+      setContainersData(state, action.payload.containers);
+    });
+    builder.addCase(loginUser.fulfilled, (state, action) => {
+      setContainersData(state, action.payload.containers);
     });
   },
 });

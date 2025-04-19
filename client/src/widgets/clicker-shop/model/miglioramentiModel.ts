@@ -31,7 +31,7 @@ export const miglioramentiModel = () => {
   };
 
   useEffect(() => {
-    if (!miglioramenti.length) {
+    if (!miglioramenti.length && isAuthorized) {
       getMiglioramentiFromApi();
     }
   }, [miglioramenti]);
