@@ -7,6 +7,7 @@ import coinSvg from "/images/resources/coin.svg";
 import diamondSvg from "/images/resources/diamond.svg";
 import styles from "./ContainerPage.module.scss";
 import { getFinances } from "@/entities/user/model/selectors";
+import { getContainers } from "@/entities/user/containers/thunks/getContainers.thunk";
 
 export const ContainerPage = () => {
   const params = useParams();
@@ -20,10 +21,16 @@ export const ContainerPage = () => {
     (item) => item.imagePath == `${params.type}.png`
   );
 
-  console.log(container?.rewards);
+  if (!container && containerList.length) {
+    navigate(routes.pages.randomizer);
+    return null;
+  }
+
+  if (!containerList.length) {
+    dispatch(getContainers());
+  }
 
   if (!container) {
-    navigate(routes.pages.randomizer);
     return null;
   }
 
@@ -35,6 +42,7 @@ export const ContainerPage = () => {
         src={`${DOMAIN}/images/containers/${container?.imagePath}`}
         alt="container"
       />
+      <h3 className={styles.container__subtitle}>Купить:</h3>
       <nav className={styles.container__nav}>
         <button
           onClick={() => buyContainer(dispatch, userFinances, container, true)}
@@ -42,6 +50,7 @@ export const ContainerPage = () => {
         >
           {container.price.coins} <img src={coinSvg} alt="coin" />
         </button>
+        или
         <button
           onClick={() => buyContainer(dispatch, userFinances, container, false)}
           className={styles["container__nav-button"]}
@@ -58,7 +67,7 @@ export const ContainerPage = () => {
                 <>
                   {item.coins}
                   <img
-                    className={styles["container__item-diamond"]}
+                    className={styles["container__item-coin"]}
                     src={coinSvg}
                     alt="coin"
                   />
@@ -76,6 +85,9 @@ export const ContainerPage = () => {
               )}
               {item.improvement_id && (
                 <>
+                  <h4 className={styles["container__item-count"]}>
+                    x{item.count}
+                  </h4>
                   <img
                     className={styles["container__item-container"]}
                     src={`${DOMAIN}/images/${item.imagePath}`}
@@ -85,7 +97,9 @@ export const ContainerPage = () => {
               )}
               {item.container_id && (
                 <>
-                  {item.count}
+                  <h4 className={styles["container__item-count"]}>
+                    x{item.count}
+                  </h4>
                   <img
                     className={styles["container__item-container"]}
                     src={`${DOMAIN}/images/${item.imagePath}`}
