@@ -16,6 +16,14 @@ export const Container: FC<{ data: ContainerInterface }> = ({ data }) => {
   const navigate = useNavigate();
   const userFinances = useAppSelector(getFinances);
 
+  const preparePrice = (num: number) => {
+    let res = "";
+    if (num % 1000 === 0) {
+      res = num / 1000 + "K";
+    } else return num;
+    return res;
+  };
+
   return (
     <li className={styles.container}>
       <img
@@ -32,18 +40,21 @@ export const Container: FC<{ data: ContainerInterface }> = ({ data }) => {
         <img src={infoSvg} alt="info" />
       </button>
       <h3 className={styles.container__name}>{data.name}</h3>
+      <h4 className={styles.container__buy}>Купить:</h4>
       <nav className={styles.container__nav}>
         <button
           onClick={() => buyContainer(dispatch, userFinances, data, true)}
           className={styles["container__nav-button"]}
         >
-          {data.price.coins} <img src={coinSvg} alt="coin" />
+          {preparePrice(data.price.coins)} <img src={coinSvg} alt="coin" />
         </button>
+        или
         <button
           onClick={() => buyContainer(dispatch, userFinances, data, false)}
           className={styles["container__nav-button"]}
         >
-          {data.price.diamonds} <img src={diamondSvg} alt="coin" />
+          {preparePrice(data.price.diamonds)}{" "}
+          <img src={diamondSvg} alt="coin" />
         </button>
       </nav>
     </li>

@@ -68,22 +68,21 @@ export interface ContainerSliceInterface extends ContainerInterface {
   count: number;
 }
 export interface ContainerInterface {
+  id: number;
   name: string;
   imagePath: string;
   price: {
     coins: number;
     diamonds: number;
   };
-  rewards: RewardTuple[];
+  rewards: RewardInterface[];
 }
 
-export type RewardType =
-  | { coins: number }
-  | { diamonds: number }
-  | { improvement_id: number; imagePath: string; count: number }
-  | { container_id: number; imagePath: string; count: number };
-
-export type RewardTuple =
-  | [RewardType]
-  | [RewardType, RewardType]
-  | [RewardType, RewardType, RewardType];
+export interface RewardInterface {
+  coins?: number;
+  count?: number;
+  imagePath?: string;
+  improvement_id?: number;
+  diamonds?: number;
+  container_id?: number;
+}

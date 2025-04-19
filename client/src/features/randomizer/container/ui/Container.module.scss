@@ -9,11 +9,16 @@
   align-self: stretch;
   justify-content: space-between;
 
-  width: rem(250);
+  width: rem(260);
   max-width: 40vw;
 
   &__name {
-    font-size: rem(18);
+    font-size: rem(22);
+    text-align: center;
+  }
+  &__buy {
+    font-size: rem(20);
+    font-weight: 600;
     text-align: center;
   }
   &__image {
@@ -34,12 +39,18 @@
     }
   }
   &__nav {
+    overflow: hidden;
     display: flex;
-    gap: rem(20);
     align-items: center;
-    justify-content: center;
+    justify-content: space-between;
+
+    width: 100%;
+    max-width: 100%;
+
+    font-size: rem(20);
     &-button {
       display: flex;
+      flex-shrink: 1;
       gap: rem(10);
       align-items: center;
 
@@ -62,27 +73,35 @@
 @media (max-width: 1024px) {
   .container {
     gap: rem(10);
-    width: rem(200);
+    width: rem(250);
 
     &__name {
+      font-size: rem(20);
+    }
+    &__buy {
       font-size: rem(18);
     }
     &__image {
       max-width: rem(300);
+    }
+    &__nav {
+      gap: rem(10);
     }
   }
 }
 
 @media (max-width: 768px) {
   .container {
-    width: rem(130);
-    max-width: 40vw;
-
+    flex-grow: 0;
+    min-width: rem(160);
     &__name {
       font-size: rem(16);
     }
     &__image {
       max-width: rem(180);
+    }
+    &__buy {
+      font-size: rem(16);
     }
     &__info {
       width: rem(20);
@@ -90,13 +109,14 @@
     }
     &__nav {
       gap: rem(5);
-      justify-content: space-around;
+      justify-content: center;
       width: 100%;
+      font-size: rem(16);
 
       &-button {
-        gap: rem(10);
-        padding: rem(5) rem(10);
-        font-size: rem(16);
+        gap: rem(5);
+        padding: rem(5);
+        font-size: rem(14);
         & > img {
           width: rem(15);
           height: rem(15);
@@ -105,3 +125,30 @@
     }
   }
 }
+
+// @media (max-width: 420px) {
+//   .container {
+//     width: rem(170);
+//     max-width: 40vw;
+
+//     &__name {
+//       font-size: rem(16);
+//     }
+//     &__image {
+//       max-width: rem(100);
+//     }
+//     &__buy {
+//       font-size: rem(14);
+//     }
+//     &__nav {
+//       font-size: rem(14);
+
+//       &-button {
+//         & > img {
+//           width: rem(10);
+//           height: rem(10);
+//         }
+//       }
+//     }
+//   }
+// }

@@ -8,7 +8,6 @@ import StylelintPlugin from "vite-plugin-stylelint";
 export default defineConfig(({ mode }) => {
   const env = loadEnv(mode, process.cwd(), "");
   const isProduction = mode === "production";
-  console.log(env.VITE_API_URL, isProduction);
 
   return {
     plugins: [

@@ -1,6 +1,7 @@
 import { userDataInterface } from "@/shared/types";
 
 export const processUserData = (state: userDataInterface, payloadData: any) => {
+  console.log(payloadData)
   state.isAuthorized = true;
   state.flags.clickerData = true;
 
@@ -26,4 +27,10 @@ export const processUserData = (state: userDataInterface, payloadData: any) => {
     };
   });
   state.clicker.upgrades = upgrades;
+
+  const container = payloadData.containers.map((item: any) => {
+    return {
+      id: item.id
+    }
+  })
 };
