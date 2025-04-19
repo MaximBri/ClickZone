@@ -4,7 +4,6 @@ import axios from "axios";
 export const CSRF_TOKEN = "csrf_access_token";
 
 const baseURL = import.meta.env.VITE_API_URL;
-console.log(baseURL, import.meta.env);
 
 export const api = axios.create({
   baseURL: import.meta.env.MODE === "production" ? baseURL : "/api",

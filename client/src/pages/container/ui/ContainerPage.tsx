@@ -1,7 +1,6 @@
 import { useNavigate, useParams } from "react-router-dom";
 import { useAppDispatch, useAppSelector } from "@/app/store/store";
 
-import { containerList } from "@/pages/randomizer/model/containerList";
 import { DOMAIN, routes } from "@/shared/config/routes";
 import { buyContainer } from "@/entities/user/containers/buyContainer";
 import coinSvg from "/images/resources/coin.svg";
@@ -14,9 +13,14 @@ export const ContainerPage = () => {
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
   const userFinances = useAppSelector(getFinances);
+  const containerList = useAppSelector(
+    (state) => state.containers.allContainers
+  );
   const container = containerList.find(
     (item) => item.imagePath == `${params.type}.png`
   );
+
+  console.log(container?.rewards);
 
   if (!container) {
     navigate(routes.pages.randomizer);
@@ -45,10 +49,52 @@ export const ContainerPage = () => {
           {container.price.diamonds} <img src={diamondSvg} alt="coin" />
         </button>
       </nav>
-      <ul>
+      <h3 className={styles.container__title}>Что может выпасть:</h3>
+      <ul className={styles.container__list}>
         {container.rewards.map((item) => {
-          console.log(item);
-          return <li></li>;
+          return (
+            <li className={styles.container__item}>
+              {item.coins && (
+                <>
+                  {item.coins}
+                  <img
+                    className={styles["container__item-diamond"]}
+                    src={coinSvg}
+                    alt="coin"
+                  />
+                </>
+              )}
+              {item.diamonds && (
+                <>
+                  {item.diamonds}
+                  <img
+                    className={styles["container__item-diamond"]}
+                    src={diamondSvg}
+                    alt="diamond"
+                  />
+                </>
+              )}
+              {item.improvement_id && (
+                <>
+                  <img
+                    className={styles["container__item-container"]}
+                    src={`${DOMAIN}/images/${item.imagePath}`}
+                    alt="improvement"
+                  />
+                </>
+              )}
+              {item.container_id && (
+                <>
+                  {item.count}
+                  <img
+                    className={styles["container__item-container"]}
+                    src={`${DOMAIN}/images/${item.imagePath}`}
+                    alt="container"
+                  />
+                </>
+              )}
+            </li>
+          );
         })}
       </ul>
     </section>

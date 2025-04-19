@@ -16,4 +16,6 @@ export const apiRoutes = {
   getDailyRewards: "daily-rewards",
   // Upgrades
   upgrades: "upgrades",
+  // containers
+  containers: 'containers'
 };

@@ -1,12 +1,15 @@
+import { getContainers } from "@/entities/user/containers/thunks/getContainers.thunk";
 import { ContainerInterface, ContainerSliceInterface } from "@/shared/types";
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 const initialState: {
   data: ContainerSliceInterface[];
   keys: number;
+  allContainers: ContainerInterface[];
 } = {
   data: [],
   keys: 0,
+  allContainers: [],
 };
 
 const containersSlice = createSlice({
@@ -30,10 +33,22 @@ const containersSlice = createSlice({
     setContainerKeys: (state, action: PayloadAction<number>) => {
       state.keys = action.payload;
     },
+    setAllContainers: (state, action: PayloadAction<ContainerInterface[]>) => {
+      state.allContainers = action.payload;
+    },
+  },
+  extraReducers(builder) {
+    builder.addCase(getContainers.fulfilled, (state, action) => {
+      state.allContainers = action.payload;
+    });
   },
 });
 
-export const { setContainers, addContainer, setContainerKeys } =
-  containersSlice.actions;
+export const {
+  setContainers,
+  addContainer,
+  setContainerKeys,
+  setAllContainers,
+} = containersSlice.actions;
 
 export default containersSlice.reducer;
