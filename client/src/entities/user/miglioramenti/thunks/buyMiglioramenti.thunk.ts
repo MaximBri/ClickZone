@@ -9,7 +9,6 @@ export const buyMiglioramenti = createAsyncThunk(
       ...credentials,
       cost_diamonds: 0,
     });
-    console.log(response.data);
     return response.data;
   }
 );

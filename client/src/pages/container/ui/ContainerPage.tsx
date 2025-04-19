@@ -8,6 +8,7 @@ import diamondSvg from "/images/resources/diamond.svg";
 import styles from "./ContainerPage.module.scss";
 import { getFinances } from "@/entities/user/model/selectors";
 import { getContainers } from "@/entities/user/containers/thunks/getContainers.thunk";
+import { useEffect } from "react";
 
 export const ContainerPage = () => {
   const params = useParams();
@@ -17,17 +18,20 @@ export const ContainerPage = () => {
   const containerList = useAppSelector(
     (state) => state.containers.allContainers
   );
+
   const container = containerList.find(
     (item) => item.imagePath == `${params.type}.png`
   );
 
+  useEffect(() => {
+    if (!containerList.length) {
+      dispatch(getContainers());
+    }
+  }, [containerList, container]);
+
   if (!container && containerList.length) {
     navigate(routes.pages.randomizer);
     return null;
-  }
-
-  if (!containerList.length) {
-    dispatch(getContainers());
   }
 
   if (!container) {
@@ -60,9 +64,9 @@ export const ContainerPage = () => {
       </nav>
       <h3 className={styles.container__title}>Что может выпасть:</h3>
       <ul className={styles.container__list}>
-        {container.rewards.map((item) => {
+        {container.rewards.map((item, index) => {
           return (
-            <li className={styles.container__item}>
+            <li className={styles.container__item} key={index}>
               {item.coins && (
                 <>
                   {item.coins}
