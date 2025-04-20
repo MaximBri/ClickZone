@@ -62,7 +62,11 @@ export const DailyReward = memo(() => {
           {currentReward.diamonds && (
             <>
               {currentReward.diamonds}
-              <img src={diamondsSvg} alt="coin"></img>
+              <img
+                className={styles.reward__coin}
+                src={diamondsSvg}
+                alt="coin"
+              ></img>
             </>
           )}
         </div>

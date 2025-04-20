@@ -1,4 +1,4 @@
-import { AppDispatch, useAppSelector } from "@/app/store/store";
+import { AppDispatch, store, useAppSelector } from "@/app/store/store";
 import { useLocation, useNavigate } from "react-router-dom";
 import { useAuthInterceptor } from "@/shared/api/useAuthInterceptor";
 import { useEffect } from "react";
@@ -11,7 +11,6 @@ import { getDailyRewardsThunk } from "@/entities/user/daily-rewards/thunks/getDa
 import { updateUserFinancesThunk } from "@/entities/user/account/thunks/updateUserFinances.thunk";
 import { useSyncOnUnload } from "@/entities/user/useSyncOnUnload";
 import {
-  getFinances,
   getIsAuthorized,
   getUserFlags,
   userInfoIsLoaded,
@@ -23,19 +22,28 @@ export const mainLayoutModel = (dispatch: AppDispatch) => {
   const isAuthorized = useAppSelector(getIsAuthorized);
   const loadingFlags = useAppSelector(getUserFlags);
   const isLoadedClickerData = useAppSelector(userInfoIsLoaded);
-  const userFinances = useAppSelector(getFinances);
 
-  useSyncOnUnload()
+  useSyncOnUnload();
   useAuthInterceptor();
   useEffect(() => {
     dispatch(fetchClickerData());
-    dispatch(getDailyRewardsThunk());
-    dispatch(getCurrentRewardsDayThunk());
-    if(isAuthorized){
-      setInterval(() => {
-        if (isAuthorized) dispatch(updateUserFinancesThunk(userFinances));
-      }, 3 * 1000);
+
+    let sync: any;
+
+    if (isAuthorized) {
+      dispatch(getDailyRewardsThunk());
+      dispatch(getCurrentRewardsDayThunk());
+      sync = setInterval(() => {
+        const finances = store.getState().user.finances;
+        dispatch(updateUserFinancesThunk(finances));
+      }, 3000);
     }
+
+    return () => {
+      if (sync) {
+        clearInterval(sync);
+      }
+    };
   }, [isAuthorized]);
 
   useEffect(() => {

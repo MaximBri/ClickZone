@@ -6,7 +6,6 @@ export const updateUserFinancesThunk = createAsyncThunk(
   "updateUserFinances",
   async (credentials: { coins: number; diamonds: number }) => {
     const responce = await api.post(apiRoutes.updateFinaces, credentials);
-    console.log(responce.data);
     return responce.data;
   }
 );

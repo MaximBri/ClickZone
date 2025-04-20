@@ -47,6 +47,15 @@
     width: rem(50);
     height: rem(50);
   }
+  &__button {
+    padding: rem(10) rem(20);
+    border: 2px solid $border-button;
+    border-radius: 10px;
+
+    font-weight: 600;
+
+    background-color: $button-thertialy;
+  }
   &--hidden {
     opacity: 0;
   }

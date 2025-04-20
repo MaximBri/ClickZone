@@ -34,7 +34,7 @@ export const miglioramentiModel = () => {
     if (!miglioramenti.length && isAuthorized) {
       getMiglioramentiFromApi();
     }
-  }, [miglioramenti]);
+  }, [miglioramenti, isAuthorized]);
 
   return { userCoins, isAuthorized, miglioramenti };
 };
