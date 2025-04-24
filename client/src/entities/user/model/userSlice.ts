@@ -69,12 +69,21 @@ const UserSlice = createSlice({
     },
     setCoinsOnClick(state, action: PayloadAction<number>) {
       state.coinsOnClick = action.payload;
+      state.coinsPerMinute = action.payload * 60;
+    },
+    addCoinsOnClick(state, action: PayloadAction<number>) {
+      state.coinsPerMinute = (state.coinsOnClick + action.payload) * 60;
+      state.coinsOnClick += action.payload;
+    },
+    multiplyCoinsOnClick(state, action: PayloadAction<number>) {
+      state.coinsPerMinute = state.coinsOnClick * action.payload * 60;
+      state.coinsOnClick *= action.payload;
     },
     setDiamonds(state, action: PayloadAction<number>) {
       state.finances.diamonds = action.payload;
     },
-    setCoinsPerMinute(state, action: PayloadAction<number>) {
-      state.coinsPerMinute = action.payload;
+    setCoinsPerMinute(state) {
+      state.coinsPerMinute = state.coinsOnClick * 60;
     },
     // Account
     setDescription(state, action: PayloadAction<string>) {
@@ -175,7 +184,9 @@ export const {
   setLevel,
   setDiamonds,
   setDescription,
+  addCoinsOnClick,
   setCoinsOnClick,
+  multiplyCoinsOnClick,
   setNickname,
   setId,
   addOneUpgrade,

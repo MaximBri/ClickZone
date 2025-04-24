@@ -22,4 +22,6 @@ export const apiRoutes = {
   containers: "containers",
   // Globals
   updateFinaces: "resource-sync",
+  // Miglioramenti
+  activateMiglioramenti: "activate-upgrade",
 };

@@ -3,8 +3,14 @@ import { store, useAppDispatch, useAppSelector } from "@/app/store/store";
 import { buyMiglioramenti } from "@/entities/user/miglioramenti/thunks/buyMiglioramenti.thunk";
 import { getMiglioramenti } from "@/entities/user/model/selectors";
 import { notificationManager } from "@/widgets/pop-ups/notifications/model/notificationManager";
-import { addOneUpgrade } from "@/entities/user/model/userSlice";
 import { updateUserFinancesThunk } from "@/entities/user/account/thunks/updateUserFinances.thunk";
+import { activateMiglioramentiThunk } from "@/entities/user/miglioramenti/thunks/activateMiglioramentiThunk";
+import {
+  addCoinsOnClick,
+  addOneUpgrade,
+  multiplyCoinsOnClick,
+  setCoinsPerMinute,
+} from "@/entities/user/model/userSlice";
 import {
   getMiglioramentiList,
   miglioramentiInterface,
@@ -36,6 +42,26 @@ export const miglioramentiModel = (improvement: miglioramentiInterface) => {
           `Куплено улучшение: ${improvement.name}`,
           "success"
         );
+        if (improvement.isInfinite) {
+          dispatch(activateMiglioramentiThunk(id));
+          if (improvement.id === 9) {
+            dispatch(addCoinsOnClick(1));
+          } else if (improvement.id === 10) {
+            dispatch(addCoinsOnClick(2));
+          } else if (improvement.id === 11) {
+            dispatch(addCoinsOnClick(5));
+          } else if (improvement.id === 12) {
+            dispatch(addCoinsOnClick(10));
+          } else if (improvement.id === 13) {
+            dispatch(addCoinsOnClick(20));
+          } else if (improvement.id === 14) {
+            dispatch(setCoinsPerMinute());
+          } else if (improvement.id === 15) {
+            dispatch(multiplyCoinsOnClick(2));
+          } else if (improvement.id === 16) {
+            dispatch(multiplyCoinsOnClick(3));
+          }
+        }
       } catch (error) {
         console.error(error);
         notificationManager(

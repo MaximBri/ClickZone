@@ -1,20 +1,17 @@
 import { userDataInterface } from "@/shared/types";
+import { findAwardAndSetHasAchievement } from "./findAwardAndSetHasAchievement";
 
-export const checkCoinsCount = (state: userDataInterface, coins: number,) => {
-  const findAwardAndSetHasAchievement = (id: number) => {
-    const award = state.globals.achievements.find((item) => item.id === id);
-    if (award) {
-      award.has_achievement = true;
-    }
-  };
+export const checkCoinsCount = (state: userDataInterface, coins: number) => {
   const newbie = 1000;
   const millioner = 1_000_000;
   const billioner = 1_000_000_000;
+  if (coins >= billioner) {
+    findAwardAndSetHasAchievement(state, 3);
+  }
+  if (coins >= millioner) {
+    findAwardAndSetHasAchievement(state, 2);
+  }
   if (coins >= newbie) {
-    findAwardAndSetHasAchievement(1);
-  } else if (coins >= millioner) {
-    findAwardAndSetHasAchievement(2);
-  } else if (coins >= billioner) {
-    findAwardAndSetHasAchievement(3);
+    findAwardAndSetHasAchievement(state, 1);
   }
 };
