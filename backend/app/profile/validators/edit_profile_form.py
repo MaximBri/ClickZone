@@ -13,8 +13,8 @@ class EditProfileForm(BaseModel):
     about_me: str = Field(...)
     nickname_price: dict[str, int] = Field()
 
-    @classmethod
     @field_validator('name')
+    @classmethod
     def validate_name(cls, value):
         user = db.session.scalar(
             sa.select(User).where(User.name == value)
@@ -24,8 +24,8 @@ class EditProfileForm(BaseModel):
                 raise ValueError('Имя занято')
         return value
 
-    @classmethod
     @field_validator('nickname_price')
+    @classmethod
     def validate_nickname_price(cls, value: dict[str, int]):
         nickname_price = get_current_user().nickname_change_cost
         if nickname_price == value:

@@ -23,7 +23,7 @@ def upgrade():
     sa.Column('name', sa.String(length=128), nullable=False),
     sa.Column('description', sa.String(length=256), nullable=False),
     sa.Column('upgrade_type', sa.Enum('consumable', 'permanent', name='upgrade_type'), nullable=False),
-    sa.Column('effect_type', sa.Enum('click', 'income', name='effect_type'), nullable=False),
+    sa.Column('effect_type', sa.Enum('click', 'income', 'other', name='effect_type'), nullable=False),
     sa.Column('cost_coins', sa.Integer(), nullable=False),
     sa.Column('cost_diamonds', sa.Integer(), nullable=False),
     sa.Column('multiplier', sa.Integer(), nullable=False),
