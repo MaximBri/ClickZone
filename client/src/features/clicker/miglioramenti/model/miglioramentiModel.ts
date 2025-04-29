@@ -4,7 +4,6 @@ import { buyMiglioramenti } from "@/entities/user/miglioramenti/thunks/buyMiglio
 import { getMiglioramenti } from "@/entities/user/model/selectors";
 import { notificationManager } from "@/widgets/pop-ups/notifications/model/notificationManager";
 import { updateUserFinancesThunk } from "@/entities/user/account/thunks/updateUserFinances.thunk";
-import { activateMiglioramentiThunk } from "@/entities/user/miglioramenti/thunks/activateMiglioramentiThunk";
 import {
   addCoinsOnClick,
   addOneUpgrade,
@@ -15,6 +14,7 @@ import {
   getMiglioramentiList,
   miglioramentiInterface,
 } from "@/widgets/clicker-shop/model/miglioramentiSlice";
+import { activateMiglioramentiThunk } from "@/entities/user/miglioramenti/thunks/activateMiglioramentiThunk";
 
 export const miglioramentiModel = (improvement: miglioramentiInterface) => {
   const dispatch = useAppDispatch();

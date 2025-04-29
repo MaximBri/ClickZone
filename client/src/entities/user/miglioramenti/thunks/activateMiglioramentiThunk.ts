@@ -5,7 +5,7 @@ import { createAsyncThunk } from "@reduxjs/toolkit";
 export const activateMiglioramentiThunk = createAsyncThunk(
   "activateMiglioramenti",
   async (id: number) => {
-    const responce = await api.post(apiRoutes.activateMiglioramenti, { id });
-    return responce.data;
+    const response = await api.post(apiRoutes.activateMiglioramenti, { id });
+    return response.data;
   }
 );

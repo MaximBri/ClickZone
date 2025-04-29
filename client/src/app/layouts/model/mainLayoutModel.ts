@@ -15,7 +15,6 @@ import {
   getUserFlags,
   userInfoIsLoaded,
 } from "@/entities/user/model/selectors";
-import { getMiglioramentiList } from "@/widgets/clicker-shop/model/miglioramentiSlice";
 
 export const mainLayoutModel = (dispatch: AppDispatch) => {
   const location = useLocation();
@@ -23,9 +22,6 @@ export const mainLayoutModel = (dispatch: AppDispatch) => {
   const isAuthorized = useAppSelector(getIsAuthorized);
   const loadingFlags = useAppSelector(getUserFlags);
   const isLoadedClickerData = useAppSelector(userInfoIsLoaded);
-
-  const migl = useAppSelector(getMiglioramentiList)
-  console.log(migl)
 
   useSyncOnUnload();
   useAuthInterceptor();

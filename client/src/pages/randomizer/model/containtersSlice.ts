@@ -7,10 +7,12 @@ const initialState: {
   data: ContainerSliceInterface[];
   keys: number;
   allContainers: ContainerInterface[];
+  activeContainer: ContainerInterface | null;
 } = {
   data: [],
   keys: 0,
   allContainers: [],
+  activeContainer: null,
 };
 
 const setContainersData = (
@@ -57,6 +59,9 @@ const containersSlice = createSlice({
     setAllContainers: (state, action: PayloadAction<ContainerInterface[]>) => {
       state.allContainers = action.payload;
     },
+    setActiveContainer: (state, action: PayloadAction<ContainerInterface | null>) => {
+      state.activeContainer = action.payload;
+    },
   },
   extraReducers(builder) {
     builder.addCase(getContainers.fulfilled, (state, action) => {
@@ -76,6 +81,7 @@ export const {
   addContainer,
   setContainerKeys,
   setAllContainers,
+  setActiveContainer,
 } = containersSlice.actions;
 
 export default containersSlice.reducer;

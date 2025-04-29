@@ -10,6 +10,7 @@ import { changeUserData } from "../account/thunks/changeUserData.thunk";
 import { buyMiglioramenti } from "../miglioramenti/thunks/buyMiglioramenti.thunk";
 import { miglioramentiInterface } from "@/widgets/clicker-shop/model/miglioramentiSlice";
 import { getCurrentRewardThunk } from "../daily-rewards/thunks/getCurrentReward.thunk";
+import { activateMiglioramentiThunk } from "../miglioramenti/thunks/activateMiglioramentiThunk";
 
 const initialState: userDataInterface = {
   isAuthorized: null,
@@ -112,6 +113,23 @@ const UserSlice = createSlice({
         state.clicker.upgrades.push({ ...action.payload, count: 1 });
       }
     },
+    removeOneUpgrade(state, action: PayloadAction<number>) {
+      const improvementId = state.clicker.upgrades.findIndex(
+        (item) => item.id === action.payload
+      );
+      if (improvementId !== undefined) {
+        const count = state.clicker.upgrades[improvementId].count;
+        if (count === 1) {
+          state.clicker.upgrades = state.clicker.upgrades.filter(
+            (item) => item.id !== action.payload
+          );
+        } else {
+          state.clicker.upgrades[improvementId].count--;
+        }
+      } else {
+        console.error("Не найдено улучшения с id = ", action.payload);
+      }
+    },
   },
   extraReducers: (builder) => {
     // Получение данных о кликере
@@ -172,6 +190,13 @@ const UserSlice = createSlice({
     builder.addCase(getCurrentRewardThunk.fulfilled, (state, action) => {
       state.finances = action.payload.user_resources;
     });
+    builder.addCase(activateMiglioramentiThunk.fulfilled, (state, action) => {
+      console.log(action.payload);
+      state.finances = {
+        coins: action.payload.user_coins,
+        diamonds: action.payload.user_diamonds,
+      };
+    });
   },
 });
 
@@ -191,6 +216,7 @@ export const {
   setId,
   addOneUpgrade,
   setUpgrades,
+  removeOneUpgrade,
 } = UserSlice.actions;
 
 export default UserSlice.reducer;

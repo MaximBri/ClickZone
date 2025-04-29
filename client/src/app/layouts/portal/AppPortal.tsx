@@ -7,17 +7,19 @@ import { Auth } from "@/widgets/pop-ups/auth/Auth";
 import { getNotifications } from "@/widgets/pop-ups/notifications/model/notificationSlice";
 import { NotificationList } from "@/widgets/pop-ups/notifications";
 import { ClickerImprovements } from "@/widgets/pop-ups/clicker-improvements";
+import { Tutorial } from "@/widgets/pop-ups/tutorial";
+import { DailyReward } from "@/widgets/pop-ups/daily-reward";
+import { clickerTutorialText } from "@/widgets/pop-ups/tutorial/model/clickerTutorialText";
+import { rewardsTutorialText } from "@/widgets/pop-ups/tutorial/model/rewardsTutorialText";
+import { randomizerTutorialText } from "@/widgets/pop-ups/tutorial/model/randomizerTutorialText";
+import { MiglioramentiClick } from "@/widgets/pop-ups/miglioramenti-click";
 import {
   getAuthWindow,
   getImprovements,
   getRegisterWindow,
   getClickerTutorial,
 } from "@/widgets/pop-ups/model/popUpsSlice";
-import { Tutorial } from "@/widgets/pop-ups/tutorial";
-import { DailyReward } from "@/widgets/pop-ups/daily-reward";
-import { clickerTutorialText } from "@/widgets/pop-ups/tutorial/model/clickerTutorialText";
-import { rewardsTutorialText } from "@/widgets/pop-ups/tutorial/model/rewardsTutorialText";
-import { randomizerTutorialText } from "@/widgets/pop-ups/tutorial/model/randomizerTutorialText";
+import { ContainerActivate } from "@/widgets/pop-ups/container-activate";
 
 export const AppPortals = memo(() => {
   const authWindow = useAppSelector(getAuthWindow);
@@ -25,6 +27,12 @@ export const AppPortals = memo(() => {
   const notifications = useAppSelector(getNotifications);
   const improvements = useAppSelector(getImprovements);
   const clickerTutorial = useAppSelector(getClickerTutorial);
+  const containerActivate = useAppSelector(
+    (state) => state.containers.activeContainer
+  );
+  const MiglioramentiClickPopUp = useAppSelector(
+    (state) => state.windows.miglioramentiClick
+  );
   const rewardsTutorial = useAppSelector(
     (state) => state.windows.tutorials.rewards
   );
@@ -34,7 +42,6 @@ export const AppPortals = memo(() => {
   const dailyReward = useAppSelector(
     (state) => state.dialyRewards.canGetReward
   );
-  console.log(dailyReward);
 
   return (
     <Portal>
@@ -43,6 +50,8 @@ export const AppPortals = memo(() => {
       {notifications.length > 0 && <NotificationList />}
       {improvements && <ClickerImprovements />}
       {dailyReward && <DailyReward />}
+      {MiglioramentiClickPopUp !== null && <MiglioramentiClick />}
+      {containerActivate && <ContainerActivate />}
       {clickerTutorial && (
         <Tutorial
           data={{

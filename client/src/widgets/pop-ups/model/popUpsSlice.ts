@@ -9,6 +9,7 @@ const initialState: {
   auth: boolean;
   improvements: boolean;
   dailyReward: boolean;
+  miglioramentiClick: number | null;
   tutorials: {
     clicker: boolean;
     rewards: boolean;
@@ -20,6 +21,7 @@ const initialState: {
   auth: false,
   improvements: false,
   dailyReward: false,
+  miglioramentiClick: null,
   tutorials: {
     clicker: false,
     rewards: false,
@@ -49,8 +51,11 @@ const WindowsSlice = createSlice({
     setImprovements(state, action: PayloadAction<boolean>) {
       state.improvements = action.payload;
     },
-    setDailyReward(state, action) {
+    setDailyReward(state, action: PayloadAction<boolean>) {
       state.dailyReward = action.payload;
+    },
+    setMigliomentiClick(state, action: PayloadAction<number | null>) {
+      state.miglioramentiClick = action.payload;
     },
   },
 });
@@ -70,5 +75,6 @@ export const {
   setTutorial,
   setImprovements,
   setDailyReward,
+  setMigliomentiClick,
 } = WindowsSlice.actions;
 export default WindowsSlice.reducer;
