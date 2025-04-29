@@ -53,7 +53,11 @@ export const DailyReward: FC<{
         {data.rewards.custom && (
           <>
             <img
-              className={styles.reward__improvements}
+              className={`${
+                data.rewards.custom.includes("container")
+                  ? styles.reward__containers
+                  : styles.reward__improvements
+              }`}
               src={`${DOMAIN}/images${data.rewards.custom}`}
               alt="custom"
             ></img>

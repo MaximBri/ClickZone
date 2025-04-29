@@ -42,6 +42,7 @@ export interface userDataInterface {
       coins: number;
       diamonds: number;
     };
+    countNicknames: null | number;
   };
   flags: {
     clickerData: boolean | null;

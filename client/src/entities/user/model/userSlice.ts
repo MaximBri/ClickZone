@@ -5,12 +5,12 @@ import { processUserData } from "./thunks/shared/processData";
 import { fetchClickerData, loginUser, logoutUser } from "./thunks";
 import { fetchAccountData } from "../account/thunks";
 import { processAccountData } from "../account/processAccountData";
-import { checkCoinsCount } from "../account/checkCoinsCount";
 import { changeUserData } from "../account/thunks/changeUserData.thunk";
 import { buyMiglioramenti } from "../miglioramenti/thunks/buyMiglioramenti.thunk";
 import { miglioramentiInterface } from "@/widgets/clicker-shop/model/miglioramentiSlice";
 import { getCurrentRewardThunk } from "../daily-rewards/thunks/getCurrentReward.thunk";
 import { activateMiglioramentiThunk } from "../miglioramenti/thunks/activateMiglioramentiThunk";
+import { setHasAchievement } from "../account/thunks/setHasAchevement.thunk";
 
 const initialState: userDataInterface = {
   isAuthorized: null,
@@ -37,6 +37,7 @@ const initialState: userDataInterface = {
       coins: 0,
       diamonds: 0,
     },
+    countNicknames: null,
   },
   flags: {
     clickerData: null,
@@ -62,11 +63,9 @@ const UserSlice = createSlice({
     // Wallet
     setCoins(state, action: PayloadAction<number>) {
       state.finances.coins = action.payload;
-      checkCoinsCount(state, state.finances.coins);
     },
     addCoin(state) {
       state.finances.coins += state.coinsOnClick;
-      checkCoinsCount(state, state.finances.coins);
     },
     setCoinsOnClick(state, action: PayloadAction<number>) {
       state.coinsOnClick = action.payload;
@@ -87,11 +86,20 @@ const UserSlice = createSlice({
       state.coinsPerMinute = state.coinsOnClick * 60;
     },
     // Account
+    addCountNicknames(state) {
+      state.account.countNicknames!++;
+    },
+    setCanChangeNickname(state, action: PayloadAction<boolean>) {
+      state.globals.canChangeNickname = action.payload;
+    },
     setDescription(state, action: PayloadAction<string>) {
       state.globals.description = action.payload;
     },
     setNickname(state, action: PayloadAction<string>) {
       state.globals.nickname = action.payload;
+    },
+    setNicknamePrice(state, action) {
+      state.account.nicknamePrice = action.payload;
     },
     // Clicker
     setLevel(state, action: PayloadAction<number>) {
@@ -182,6 +190,19 @@ const UserSlice = createSlice({
       state.finances.diamonds = action.payload.resources.diamonds;
       state.account.nicknamePrice = action.payload.nickname_price;
     });
+    builder.addCase(setHasAchievement.fulfilled, (state, action) => {
+      const rewardIndex = state.globals.achievements.findIndex(
+        (item) => item.id === action.meta.arg
+      );
+      if (rewardIndex !== -1) {
+        state.globals.achievements[rewardIndex].has_achievement = true;
+      } else {
+        console.error("Не найдена награда с id = ", action.meta.arg);
+      }
+      // state.
+      console.log(action);
+      console.log(action.payload);
+    });
     // Покупка улучшения
     builder.addCase(buyMiglioramenti.fulfilled, (state, action) => {
       state.finances.coins = action.payload.user_coins;
@@ -217,6 +238,9 @@ export const {
   addOneUpgrade,
   setUpgrades,
   removeOneUpgrade,
+  setNicknamePrice,
+  setCanChangeNickname,
+  addCountNicknames,
 } = UserSlice.actions;
 
 export default UserSlice.reducer;

@@ -63,15 +63,11 @@ export const UserNickname: FC<{
           ""
         ) : (
           <>
-            за {changeNicknamePrice.coins}{" "}
-            <img src={coinSvg} alt="coin"></img>{" "}
+            за {changeNicknamePrice.coins} <img src={coinSvg} alt="coin"></img>{" "}
             {changeNicknamePrice.diamonds ? (
               <>
                 и {changeNicknamePrice.diamonds}
-                <img
-                  src={diamondSvg}
-                  alt="diamond"
-                ></img>
+                <img src={diamondSvg} alt="diamond"></img>
               </>
             ) : (
               ""

@@ -10,8 +10,7 @@ export const apiRoutes = {
   // Profile
   editProfile: "profile/edit_profile",
   getAccountInfo: "profile/me",
-  // Clicker
-  getClickerInfo: "me",
+  setReward: 'achievements',
   // Daily rewards
   getDailyRewards: "daily-rewards",
   getDailyRewardsStatus: "daily-rewards/status",
@@ -24,4 +23,5 @@ export const apiRoutes = {
   updateFinaces: "resource-sync",
   // Miglioramenti
   activateMiglioramenti: "activate-upgrade",
+  buyKey: "keys",
 };

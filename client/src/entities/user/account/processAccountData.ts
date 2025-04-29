@@ -1,14 +1,14 @@
 import { userDataInterface } from "@/shared/types";
 import { achievementsImagesPaths } from "../model/achievementsImagesPaths";
-import { checkCoinsCount } from "./checkCoinsCount";
-import { findAwardAndSetHasAchievement } from "./findAwardAndSetHasAchievement";
 
+// !!!!
 const checkRegisterDate = (state: userDataInterface, text: string) => {
   const registerDate = new Date(text).getTime();
   const currentDate = new Date().getTime();
   const diffDays = (currentDate - registerDate) / (1000 * 60 * 60 * 24);
   if (diffDays >= 30) {
-    findAwardAndSetHasAchievement(state, 4);
+    // !!!!
+    // useFindAwardAndSetHasAchievement(state, 4);
   }
 };
 
@@ -23,6 +23,7 @@ export const processAccountData = (
   state.account.nicknamePrice = payloadData.nickname_price;
   state.finances = payloadData.resources;
   state.globals.dateOfRegister = payloadData.timestamp;
+  state.account.countNicknames = payloadData.changes_number;
   payloadData.achievements.forEach((item: any, index: number) => {
     state.globals.achievements.push({
       ...item,
@@ -33,8 +34,10 @@ export const processAccountData = (
   });
 
   if (state.globals.id ?? 11 <= 9) {
-    findAwardAndSetHasAchievement(state, 11);
+    // !!!!
+    // useFindAwardAndSetHasAchievement(state, 11);
   }
-  checkCoinsCount(state, payloadData.resources.coins);
+  // !!!!
+  // checkCoinsCount(state, payloadData.resources.coins);
   checkRegisterDate(state, payloadData.timestamp);
 };

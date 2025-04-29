@@ -1,22 +1,30 @@
 import { useNavigate } from "react-router-dom";
-import { useAppDispatch, useAppSelector } from "@/app/store/store";
+import { store, useAppDispatch, useAppSelector } from "@/app/store/store";
 
 import { UserNickname } from "@/features/user-account/user-nickname";
 import { UserDescription } from "@/features/user-account/user-description";
 import { UserRegistration } from "@/features/user-account/user-registration-date";
 import { ExitFromAccount } from "@/features/user-account/exit-from-account";
 import { routes } from "@/shared/config/routes";
-import { changeUserData } from "@/entities/user/account/thunks/changeUserData.thunk";
 import { notificationManager } from "@/widgets/pop-ups/notifications/model/notificationManager";
-import { setDescription, setNickname } from "@/entities/user/model/userSlice";
+import { UserRewards } from "@/features/user-account/user-rewards";
+import { updateUserFinancesThunk } from "@/entities/user/account/thunks/updateUserFinances.thunk";
+import { api } from "@/shared/api/base";
+import { apiRoutes } from "@/shared/config/apiRoutes";
+import {
+  addCountNicknames,
+  setCanChangeNickname,
+  setDescription,
+  setNickname,
+  setNicknamePrice,
+} from "@/entities/user/model/userSlice";
 import {
   getFinances,
   getGlobalsUserData,
   getIsAuthorized,
 } from "@/entities/user/model/selectors";
 import styles from "./AccountPage.module.scss";
-import { UserRewards } from "@/features/user-account/user-rewards";
-import { updateUserFinancesThunk } from "@/entities/user/account/thunks/updateUserFinances.thunk";
+import { setHasAchievement } from "@/entities/user/account/thunks/setHasAchevement.thunk";
 
 export const AccountPage = () => {
   const dispatch = useAppDispatch();
@@ -42,27 +50,47 @@ export const AccountPage = () => {
     nickname: string,
     description: string,
     successMessage: string,
+    changesNickname: boolean,
     errorMessage?: string
   ) => {
     try {
+      const nicknamePrice = store.getState().user.account.nicknamePrice;
       await dispatch(updateUserFinancesThunk(userFinances));
-      await dispatch(
-        changeUserData({
-          name: nickname,
-          about_me: description,
-          nickname_price: changeNicknamePrice,
-        })
-      );
+      const response: any = await api.post(apiRoutes.editProfile, {
+        name: nickname,
+        about_me: description,
+        nickname_price: nicknamePrice,
+      });
       dispatch(setNickname(nickname));
       dispatch(setDescription(description));
-      notificationManager(dispatch, successMessage, "success");
-    } catch (error) {
-      console.log(error);
-      notificationManager(
-        dispatch,
-        errorMessage || "Во время сохранения никнейма произошла ошибка",
-        "error"
+      dispatch(setCanChangeNickname(false));
+      dispatch(
+        setNicknamePrice({
+          coins: response.data.nickname_price.coins,
+          diamonds: response.data.nickname_price.diamonds,
+        })
       );
+      if (changesNickname) {
+        const userState = store.getState().user;
+        if (userState.account.countNicknames ?? 0 > 2) {
+          dispatch(setHasAchievement(8));
+          // !!!!
+          // useFindAwardAndSetHasAchievement(userState, 8);
+        }
+        dispatch(addCountNicknames());
+      }
+      notificationManager(dispatch, successMessage, "success");
+    } catch (error: any) {
+      console.log(error);
+      if (error.status === 412) {
+        notificationManager(dispatch, "Данное имя уже занято", "error");
+      } else {
+        notificationManager(
+          dispatch,
+          errorMessage || "Во время сохранения никнейма произошла ошибка",
+          "error"
+        );
+      }
     }
   };
 
@@ -71,7 +99,8 @@ export const AccountPage = () => {
       sendRequestToChangeAccountData(
         userData.nickname,
         value,
-        "Описание успешно изменено"
+        "Описание успешно изменено",
+        false
       );
     } else {
       if (
@@ -81,7 +110,8 @@ export const AccountPage = () => {
         sendRequestToChangeAccountData(
           value,
           userData.description,
-          "Никнейм успешно изменён"
+          "Никнейм успешно изменён",
+          true
         );
       } else {
         notificationManager(dispatch, "У вас недостаточно ресурсов", "warning");

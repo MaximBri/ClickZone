@@ -40,9 +40,11 @@
     width: rem(20);
     height: rem(20);
   }
+  &__containers {
+    width: rem(60);
+  }
   &__improvements {
     width: rem(40);
-    height: rem(40);
   }
   &__inner {
     display: flex;

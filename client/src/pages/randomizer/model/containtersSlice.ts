@@ -59,7 +59,10 @@ const containersSlice = createSlice({
     setAllContainers: (state, action: PayloadAction<ContainerInterface[]>) => {
       state.allContainers = action.payload;
     },
-    setActiveContainer: (state, action: PayloadAction<ContainerInterface | null>) => {
+    setActiveContainer: (
+      state,
+      action: PayloadAction<ContainerInterface | null>
+    ) => {
       state.activeContainer = action.payload;
     },
   },
@@ -69,9 +72,11 @@ const containersSlice = createSlice({
     });
     builder.addCase(fetchClickerData.fulfilled, (state, action) => {
       setContainersData(state, action.payload.containers);
+      state.keys = action.payload.resources.keys;
     });
     builder.addCase(loginUser.fulfilled, (state, action) => {
       setContainersData(state, action.payload.containers);
+      state.keys = action.payload.resources.keys;
     });
   },
 });

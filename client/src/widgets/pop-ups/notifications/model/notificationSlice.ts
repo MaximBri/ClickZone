@@ -1,4 +1,5 @@
 import { RootState } from "@/app/store/store";
+import { setHasAchievement } from "@/entities/user/account/thunks/setHasAchevement.thunk";
 import { notificationDataInterface } from "@/shared/types";
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
@@ -21,6 +22,12 @@ const notificationSlice = createSlice({
     deleteLastNotification: (state) => {
       state.data.shift();
     },
+  },
+  extraReducers: (builder) => {
+    builder.addCase(setHasAchievement.fulfilled, (state, action) => {
+      console.log(action.payload);
+      // state.data.push(action.payload);
+    });
   },
 });
 

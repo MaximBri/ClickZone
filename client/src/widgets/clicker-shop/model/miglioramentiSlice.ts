@@ -1,4 +1,5 @@
 import { RootState } from "@/app/store/store";
+import { getMiglioramenti } from "@/entities/user/miglioramenti/thunks/getMiglioramenti.thunk";
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 export interface miglioramentiInterface {
@@ -24,6 +25,20 @@ const miglioramentiSlice = createSlice({
     ) => {
       state.data = action.payload;
     },
+  },
+  extraReducers: (builder) => {
+    builder.addCase(getMiglioramenti.fulfilled, (state, action) => {
+      state.data = action.payload.map((item: any) => {
+        return {
+          id: item.id,
+          name: item.name,
+          description: item.description,
+          imagePath: item.image_path,
+          cost: item.cost_coins,
+          isInfinite: item.upgrade_type === "permanent" ? true : false,
+        };
+      });
+    });
   },
 });
 

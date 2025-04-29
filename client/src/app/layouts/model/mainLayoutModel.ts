@@ -15,6 +15,7 @@ import {
   getUserFlags,
   userInfoIsLoaded,
 } from "@/entities/user/model/selectors";
+import { setHasAchievement } from "@/entities/user/account/thunks/setHasAchevement.thunk";
 
 export const mainLayoutModel = (dispatch: AppDispatch) => {
   const location = useLocation();
@@ -22,6 +23,12 @@ export const mainLayoutModel = (dispatch: AppDispatch) => {
   const isAuthorized = useAppSelector(getIsAuthorized);
   const loadingFlags = useAppSelector(getUserFlags);
   const isLoadedClickerData = useAppSelector(userInfoIsLoaded);
+  const dateOfRegister = useAppSelector(
+    (state) => state.user.globals.dateOfRegister
+  );
+  const userCoins = useAppSelector((state) => state.user.finances.coins);
+  const rewards = useAppSelector((state) => state.user.globals.achievements);
+  // console.log(rewards);
 
   useSyncOnUnload();
   useAuthInterceptor();
@@ -45,6 +52,38 @@ export const mainLayoutModel = (dispatch: AppDispatch) => {
       }
     };
   }, [isAuthorized]);
+
+  useEffect(() => {
+    if (dateOfRegister) {
+      const registerDate = new Date(dateOfRegister).getTime();
+      const currentDate = new Date().getTime();
+      const diffDays = (currentDate - registerDate) / (1000 * 60 * 60 * 24);
+      if (diffDays >= 30) {
+        dispatch(setHasAchievement(4));
+      }
+    }
+  }, [dateOfRegister]);
+
+  useEffect(() => {
+    if (isAuthorized) {
+      const newbie = 1000;
+      const millioner = 1_000_000;
+      const billioner = 1_000_000_000;
+
+      const getRewardAndSetHasAchievement = (count: number, id: number) => {
+        if (
+          userCoins >= count &&
+          rewards.find((item) => item.id === id)?.has_achievement === false
+        ) {
+          dispatch(setHasAchievement(id));
+        }
+      };
+
+      getRewardAndSetHasAchievement(newbie, 1);
+      getRewardAndSetHasAchievement(millioner, 2);
+      getRewardAndSetHasAchievement(billioner, 3);
+    }
+  }, [userCoins, isAuthorized, rewards]);
 
   useEffect(() => {
     if (isAuthorized === false) {

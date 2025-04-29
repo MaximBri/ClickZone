@@ -47,6 +47,9 @@
     width: rem(50);
     height: rem(50);
   }
+  &__improvement{
+    width: rem(60);
+  }
   &__button {
     padding: rem(10) rem(20);
     border: 2px solid $border-button;

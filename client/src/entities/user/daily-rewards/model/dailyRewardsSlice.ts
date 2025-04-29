@@ -65,6 +65,10 @@ const dailyRewardsSlice = createSlice({
       state.hoursToNextReward = 24;
       if (state.currentDay) state.currentDay++;
     });
+    builder.addCase(getCurrentRewardThunk.rejected, (state) => {
+      state.canGetReward = false;
+      state.hoursToNextReward = 24;
+    });
   },
 });
 
