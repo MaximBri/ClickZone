@@ -137,7 +137,7 @@ class User(db.Model):
     keys: so.Mapped[int] = so.mapped_column(default=0)
 
     base_per_click: so.Mapped[int] = so.mapped_column(default=1)
-    base_per_minute: so.Mapped[int] = so.mapped_column(default=60)
+    base_per_minute: so.Mapped[int] = so.mapped_column(default=0)
     last_update: so.Mapped[datetime] = so.mapped_column(default=lambda: datetime.now(timezone.utc))
 
     current_reward_day: so.Mapped[int] = so.mapped_column(default=1)

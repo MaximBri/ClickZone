@@ -119,11 +119,18 @@ def daily_rewards_claim():
                 if '/miglioramenti/' in reward.custom:
                     upgrade_path = reward.custom.split('/')[-1]
                     upgrade = Upgrade.query.filter_by(image_path=upgrade_path).scalar()
-                    new_user_custom = UserUpgrade(user=user, upgrade=upgrade)
+                    if (existing_upgrade := UserUpgrade.query.filter_by(upgrade_id=upgrade.id).first()) is not None:
+                        existing_upgrade.quantity += 1
+                    else:
+                        new_user_custom = UserUpgrade(user=user, upgrade=upgrade)
                 else:
                     container_path = reward.custom.split('/')[-1]
                     container = Container.query.filter_by(image_path=container_path).scalar()
-                    new_user_custom = UserContainer(user=user, container=container)
+                    if (existing_container := UserContainer.query.filter_by(container_id=container.id).first()
+                    ) is not None:
+                        existing_container.quantity += 1
+                    else:
+                        new_user_custom = UserContainer(user=user, container=container)
                 db.session.add(new_user_custom)
 
             user.current_reward_day = user.current_reward_day % 14 + 1
@@ -352,12 +359,12 @@ def buy_upgrade():
                     case 'Множитель дохода':
                         user.base_per_click *= 3
 
-                user.base_per_minute = user.base_per_click * 60
                 user_upgrade.active = True
                 message = f"Постоянное улучшение '{upgrade_name}' активировано."
 
             if upgrade_name == 'Автокликер':
                 user_upgrade.upgrade.multiplier = 2
+                user.base_per_minute = user.base_per_click * 60
                 user_upgrade.active = True
             elif upgrade_name == 'Золотая лихорадка':
                 user_upgrade.upgrade.multiplier = 2  # следующие 50 кликов по 2x (для одного клика — учитываем 2x)
@@ -409,6 +416,10 @@ def deactivate_upgrade():
                     400
                 )
             user_upgrade.active = False
+            if user_upgrade.quantity > 0:
+                user_upgrade.quantity -=1
+            else:
+                db.session.delete(user_upgrade)
 
             return make_response({
                 'msg': f'Улучшение "{upgrade_name}" деактивировано',

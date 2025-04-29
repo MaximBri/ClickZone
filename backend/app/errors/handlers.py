@@ -42,4 +42,4 @@ def validation_error(e: Exception):
 
 def default_error(e):
     logger.error(f'Unexpected server error: {e}', exc_info=True)
-    return jsonify({'errors': [{'msg': f'Произошла ошибка {e}'}]}), 500
+    return jsonify({'errors': [{'msg': f'Произошла ошибка: {e}'}]}), 500
