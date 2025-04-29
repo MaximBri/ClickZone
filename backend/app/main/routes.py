@@ -417,7 +417,7 @@ def deactivate_upgrade():
                 )
             user_upgrade.active = False
             if user_upgrade.quantity > 0:
-                user_upgrade.quantity -=1
+                user_upgrade.quantity -= 1
             else:
                 db.session.delete(user_upgrade)
 
@@ -447,22 +447,22 @@ def achievements():
                                       'achievement': user_achievement.achievement.name}, 200)
 
             now = datetime.now(timezone.utc)
-            if user_achievement.achievement.id == 1:
+            if form.id == 1:
                 # Новичок: накопить первую тысячу монет
                 ok = user.coins >= 1_000
-            elif user_achievement.achievement.id == 2:
+            elif form.id == 2:
                 # Миллионер: накопить миллион монет
                 ok = user.coins >= 1_000_000
-            elif user_achievement.achievement.id == 3:
+            elif form.id == 3:
                 # Магнат: накопить миллиард монет
                 ok = user.coins >= 1_000_000_000
-            elif user_achievement.achievement.id == 4:
+            elif form.id == 4:
                 # Легионер: 30 дней с момента регистрации
                 ok = (now - user.timestamp) >= timedelta(minutes=2)  # timedelta(days=30)
-            elif user_achievement.achievement.id == 8:
+            elif form.id == 8:
                 # Популярность: сменил никнейм 3+ раза
                 ok = user.changes_number >= 3
-            elif user_achievement.achievement.id == 11:
+            elif form.id == 11:
                 # Первооткрыватель: первые 10 зарегистрировавшихся
                 first_ten = (
                     User.query
@@ -473,21 +473,20 @@ def achievements():
                 ok = user in first_ten
             else:
                 return jsonify({
-                    'errors': [{'msg': f'Автоматическая проверка неосуществлена для достижения с id: {achievement.id}'}]
+                    'errors': [{'msg': f'Автоматическая проверка неосуществлена для достижения с id: {form.id}'}]
                 }), 400
 
+            ua = UserAchievement(user_id=user.id, achievement_id=user_achievement.achievement.id)
             if not ok:
                 return jsonify({
                     'msg': 'Условие для получения этого достижения ещё не осуществлено',
-                    'achievement': achievement.name
+                    'achievement': ua.achievement.name
                 }), 400
-
-            ua = UserAchievement(user_id=user.id, achievement_id=achievement.id)
             db.session.add(ua)
 
             return jsonify({
                 'msg': 'Улучшение разблокировано!',
-                'achievement': achievement.name
+                'achievement': user_achievement.achievement.name
             }), 200
 
     except ValidationError as e:

@@ -70,14 +70,8 @@ class UserUpgrade(db.Model):
 @event.listens_for(UserUpgrade, 'before_update')
 def validate_user_upgrade(mapper, connection, target):
     upgrade = db.session.get(Upgrade, target.upgrade_id)
-    if upgrade.upgrade_type == 'permanent':
-        existing = db.session.query(UserUpgrade).filter_by(
-            user_id=target.user_id,
-            upgrade_id=target.upgrade_id).first()
-        if existing:
-            raise ValueError('Permanent upgrade already exists')
-        if target.quantity != 1:
-            raise ValueError('Permanent upgrades can only have quantity 1')
+    if upgrade.upgrade_type == 'permanent' and target.quantity != 1:
+        raise ValueError('Permanent upgrades can only have quantity 1')
 
 
 class DBSessionManager:
