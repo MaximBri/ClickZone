@@ -157,12 +157,12 @@ class User(db.Model):
 
     @property
     def achievements(self) -> list[dict[str, str | bool]]:
-        achievements = db.session.scalars(sa.select(Achievement))
+        achievements = db.session.scalars(sa.select(Achievement)).all()
         res = []
         for achievement in achievements:
             res.append({'name': achievement.name,
                         'condition': achievement.condition,
-                        'has_achievement': achievement in self.user_achievements})
+                        'has_achievement': achievement in [ua.achievement for ua in self.user_achievements.all()]})
         return res
 
     @property
@@ -347,9 +347,9 @@ class Container(db.Model):
 
         return res
 
-    def get_reward(self) -> dict[str, str | int]:
+    def get_reward(self, use_key: bool) -> dict[str, str | int]:
         reward_data = {}
-        rand = randint(0, len(self.rewards) - 1)
+        rand = randint(0 if not use_key else 6, len(self.rewards) - 1)
         reward = self.rewards[rand]
         if reward.coins is not None:
             reward_data['coins'] = reward.coins
