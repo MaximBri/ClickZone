@@ -68,6 +68,12 @@ const UserSlice = createSlice({
     addCoin(state) {
       state.finances.coins += state.coinsOnClick;
     },
+    addCountOfCoins(state, action: PayloadAction<number>) {
+      state.finances.coins += action.payload;
+    },
+    addCountOfDiamonds(state, action: PayloadAction<number>) {
+      state.finances.diamonds += action.payload;
+    },
     addCoinsInSecond(state) {
       state.finances.coins += state.coinsPerMinute / 60;
     },
@@ -120,6 +126,16 @@ const UserSlice = createSlice({
     // Upgrades
     setUpgrades(state, action: PayloadAction<UpgradeInterface[]>) {
       state.clicker.upgrades = action.payload;
+    },
+    addUpgradeWithCount(state, action: PayloadAction<UpgradeInterface>) {
+      const miglioramenti = state.clicker.upgrades.find(
+        (item) => item.id === action.payload.id
+      );
+      if (miglioramenti) {
+        miglioramenti.count += action.payload.count;
+      } else {
+        state.clicker.upgrades.push(action.payload);
+      }
     },
     addOneUpgrade(state, action: PayloadAction<miglioramentiInterface>) {
       const duplicate = state.clicker.upgrades.findIndex(
@@ -251,6 +267,9 @@ export const {
   setCanChangeNickname,
   addCountNicknames,
   addCoinsInSecond,
+  addCountOfCoins,
+  addCountOfDiamonds,
+  addUpgradeWithCount,
 } = UserSlice.actions;
 
 export default UserSlice.reducer;

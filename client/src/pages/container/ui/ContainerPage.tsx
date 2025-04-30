@@ -111,6 +111,18 @@ export const ContainerPage = () => {
                   />
                 </>
               )}
+              {item.keys && (
+                <>
+                  <h4 className={styles["container__item-count"]}>
+                    x{item.keys}
+                  </h4>
+                  <img
+                    className={styles["container__item-container"]}
+                    src={`${DOMAIN}/images/containers/key.svg`}
+                    alt="key"
+                  />
+                </>
+              )}
             </li>
           );
         })}

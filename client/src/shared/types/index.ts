@@ -81,6 +81,7 @@ export interface ContainerInterface {
 }
 
 export interface RewardInterface {
+  keys?: number;
   coins?: number;
   count?: number;
   imagePath?: string;

@@ -17,12 +17,12 @@ export const OwnContainer: FC<{ data: ContainerSliceInterface }> = ({
   const activate = (withKey: boolean) => {
     if (withKey) {
       if (userKeys > 0) {
-        dispatch(setActiveContainer(data));
+        dispatch(setActiveContainer({ ...data, key: true }));
       } else {
         notificationManager(dispatch, "У вас нет ключа!", "warning");
       }
     } else {
-      dispatch(setActiveContainer(data));
+      dispatch(setActiveContainer({ ...data, key: false }));
     }
   };
 

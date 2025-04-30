@@ -7,7 +7,7 @@ const initialState: {
   data: ContainerSliceInterface[];
   keys: number;
   allContainers: ContainerInterface[];
-  activeContainer: ContainerInterface | null;
+  activeContainer: (ContainerInterface & { key: boolean }) | null;
 } = {
   data: [],
   keys: 0,
@@ -53,15 +53,44 @@ const containersSlice = createSlice({
         state.data.push({ ...action.payload, count: 1 });
       }
     },
+    addContainerWithCount: (
+      state,
+      action: PayloadAction<ContainerSliceInterface>
+    ) => {
+      const id = action.payload.id;
+      const curContainer = state.data.find((item) => item.id === id);
+      if (curContainer) {
+        curContainer.count += action.payload.count;
+      } else {
+        state.data.push(action.payload);
+      }
+    },
     setContainerKeys: (state, action: PayloadAction<number>) => {
       state.keys = action.payload;
+    },
+    removeOneKey: (state) => {
+      state.keys--;
     },
     setAllContainers: (state, action: PayloadAction<ContainerInterface[]>) => {
       state.allContainers = action.payload;
     },
+    removeOneContainer: (state, action: PayloadAction<number>) => {
+      const needContainer = state.data.find(
+        (item) => item.id === action.payload
+      );
+      if (needContainer) {
+        if (needContainer.count === 1) {
+          state.data = state.data.filter((item) => item.id !== action.payload);
+        } else {
+          needContainer.count--;
+        }
+      } else {
+        console.error("Нет нужного контейнера в хранилище");
+      }
+    },
     setActiveContainer: (
       state,
-      action: PayloadAction<ContainerInterface | null>
+      action: PayloadAction<(ContainerInterface & { key: boolean }) | null>
     ) => {
       state.activeContainer = action.payload;
     },
@@ -87,6 +116,9 @@ export const {
   setContainerKeys,
   setAllContainers,
   setActiveContainer,
+  addContainerWithCount,
+  removeOneContainer,
+  removeOneKey,
 } = containersSlice.actions;
 
 export default containersSlice.reducer;

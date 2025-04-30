@@ -3,6 +3,7 @@ import { useAppDispatch } from "@/app/store/store";
 
 import { DOMAIN } from "@/shared/config/routes";
 import { UpgradeInterface } from "@/shared/types";
+import { setMiglioramentiClicks } from "@/widgets/pop-ups/miglioramenti-other/model/miglioramentiesClicksSlice";
 import {
   setImprovements,
   setMigliomentiClick,
@@ -12,11 +13,15 @@ import styles from "./OneTimeMiglioramenti.module.scss";
 export const OneTimeMiglioramenti: FC<{
   data: UpgradeInterface;
 }> = ({ data }) => {
+  console.log(data);
   const dispatch = useAppDispatch();
   const activate = () => {
     if ([2, 3, 4, 5].includes(data.id)) {
       dispatch(setImprovements(false));
       dispatch(setMigliomentiClick(data.id));
+    } else if ([6, 7, 8].includes(data.id)) {
+      dispatch(setImprovements(false));
+      dispatch(setMiglioramentiClicks(data));
     }
   };
 

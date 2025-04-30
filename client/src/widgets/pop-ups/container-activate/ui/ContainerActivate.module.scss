@@ -40,8 +40,8 @@
   &--hidden {
     opacity: 0;
   }
-  &__reward{
-    height: rem(300);
+  &__reward {
+    // height: rem(300);
   }
   &__list {
     position: relative;
@@ -147,5 +147,39 @@
     color: $button;
 
     background-color: $button-secondary;
+  }
+  &__coins {
+    display: flex;
+    gap: rem(10);
+    align-items: center;
+    font-size: rem(28);
+    & > img {
+      width: rem(30);
+      height: rem(30);
+    }
+  }
+  &__container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    & > img {
+      width: rem(100);
+    }
+    & > h3 {
+      font-size: rem(28);
+      text-align: center;
+    }
+  }
+  &__improvement{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    & > img {
+      width: rem(80);
+    }
+    & > h3 {
+      font-size: rem(28);
+      text-align: center;
+    }
   }
 }

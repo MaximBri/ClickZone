@@ -7,6 +7,7 @@ import notifications from "@/widgets/pop-ups/notifications/model/notificationSli
 import dialyRewards from "@/entities/user/daily-rewards/model/dailyRewardsSlice";
 import miglioramenti from "@/widgets/clicker-shop/model/miglioramentiSlice";
 import containers from "@/pages/randomizer/model/containtersSlice";
+import miglioramentiClicks from "@/widgets/pop-ups/miglioramenti-other/model/miglioramentiesClicksSlice";
 
 export const store = configureStore({
   reducer: {
@@ -16,6 +17,7 @@ export const store = configureStore({
     dialyRewards,
     miglioramenti,
     containers,
+    miglioramentiClicks,
   },
 });
 

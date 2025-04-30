@@ -1,6 +1,9 @@
 import { useEffect, useState } from "react";
 import { useAppDispatch, useAppSelector } from "@/app/store/store";
 
+import { api } from "@/shared/api/base";
+import { apiRoutes } from "@/shared/config/apiRoutes";
+import { notificationManager } from "../../notifications/model/notificationManager";
 import { setMigliomentiClick } from "../../model/popUpsSlice";
 import {
   removeOneUpgrade,
@@ -9,9 +12,6 @@ import {
 } from "@/entities/user/model/userSlice";
 import circleGif from "./icons/circle.gif";
 import styles from "./MiglioramentiClick.module.scss";
-import { api } from "@/shared/api/base";
-import { apiRoutes } from "@/shared/config/apiRoutes";
-import { notificationManager } from "../../notifications/model/notificationManager";
 
 export const MiglioramentiClick = () => {
   const dispatch = useAppDispatch();

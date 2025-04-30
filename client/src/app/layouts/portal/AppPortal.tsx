@@ -20,6 +20,7 @@ import {
   getClickerTutorial,
 } from "@/widgets/pop-ups/model/popUpsSlice";
 import { ContainerActivate } from "@/widgets/pop-ups/container-activate";
+import { MiglioramentiOther } from "@/widgets/pop-ups/miglioramenti-other";
 
 export const AppPortals = memo(() => {
   const authWindow = useAppSelector(getAuthWindow);
@@ -42,6 +43,9 @@ export const AppPortals = memo(() => {
   const dailyReward = useAppSelector(
     (state) => state.dialyRewards.canGetReward
   );
+  const userClicksMiglioramenti = useAppSelector(
+    (state) => state.miglioramentiClicks.data
+  );
 
   return (
     <Portal>
@@ -50,8 +54,9 @@ export const AppPortals = memo(() => {
       {notifications.length > 0 && <NotificationList />}
       {improvements && <ClickerImprovements />}
       {dailyReward && <DailyReward />}
-      {MiglioramentiClickPopUp !== null && <MiglioramentiClick />}
       {containerActivate && <ContainerActivate />}
+      {MiglioramentiClickPopUp !== null && <MiglioramentiClick />}
+      {userClicksMiglioramenti !== null && <MiglioramentiOther />}
       {clickerTutorial && (
         <Tutorial
           data={{
