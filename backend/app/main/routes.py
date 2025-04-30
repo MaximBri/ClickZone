@@ -262,7 +262,7 @@ def containers_claim():
                     user_container = UserContainer(user=user, container=container, quantity=count)
                 db.session.add(user_container)
 
-            if user_container.quantity > 0:
+            if user_container.quantity > 1:
                 user_container.quantity -= 1
             else:
                 db.session.delete(user_container)
@@ -421,7 +421,7 @@ def deactivate_upgrade():
                     400
                 )
             user_upgrade.active = False
-            if user_upgrade.quantity > 0:
+            if user_upgrade.quantity > 1:
                 user_upgrade.quantity -= 1
             else:
                 db.session.delete(user_upgrade)
