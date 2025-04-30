@@ -347,9 +347,9 @@ class Container(db.Model):
 
         return res
 
-    def get_reward(self) -> dict[str, str | int]:
+    def get_reward(self, use_key: bool) -> dict[str, str | int]:
         reward_data = {}
-        rand = randint(0, len(self.rewards) - 1)
+        rand = randint(0 if not use_key else 6, len(self.rewards) - 1)
         reward = self.rewards[rand]
         if reward.coins is not None:
             reward_data['coins'] = reward.coins

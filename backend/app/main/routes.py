@@ -228,7 +228,7 @@ def containers_claim():
             form = IdContainerForm(**request.get_json())
             user = get_current_user()
             user_container: UserContainer = user.containers.filter_by(container_id=form.id).first()
-            container_rewards: dict[str, str | int] = user_container.container.get_reward()
+            container_rewards: dict[str, str | int] = user_container.container.get_reward(use_key=form.use_key)
 
             if (coins := container_rewards.get('coins')) is not None:
                 user.coins += coins
