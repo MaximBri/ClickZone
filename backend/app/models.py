@@ -157,12 +157,12 @@ class User(db.Model):
 
     @property
     def achievements(self) -> list[dict[str, str | bool]]:
-        achievements = db.session.scalars(sa.select(Achievement))
+        achievements = db.session.scalars(sa.select(Achievement)).all()
         res = []
         for achievement in achievements:
             res.append({'name': achievement.name,
                         'condition': achievement.condition,
-                        'has_achievement': achievement in self.user_achievements})
+                        'has_achievement': achievement in [ua.achievement for ua in self.user_achievements.all()]})
         return res
 
     @property

@@ -123,6 +123,7 @@ def daily_rewards_claim():
                         existing_upgrade.quantity += 1
                     else:
                         new_user_custom = UserUpgrade(user=user, upgrade=upgrade)
+                        db.session.add(new_user_custom)
                 else:
                     container_path = reward.custom.split('/')[-1]
                     container = Container.query.filter_by(image_path=container_path).scalar()
@@ -131,7 +132,7 @@ def daily_rewards_claim():
                         existing_container.quantity += 1
                     else:
                         new_user_custom = UserContainer(user=user, container=container)
-                db.session.add(new_user_custom)
+                        db.session.add(new_user_custom)
 
             user.current_reward_day = user.current_reward_day % 14 + 1
             user.last_reward_claimed_at = datetime.now(timezone.utc)
@@ -265,7 +266,9 @@ def containers_claim():
                 user_container.quantity -= 1
             else:
                 db.session.delete(user_container)
-            return make_response(f'Получен приз {container_rewards}', 200)
+            if form.use_key:
+                user.keys -= 1
+            return make_response({'msg': f'Приз получен!', 'reward': container_rewards}, 200)
 
     except ValidationError as e:
         return validation_error(e)
@@ -362,9 +365,11 @@ def buy_upgrade():
                 user_upgrade.active = True
                 message = f"Постоянное улучшение '{upgrade_name}' активировано."
 
+            if user.upgrades.filter_by(upgrade_id=14, active=True).first() is not None:
+                user.base_per_minute = user.base_per_click * 60
+
             if upgrade_name == 'Автокликер':
                 user_upgrade.upgrade.multiplier = 2
-                user.base_per_minute = user.base_per_click * 60
                 user_upgrade.active = True
             elif upgrade_name == 'Золотая лихорадка':
                 user_upgrade.upgrade.multiplier = 2  # следующие 50 кликов по 2x (для одного клика — учитываем 2x)
@@ -476,17 +481,18 @@ def achievements():
                     'errors': [{'msg': f'Автоматическая проверка неосуществлена для достижения с id: {form.id}'}]
                 }), 400
 
-            ua = UserAchievement(user_id=user.id, achievement_id=user_achievement.achievement.id)
+            ua = UserAchievement(user=user, achievement=Achievement.query.get(form.id))
+            db.session.add(ua)
+            db.session.flush()
             if not ok:
                 return jsonify({
                     'msg': 'Условие для получения этого достижения ещё не осуществлено',
                     'achievement': ua.achievement.name
                 }), 400
-            db.session.add(ua)
 
             return jsonify({
                 'msg': 'Улучшение разблокировано!',
-                'achievement': user_achievement.achievement.name
+                'achievement': ua.achievement.name
             }), 200
 
     except ValidationError as e:

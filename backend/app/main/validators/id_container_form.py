@@ -10,6 +10,7 @@ class IdContainerForm(BaseModel):
     model_config = ConfigDict(extra='forbid')
 
     id: int = Field(...)
+    use_key: bool = Field(...)
 
     @model_validator(mode='after')
     def validate(self):
