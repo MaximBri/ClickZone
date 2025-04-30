@@ -74,8 +74,6 @@ export const AccountPage = () => {
         const userState = store.getState().user;
         if (userState.account.countNicknames ?? 0 > 2) {
           dispatch(setHasAchievement(8));
-          // !!!!
-          // useFindAwardAndSetHasAchievement(userState, 8);
         }
         dispatch(addCountNicknames());
       }

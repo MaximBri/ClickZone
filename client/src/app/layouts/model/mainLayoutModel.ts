@@ -1,7 +1,7 @@
 import { AppDispatch, store, useAppSelector } from "@/app/store/store";
 import { useLocation, useNavigate } from "react-router-dom";
 import { useAuthInterceptor } from "@/shared/api/useAuthInterceptor";
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
 
 import { fetchAccountData } from "@/entities/user/account/thunks";
 import { fetchClickerData } from "@/entities/user/model/thunks";
@@ -10,12 +10,12 @@ import { getCurrentRewardsDayThunk } from "@/entities/user/daily-rewards/thunks/
 import { getDailyRewardsThunk } from "@/entities/user/daily-rewards/thunks/getDailyRewards.thunk";
 import { updateUserFinancesThunk } from "@/entities/user/account/thunks/updateUserFinances.thunk";
 import { useSyncOnUnload } from "@/entities/user/useSyncOnUnload";
+import { setHasAchievement } from "@/entities/user/account/thunks/setHasAchevement.thunk";
 import {
   getIsAuthorized,
   getUserFlags,
   userInfoIsLoaded,
 } from "@/entities/user/model/selectors";
-import { setHasAchievement } from "@/entities/user/account/thunks/setHasAchevement.thunk";
 
 export const mainLayoutModel = (dispatch: AppDispatch) => {
   const location = useLocation();
@@ -26,9 +26,11 @@ export const mainLayoutModel = (dispatch: AppDispatch) => {
   const dateOfRegister = useAppSelector(
     (state) => state.user.globals.dateOfRegister
   );
+  const userId = useAppSelector((state) => state.user.globals.id);
   const userCoins = useAppSelector((state) => state.user.finances.coins);
   const rewards = useAppSelector((state) => state.user.globals.achievements);
-  // console.log(rewards);
+  const hasDispatchedRef = useRef<{ [key: number]: boolean }>({});
+  console.log(rewards);
 
   useSyncOnUnload();
   useAuthInterceptor();
@@ -54,6 +56,21 @@ export const mainLayoutModel = (dispatch: AppDispatch) => {
   }, [isAuthorized]);
 
   useEffect(() => {
+    const id = 11; // id награды "Первооткрыватель"
+    if (
+      isAuthorized &&
+      rewards.length &&
+      rewards[10].has_achievement === false &&
+      !hasDispatchedRef.current[id]
+    ) {
+      if (userId ?? 10 <= 9) {
+        dispatch(setHasAchievement(id));
+        hasDispatchedRef.current[id] = true;
+      }
+    }
+  }, [isAuthorized, userId, rewards]);
+
+  useEffect(() => {
     if (dateOfRegister) {
       const registerDate = new Date(dateOfRegister).getTime();
       const currentDate = new Date().getTime();
@@ -65,7 +82,7 @@ export const mainLayoutModel = (dispatch: AppDispatch) => {
   }, [dateOfRegister]);
 
   useEffect(() => {
-    if (isAuthorized) {
+    if (isAuthorized && rewards.length) {
       const newbie = 1000;
       const millioner = 1_000_000;
       const billioner = 1_000_000_000;
@@ -73,8 +90,10 @@ export const mainLayoutModel = (dispatch: AppDispatch) => {
       const getRewardAndSetHasAchievement = (count: number, id: number) => {
         if (
           userCoins >= count &&
-          rewards.find((item) => item.id === id)?.has_achievement === false
+          rewards.find((item) => item.id === id)?.has_achievement === false &&
+          !hasDispatchedRef.current[id]
         ) {
+          hasDispatchedRef.current[id] = true;
           dispatch(setHasAchievement(id));
         }
       };

@@ -22,18 +22,27 @@ const notificationSlice = createSlice({
     deleteLastNotification: (state) => {
       state.data.shift();
     },
+    deleteNotificationById: (state, action: PayloadAction<string>) => {
+      state.data = state.data.filter((item) => item.id !== action.payload);
+    },
   },
   extraReducers: (builder) => {
     builder.addCase(setHasAchievement.fulfilled, (state, action) => {
-      console.log(action.payload);
-      // state.data.push(action.payload);
+      state.data.push({
+        message: `Вы получили новую награду: ${action.payload.achievement}`,
+        type: "success",
+        id: crypto.randomUUID(),
+      });
     });
   },
 });
 
 export const getNotifications = (state: RootState) => state.notifications.data;
 
-export const { addNotification, deleteLastNotification } =
-  notificationSlice.actions;
+export const {
+  addNotification,
+  deleteLastNotification,
+  deleteNotificationById,
+} = notificationSlice.actions;
 
 export default notificationSlice.reducer;
