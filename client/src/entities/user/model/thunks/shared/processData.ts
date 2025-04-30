@@ -13,7 +13,7 @@ export const processUserData = (state: userDataInterface, payloadData: any) => {
 
   state.coinsOnClick = payloadData.coins_per_click;
   state.coinsPerMinute = payloadData.coins_per_minute;
-  
+
   state.clicker.upgrades = payloadData.upgrades.map((item: any) => {
     return {
       id: item.id,
@@ -25,4 +25,9 @@ export const processUserData = (state: userDataInterface, payloadData: any) => {
       imagePath: item.image_path,
     };
   });
+
+  const autoClicker = payloadData.upgrades.find((item: any) => item.id === 14);
+  if (autoClicker) {
+    state.hasAutoClicker = true;
+  }
 };

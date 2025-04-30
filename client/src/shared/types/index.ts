@@ -22,6 +22,7 @@ export interface userDataInterface {
   level: number;
   coinsPerMinute: number;
   coinsOnClick: number;
+  hasAutoClicker: boolean;
   finances: {
     coins: number;
     diamonds: number;

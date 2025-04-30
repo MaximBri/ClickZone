@@ -17,6 +17,7 @@ const initialState: userDataInterface = {
   level: 1,
   coinsPerMinute: 0,
   coinsOnClick: 1,
+  hasAutoClicker: false,
   finances: {
     coins: 0,
     diamonds: 0,
@@ -71,15 +72,21 @@ const UserSlice = createSlice({
       state.finances.coins += state.coinsPerMinute / 60;
     },
     setCoinsOnClick(state, action: PayloadAction<number>) {
+      if (state.hasAutoClicker) {
+        state.coinsPerMinute = action.payload * 60;
+      }
       state.coinsOnClick = action.payload;
-      state.coinsPerMinute = action.payload * 60;
     },
     addCoinsOnClick(state, action: PayloadAction<number>) {
-      state.coinsPerMinute = (state.coinsOnClick + action.payload) * 60;
+      if (state.hasAutoClicker) {
+        state.coinsPerMinute = (state.coinsOnClick + action.payload) * 60;
+      }
       state.coinsOnClick += action.payload;
     },
     multiplyCoinsOnClick(state, action: PayloadAction<number>) {
-      state.coinsPerMinute = state.coinsOnClick * action.payload * 60;
+      if (state.hasAutoClicker) {
+        state.coinsPerMinute = state.coinsOnClick * action.payload * 60;
+      }
       state.coinsOnClick *= action.payload;
     },
     setDiamonds(state, action: PayloadAction<number>) {
@@ -122,6 +129,9 @@ const UserSlice = createSlice({
         state.clicker.upgrades[duplicate].count++;
       } else {
         state.clicker.upgrades.push({ ...action.payload, count: 1 });
+      }
+      if (action.payload.id === 14) {
+        state.hasAutoClicker = true;
       }
     },
     removeOneUpgrade(state, action: PayloadAction<number>) {
