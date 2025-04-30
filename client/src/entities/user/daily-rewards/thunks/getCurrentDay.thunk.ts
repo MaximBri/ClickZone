@@ -6,7 +6,6 @@ export const getCurrentRewardsDayThunk = createAsyncThunk(
   "getCurrentRewardsDay",
   async () => {
     const responce = await api.get(apiRoutes.getDailyRewardsStatus);
-    console.log(responce.data);
     return responce.data;
   }
 );

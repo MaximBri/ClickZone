@@ -54,7 +54,6 @@ export const DailyReward = memo(() => {
     setTimeout(() => {
       dispatch(setDailyReward(false));
       dispatch(getCurrentRewardThunk());
-      console.log(1, currentRewardsData.currentDay);
       if (currentRewardsData.currentDay === 5) {
         addMiglioramentiByReward(5);
       } else if (currentRewardsData.currentDay === 7) {

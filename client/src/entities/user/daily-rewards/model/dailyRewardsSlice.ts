@@ -54,7 +54,6 @@ const dailyRewardsSlice = createSlice({
           };
         }>
       ) => {
-        console.log(action.payload);
         state.canGetReward = action.payload.available;
         state.currentDay = action.payload.current_day;
         state.hoursToNextReward = action.payload.time_to_next?.hours ?? 0;

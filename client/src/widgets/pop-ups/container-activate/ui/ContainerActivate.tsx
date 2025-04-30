@@ -2,21 +2,24 @@ import { useEffect, useState } from "react";
 import { useAppDispatch, useAppSelector } from "@/app/store/store";
 
 import { setActiveContainer } from "@/pages/randomizer/model/containtersSlice";
-import { DOMAIN } from "@/shared/config/routes";
+// import { DOMAIN } from "@/shared/config/routes";
 import { RewardInterface } from "@/shared/types";
 import styles from "./ContainerActivate.module.scss";
-import coinSvg from "/images/resources/coin.svg";
-import diamondSvg from "/images/resources/diamond.svg";
+// import coinSvg from "/images/resources/coin.svg";
+// import diamondSvg from "/images/resources/diamond.svg";
+import { api } from "@/shared/api/base";
+import { apiRoutes } from "@/shared/config/apiRoutes";
 
 export const ContainerActivate = () => {
   const dispatch = useAppDispatch();
   const data = useAppSelector((state) => state.containers.activeContainer);
   const [isActive, setIsActive] = useState<boolean>(false);
   const [rewards, setRewards] = useState<RewardInterface[] | null>(null);
+  console.log(rewards);
 
   useEffect(() => {
-    setRewards(null)
-  }, [])
+    setRewards(null);
+  }, []);
 
   if (!data) return null;
 
@@ -31,9 +34,16 @@ export const ContainerActivate = () => {
     }, 300);
   };
 
-  const activate = () => {
-
-  }
+  const activate = async () => {
+    try {
+      const response = await api.post(apiRoutes.activateContainer, {
+        id: data.id,
+      });
+      console.log(response);
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   return (
     <>
@@ -49,7 +59,9 @@ export const ContainerActivate = () => {
         }`}
       >
         <h2 className={styles.container__title}>{`Контейнер ${data.name}`}</h2>
-        <ul className={styles.container__list}>
+        <div className={styles.container__reward}></div>
+        <h3 className={styles.container__title}>Что может выпасть:</h3>
+        {/* <ul className={styles.container__list}>
           {rewards &&
             rewards.map((item, index) => {
               if (item.coins) {
@@ -102,7 +114,7 @@ export const ContainerActivate = () => {
               );
             })}
           <div className={styles["container__list-separator"]}></div>
-        </ul>
+        </ul> */}
         <button onClick={activate} className={styles.container__button}>
           Крутить!
         </button>

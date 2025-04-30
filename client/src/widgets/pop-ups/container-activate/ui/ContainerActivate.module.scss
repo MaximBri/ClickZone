@@ -40,6 +40,9 @@
   &--hidden {
     opacity: 0;
   }
+  &__reward{
+    height: rem(300);
+  }
   &__list {
     position: relative;
 

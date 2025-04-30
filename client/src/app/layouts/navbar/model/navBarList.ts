@@ -20,18 +20,18 @@ export const navBarList: navBarListInterface[] = [
     pageName: routes.pages.randomizer,
     needAuth: true,
   },
-  {
-    iconLink: "/shop.svg",
-    title: "Рынок",
-    pageName: routes.pages.shop,
-    needAuth: true,
-  },
-  {
-    iconLink: "/globalMap.svg",
-    title: "Глобальная карта",
-    pageName: routes.pages.globalMap,
-    needAuth: true,
-  },
+  // {
+  //   iconLink: "/shop.svg",
+  //   title: "Рынок",
+  //   pageName: routes.pages.shop,
+  //   needAuth: true,
+  // },
+  // {
+  //   iconLink: "/globalMap.svg",
+  //   title: "Глобальная карта",
+  //   pageName: routes.pages.globalMap,
+  //   needAuth: true,
+  // },
   {
     iconLink: "/leaderboard.svg",
     title: "Таблица лидеров",

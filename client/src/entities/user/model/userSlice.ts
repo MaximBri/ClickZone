@@ -67,6 +67,9 @@ const UserSlice = createSlice({
     addCoin(state) {
       state.finances.coins += state.coinsOnClick;
     },
+    addCoinsInSecond(state) {
+      state.finances.coins += state.coinsPerMinute / 60;
+    },
     setCoinsOnClick(state, action: PayloadAction<number>) {
       state.coinsOnClick = action.payload;
       state.coinsPerMinute = action.payload * 60;
@@ -199,9 +202,6 @@ const UserSlice = createSlice({
       } else {
         console.error("Не найдена награда с id = ", action.meta.arg);
       }
-      // state.
-      console.log(action);
-      console.log(action.payload);
     });
     // Покупка улучшения
     builder.addCase(buyMiglioramenti.fulfilled, (state, action) => {
@@ -212,7 +212,6 @@ const UserSlice = createSlice({
       state.finances = action.payload.user_resources;
     });
     builder.addCase(activateMiglioramentiThunk.fulfilled, (state, action) => {
-      console.log(action.payload);
       state.finances = {
         coins: action.payload.user_coins,
         diamonds: action.payload.user_diamonds,
@@ -241,6 +240,7 @@ export const {
   setNicknamePrice,
   setCanChangeNickname,
   addCountNicknames,
+  addCoinsInSecond,
 } = UserSlice.actions;
 
 export default UserSlice.reducer;

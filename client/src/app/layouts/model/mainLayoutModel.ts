@@ -11,6 +11,7 @@ import { getDailyRewardsThunk } from "@/entities/user/daily-rewards/thunks/getDa
 import { updateUserFinancesThunk } from "@/entities/user/account/thunks/updateUserFinances.thunk";
 import { useSyncOnUnload } from "@/entities/user/useSyncOnUnload";
 import { setHasAchievement } from "@/entities/user/account/thunks/setHasAchevement.thunk";
+import { addCoinsInSecond } from "@/entities/user/model/userSlice";
 import {
   getIsAuthorized,
   getUserFlags,
@@ -29,8 +30,8 @@ export const mainLayoutModel = (dispatch: AppDispatch) => {
   const userId = useAppSelector((state) => state.user.globals.id);
   const userCoins = useAppSelector((state) => state.user.finances.coins);
   const rewards = useAppSelector((state) => state.user.globals.achievements);
+  const coinsPerMinute = useAppSelector((state) => state.user.coinsPerMinute);
   const hasDispatchedRef = useRef<{ [key: number]: boolean }>({});
-  console.log(rewards);
 
   useSyncOnUnload();
   useAuthInterceptor();
@@ -54,6 +55,18 @@ export const mainLayoutModel = (dispatch: AppDispatch) => {
       }
     };
   }, [isAuthorized]);
+
+  useEffect(() => {
+    let interval: any;
+    if (isAuthorized && coinsPerMinute) {
+      interval = setInterval(() => {
+        dispatch(addCoinsInSecond());
+      }, 1000);
+    }
+    return () => {
+      clearInterval(interval);
+    };
+  }, [coinsPerMinute, isAuthorized]);
 
   useEffect(() => {
     const id = 11; // id награды "Первооткрыватель"

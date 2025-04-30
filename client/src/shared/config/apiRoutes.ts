@@ -19,6 +19,7 @@ export const apiRoutes = {
   upgrades: "upgrades",
   // containers
   containers: "containers",
+  activateContainer: "containers/claim",
   // Globals
   updateFinaces: "resource-sync",
   // Miglioramenti
