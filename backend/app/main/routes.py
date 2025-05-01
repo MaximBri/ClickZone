@@ -517,3 +517,25 @@ def keys():
         return validation_error(e)
     except Exception as e:
         return default_error(e)
+
+
+@bp.route('/get-top-players', methods=['GET'])
+@jwt_required()
+def get_top_players():
+    try:
+        sort_param = request.args.get('sort', 'coins').lower()
+
+        if sort_param == 'diamonds':
+            top_users = User.query.order_by(User.diamonds.desc()).limit(10).all()
+        else:
+            top_users = User.query.order_by(User.coins.desc()).limit(10).all()
+
+        response = make_response(
+            [{
+                'name': user.name,
+                'coins': user.coins,
+                'diamonds': user.diamonds
+            } for user in top_users], 200)
+        return response
+    except Exception as e:
+        return default_error(e)

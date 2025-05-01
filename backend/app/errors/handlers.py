@@ -4,6 +4,7 @@ from flask import jsonify
 
 logger = logging.getLogger(__name__)
 
+
 def validation_error(e: Exception):
     errors = []
 
