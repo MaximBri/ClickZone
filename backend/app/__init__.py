@@ -1,12 +1,12 @@
-import os
 import logging
+import os
 
 import redis
-from flask import Flask, current_app, jsonify
-from flask_migrate import Migrate
+from flask import Flask, jsonify
 from flask_cors import CORS
-from flask_sqlalchemy import SQLAlchemy
 from flask_jwt_extended import JWTManager
+from flask_migrate import Migrate
+from flask_sqlalchemy import SQLAlchemy
 
 from config import Config
 from .errors import InsufficientMoneyError
@@ -62,6 +62,15 @@ def create_app(config_class=Config):
 
     from app.profile import bp as profile_bp
     app.register_blueprint(profile_bp, url_prefix='/api/profile')
+
+    from app.daily_rewards import bp as daily_reward_bp
+    app.register_blueprint(daily_reward_bp, url_prefix='/api/daily-rewards')
+
+    from app.upgrades import bp as upgrades_bp
+    app.register_blueprint(upgrades_bp, url_prefix='/api/upgrades')
+
+    from app.containers import bp as containers_bp
+    app.register_blueprint(containers_bp, url_prefix='/api/containers')
 
     return app
 
