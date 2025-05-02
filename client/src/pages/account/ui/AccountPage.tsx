@@ -11,6 +11,7 @@ import { UserRewards } from "@/features/user-account/user-rewards";
 import { updateUserFinancesThunk } from "@/entities/user/account/thunks/updateUserFinances.thunk";
 import { api } from "@/shared/api/base";
 import { apiRoutes } from "@/shared/config/apiRoutes";
+import { setHasAchievement } from "@/entities/user/account/thunks/setHasAchevement.thunk";
 import {
   addCountNicknames,
   setCanChangeNickname,
@@ -24,7 +25,7 @@ import {
   getIsAuthorized,
 } from "@/entities/user/model/selectors";
 import styles from "./AccountPage.module.scss";
-import { setHasAchievement } from "@/entities/user/account/thunks/setHasAchevement.thunk";
+import { activateReward } from "@/entities/user/account/activateReward";
 
 export const AccountPage = () => {
   const dispatch = useAppDispatch();
@@ -73,7 +74,8 @@ export const AccountPage = () => {
       if (changesNickname) {
         const userState = store.getState().user;
         if (userState.account.countNicknames ?? 0 > 2) {
-          dispatch(setHasAchievement(8));
+          activateReward(dispatch, 8)
+          // dispatch(setHasAchievement(8));
         }
         dispatch(addCountNicknames());
       }

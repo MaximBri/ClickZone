@@ -10,18 +10,13 @@ import { getCurrentRewardsDayThunk } from "@/entities/user/daily-rewards/thunks/
 import { getDailyRewardsThunk } from "@/entities/user/daily-rewards/thunks/getDailyRewards.thunk";
 import { updateUserFinancesThunk } from "@/entities/user/account/thunks/updateUserFinances.thunk";
 import { useSyncOnUnload } from "@/entities/user/useSyncOnUnload";
-import { setHasAchievement } from "@/entities/user/account/thunks/setHasAchevement.thunk";
 import { addCoinsInSecond } from "@/entities/user/model/userSlice";
+import { activateReward } from "@/entities/user/account/activateReward";
 import {
   getIsAuthorized,
   getUserFlags,
   userInfoIsLoaded,
 } from "@/entities/user/model/selectors";
-import {
-  addNotification,
-  deleteLastNotification,
-} from "@/widgets/pop-ups/notifications/model/notificationSlice";
-import { notificationManager } from "@/widgets/pop-ups/notifications/model/notificationManager";
 
 export const mainLayoutModel = (dispatch: AppDispatch) => {
   const location = useLocation();
@@ -82,7 +77,8 @@ export const mainLayoutModel = (dispatch: AppDispatch) => {
       !hasDispatchedRef.current[id]
     ) {
       if (userId ?? 10 <= 9) {
-        dispatch(setHasAchievement(id));
+        activateReward(dispatch, id)
+        // dispatch(setHasAchievement(id));
         hasDispatchedRef.current[id] = true;
       }
     }
@@ -94,7 +90,8 @@ export const mainLayoutModel = (dispatch: AppDispatch) => {
       const currentDate = new Date().getTime();
       const diffDays = (currentDate - registerDate) / (1000 * 60 * 60 * 24);
       if (diffDays >= 30) {
-        dispatch(setHasAchievement(4));
+        activateReward(dispatch, 4)
+        // dispatch(setHasAchievement(4));
       }
     }
   }, [dateOfRegister]);
@@ -115,14 +112,15 @@ export const mainLayoutModel = (dispatch: AppDispatch) => {
           !hasDispatchedRef.current[id]
         ) {
           hasDispatchedRef.current[id] = true;
-          const response = await dispatch(setHasAchievement(id));
-          if (response.meta.requestStatus === "fulfilled") {
-            notificationManager(
-              dispatch,
-              `Вы получили новую награду: ${response.payload.achievement}`,
-              "success"
-            );
-          }
+          await activateReward(dispatch, id)
+          // const response = await dispatch(setHasAchievement(id));
+          // if (response.meta.requestStatus === "fulfilled") {
+          //   notificationManager(
+          //     dispatch,
+          //     `Вы получили новую награду: ${response.payload.achievement}`,
+          //     "success"
+          //   );
+          // }
         }
       };
 
