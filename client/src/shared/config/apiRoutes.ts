@@ -23,6 +23,6 @@ export const apiRoutes = {
   // Globals
   updateFinaces: "resource-sync",
   // Miglioramenti
-  activateMiglioramenti: "activate-upgrade",
+  activateMiglioramenti: "upgrades/activate-upgrade",
   buyKey: "keys",
 };

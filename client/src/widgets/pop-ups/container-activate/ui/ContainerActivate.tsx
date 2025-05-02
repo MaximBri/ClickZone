@@ -9,6 +9,7 @@ import { notificationManager } from "../../notifications/model/notificationManag
 import { getContainers } from "@/entities/user/containers/thunks/getContainers.thunk";
 import { getMiglioramenti } from "@/entities/user/miglioramenti/thunks/getMiglioramenti.thunk";
 import { activateMiglioramentiThunk } from "@/entities/user/miglioramenti/thunks/activateMiglioramentiThunk";
+import { ContainerRewards } from "@/features/randomizer/container-rewards/ui/ContainerRewards";
 import {
   addContainerWithCount,
   removeOneContainer,
@@ -182,105 +183,55 @@ export const ContainerActivate = () => {
           isActive ? "" : styles["container--hidden"]
         }`}
       >
-        <h2 className={styles.container__title}>{`Контейнер ${data.name}`}</h2>
-        <div className={styles.container__reward}>
-          {rewards?.coins && (
-            <div className={styles.container__coins}>
-              <img src={coinSvg} alt="coin" />
-              {rewards.coins}
-            </div>
+        <div className={styles.container__wrapper}>
+          <h2 className={styles.container__title}>{`Контейнер ${data.name}`}</h2>
+          <div className={styles.container__reward}>
+            {!rewards && <>Нажмите кнопку ниже, чтобы получить награду</>}
+            {rewards?.coins && (
+              <div className={styles.container__coins}>
+                <img src={coinSvg} alt="coin" />
+                {rewards.coins}
+              </div>
+            )}
+            {rewards?.diamonds && (
+              <div className={styles.container__coins}>
+                <img src={diamondSvg} alt="diamond" />
+                {rewards.diamonds}
+              </div>
+            )}
+            {rewards?.container_id && (
+              <div className={styles.container__container}>
+                <img
+                  src={`${DOMAIN}/images/containers/${rewards.imagePath}`}
+                  alt="container"
+                />
+                <h3>Количество: {rewards.count}</h3>
+              </div>
+            )}
+            {rewards?.improvement_id && (
+              <div className={styles.container__improvement}>
+                <img
+                  src={`${DOMAIN}/images/miglioramenti/${rewards.imagePath}`}
+                  alt="miglioramenti"
+                />
+                <h3>Количество: {rewards.count}</h3>
+              </div>
+            )}
+            {rewards?.keys && (
+              <div className={styles.container__improvement}>
+                <img src={`${DOMAIN}/images/containers/key.svg`} alt="key" />
+                <h3>Количество: {rewards.keys}</h3>
+              </div>
+            )}
+          </div>
+          {!alreadyOpen && (
+            <button onClick={activate} className={styles.container__button}>
+              Открыть!
+            </button>
           )}
-          {rewards?.diamonds && (
-            <div className={styles.container__coins}>
-              <img src={diamondSvg} alt="diamond" />
-              {rewards.diamonds}
-            </div>
-          )}
-          {rewards?.container_id && (
-            <div className={styles.container__container}>
-              <img
-                src={`${DOMAIN}/images/containers/${rewards.imagePath}`}
-                alt="container"
-              />
-              <h3>Количество: {rewards.count}</h3>
-            </div>
-          )}
-          {rewards?.improvement_id && (
-            <div className={styles.container__improvement}>
-              <img
-                src={`${DOMAIN}/images/miglioramenti/${rewards.imagePath}`}
-                alt="miglioramenti"
-              />
-              <h3>Количество: {rewards.count}</h3>
-            </div>
-          )}
-          {rewards?.keys && (
-            <div className={styles.container__improvement}>
-              <img src={`${DOMAIN}/images/containers/key.svg`} alt="key" />
-              <h3>Количество: {rewards.keys}</h3>
-            </div>
-          )}
+          <h3 className={styles.container__title}>Что может выпасть:</h3>
+          <ContainerRewards rewards={data.rewards} />
         </div>
-        <h3 className={styles.container__title}>Что может выпасть:</h3>
-        {/* <ul className={styles.container__list}>
-          {rewards &&
-            rewards.map((item, index) => {
-              if (item.coins) {
-                return (
-                  <li
-                    key={index}
-                    className={styles["container__list-item--resource"]}
-                  >
-                    <img src={coinSvg} alt="coin" />
-                    {item.coins}
-                  </li>
-                );
-              }
-              if (item.diamonds) {
-                return (
-                  <li
-                    key={index}
-                    className={styles["container__list-item--resource"]}
-                  >
-                    <img src={diamondSvg} alt="diamond" />
-                    {item.diamonds}
-                  </li>
-                );
-              }
-              if (item.container_id) {
-                return (
-                  <li
-                    key={index}
-                    className={styles["container__list-item--container"]}
-                  >
-                    <img
-                      src={`${DOMAIN}/images/${item.imagePath}`}
-                      alt="container"
-                    />
-                    {item.count}
-                  </li>
-                );
-              }
-              return (
-                <li
-                  key={index}
-                  className={styles["container__list-item--miglioramenti"]}
-                >
-                  <img
-                    src={`${DOMAIN}/images/${item.imagePath}`}
-                    alt="miglioramenti"
-                  />
-                  {item.count}
-                </li>
-              );
-            })}
-          <div className={styles["container__list-separator"]}></div>
-        </ul> */}
-        {!alreadyOpen && (
-          <button onClick={activate} className={styles.container__button}>
-            Крутить!
-          </button>
-        )}
       </section>
     </>
   );

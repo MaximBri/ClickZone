@@ -5,20 +5,26 @@
   left: 50%;
   transform: translate(-50%, -50%);
 
-  display: flex;
-  flex-direction: column;
-  gap: rem(30);
-  align-items: center;
-
   width: 70dvw;
   max-height: 90dvh;
-  padding: rem(30);
+  padding: rem(30) rem(20) rem(30) rem(30);
   border-radius: 20px;
 
   opacity: 1;
   background-color: $button;
 
   transition: opacity 0.3s;
+
+  &__wrapper {
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    gap: rem(30);
+    align-items: center;
+
+    max-height: calc(90dvh - 60px);
+    padding-right: rem(10);
+  }
   &__background {
     position: fixed;
     z-index: 100;
@@ -41,7 +47,6 @@
     opacity: 0;
   }
   &__reward {
-    // height: rem(300);
   }
   &__list {
     position: relative;
@@ -170,7 +175,7 @@
       text-align: center;
     }
   }
-  &__improvement{
+  &__improvement {
     display: flex;
     flex-direction: column;
     align-items: center;

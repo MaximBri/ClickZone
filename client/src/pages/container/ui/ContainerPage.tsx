@@ -1,14 +1,15 @@
 import { useNavigate, useParams } from "react-router-dom";
 import { useAppDispatch, useAppSelector } from "@/app/store/store";
+import { useEffect } from "react";
 
 import { DOMAIN, routes } from "@/shared/config/routes";
 import { buyContainer } from "@/entities/user/containers/buyContainer";
+import { getFinances } from "@/entities/user/model/selectors";
+import { getContainers } from "@/entities/user/containers/thunks/getContainers.thunk";
+import { ContainerRewards } from "@/features/randomizer/container-rewards/ui/ContainerRewards";
 import coinSvg from "/images/resources/coin.svg";
 import diamondSvg from "/images/resources/diamond.svg";
 import styles from "./ContainerPage.module.scss";
-import { getFinances } from "@/entities/user/model/selectors";
-import { getContainers } from "@/entities/user/containers/thunks/getContainers.thunk";
-import { useEffect } from "react";
 
 export const ContainerPage = () => {
   const params = useParams();
@@ -63,70 +64,7 @@ export const ContainerPage = () => {
         </button>
       </nav>
       <h3 className={styles.container__title}>Что может выпасть:</h3>
-      <ul className={styles.container__list}>
-        {container.rewards.map((item, index) => {
-          return (
-            <li className={styles.container__item} key={index}>
-              {item.coins && (
-                <>
-                  {item.coins}
-                  <img
-                    className={styles["container__item-coin"]}
-                    src={coinSvg}
-                    alt="coin"
-                  />
-                </>
-              )}
-              {item.diamonds && (
-                <>
-                  {item.diamonds}
-                  <img
-                    className={styles["container__item-diamond"]}
-                    src={diamondSvg}
-                    alt="diamond"
-                  />
-                </>
-              )}
-              {item.improvement_id && (
-                <>
-                  <h4 className={styles["container__item-count"]}>
-                    x{item.count}
-                  </h4>
-                  <img
-                    className={styles["container__item-container"]}
-                    src={`${DOMAIN}/images/${item.imagePath}`}
-                    alt="improvement"
-                  />
-                </>
-              )}
-              {item.container_id && (
-                <>
-                  <h4 className={styles["container__item-count"]}>
-                    x{item.count}
-                  </h4>
-                  <img
-                    className={styles["container__item-container"]}
-                    src={`${DOMAIN}/images/${item.imagePath}`}
-                    alt="container"
-                  />
-                </>
-              )}
-              {item.keys && (
-                <>
-                  <h4 className={styles["container__item-count"]}>
-                    x{item.keys}
-                  </h4>
-                  <img
-                    className={styles["container__item-container"]}
-                    src={`${DOMAIN}/images/containers/key.svg`}
-                    alt="key"
-                  />
-                </>
-              )}
-            </li>
-          );
-        })}
-      </ul>
+      <ContainerRewards rewards={container.rewards}/>
     </section>
   );
 };
