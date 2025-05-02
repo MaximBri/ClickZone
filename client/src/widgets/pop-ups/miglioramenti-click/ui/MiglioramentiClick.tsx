@@ -10,7 +10,7 @@ import {
   setCoins,
   setDiamonds,
 } from "@/entities/user/model/userSlice";
-import circleGif from "./icons/circle.gif";
+import circleGif from "@/shared/icons/circle.gif";
 import styles from "./MiglioramentiClick.module.scss";
 
 export const MiglioramentiClick = () => {

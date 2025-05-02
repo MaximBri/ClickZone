@@ -5,7 +5,7 @@ import { AppDispatch } from "@/app/store/store";
 export const notificationManager = (
   dispatch: AppDispatch,
   message: string,
-  type: notificationsErrorsTypes
+  type: notificationsErrorsTypes,
 ) => {
   dispatch(
     addNotification({
