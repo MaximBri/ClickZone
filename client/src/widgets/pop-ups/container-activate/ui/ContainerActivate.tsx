@@ -8,6 +8,7 @@ import { DOMAIN } from "@/shared/config/routes";
 import { notificationManager } from "../../notifications/model/notificationManager";
 import { getContainers } from "@/entities/user/containers/thunks/getContainers.thunk";
 import { getMiglioramenti } from "@/entities/user/miglioramenti/thunks/getMiglioramenti.thunk";
+import { activateMiglioramentiThunk } from "@/entities/user/miglioramenti/thunks/activateMiglioramentiThunk";
 import {
   addContainerWithCount,
   removeOneContainer,
@@ -23,7 +24,6 @@ import {
 import coinSvg from "/images/resources/coin.svg";
 import diamondSvg from "/images/resources/diamond.svg";
 import styles from "./ContainerActivate.module.scss";
-import { activateMiglioramentiThunk } from "@/entities/user/miglioramenti/thunks/activateMiglioramentiThunk";
 
 export const ContainerActivate = () => {
   const dispatch = useAppDispatch();

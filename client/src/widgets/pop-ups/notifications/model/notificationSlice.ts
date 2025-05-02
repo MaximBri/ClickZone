@@ -26,15 +26,6 @@ const notificationSlice = createSlice({
       state.data = state.data.filter((item) => item.id !== action.payload);
     },
   },
-  extraReducers: (builder) => {
-    builder.addCase(setHasAchievement.fulfilled, (state, action) => {
-      state.data.push({
-        message: `Вы получили новую награду: ${action.payload.achievement}`,
-        type: "success",
-        id: crypto.randomUUID(),
-      });
-    });
-  },
 });
 
 export const getNotifications = (state: RootState) => state.notifications.data;

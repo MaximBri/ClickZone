@@ -17,6 +17,11 @@ import {
   getUserFlags,
   userInfoIsLoaded,
 } from "@/entities/user/model/selectors";
+import {
+  addNotification,
+  deleteLastNotification,
+} from "@/widgets/pop-ups/notifications/model/notificationSlice";
+import { notificationManager } from "@/widgets/pop-ups/notifications/model/notificationManager";
 
 export const mainLayoutModel = (dispatch: AppDispatch) => {
   const location = useLocation();
@@ -100,14 +105,24 @@ export const mainLayoutModel = (dispatch: AppDispatch) => {
       const millioner = 1_000_000;
       const billioner = 1_000_000_000;
 
-      const getRewardAndSetHasAchievement = (count: number, id: number) => {
+      const getRewardAndSetHasAchievement = async (
+        count: number,
+        id: number
+      ) => {
         if (
           userCoins >= count &&
           rewards.find((item) => item.id === id)?.has_achievement === false &&
           !hasDispatchedRef.current[id]
         ) {
           hasDispatchedRef.current[id] = true;
-          dispatch(setHasAchievement(id));
+          const response = await dispatch(setHasAchievement(id));
+          if (response.meta.requestStatus === "fulfilled") {
+            notificationManager(
+              dispatch,
+              `Вы получили новую награду: ${response.payload.achievement}`,
+              "success"
+            );
+          }
         }
       };
 

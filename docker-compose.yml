@@ -1,6 +1,6 @@
 services:
   backend:
-    image: neksper/backend:v17-dev
+    image: neksper/backend:v18-dev
     container_name: backend
     restart: always
     ports:
