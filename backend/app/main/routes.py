@@ -186,7 +186,6 @@ def keys():
 
 
 @bp.route('/get-top-players', methods=['GET'])
-@jwt_required()
 def get_top_players():
     try:
         sort_param = request.args.get('sort', 'coins').lower()
