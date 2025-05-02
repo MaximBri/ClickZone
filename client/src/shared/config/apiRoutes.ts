@@ -10,7 +10,7 @@ export const apiRoutes = {
   // Profile
   editProfile: "profile/edit_profile",
   getAccountInfo: "profile/me",
-  setReward: 'achievements',
+  setReward: "achievements",
   // Daily rewards
   getDailyRewards: "daily-rewards",
   getDailyRewardsStatus: "daily-rewards/status",
@@ -25,4 +25,6 @@ export const apiRoutes = {
   // Miglioramenti
   activateMiglioramenti: "upgrades/activate-upgrade",
   buyKey: "keys",
+  // Leaderboard
+  leaderboard: "get-top-players",
 };
