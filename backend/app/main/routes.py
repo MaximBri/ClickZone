@@ -90,7 +90,7 @@ def resource_synchronization():
 
             max_click_income = calculate_max_click_coins(user)
 
-            if form.coins <= (user.coins + max_click_income) and form.diamonds <= user.diamonds:
+            if user.coins <= form.coins <= user.coins + max_click_income and form.diamonds == user.diamonds:
                 user.coins = form.coins
                 user.diamonds = form.diamonds
                 return make_response('', 200)
@@ -197,10 +197,33 @@ def get_top_players():
 
         response = make_response(
             [{
+                'id': user.id,
                 'name': user.name,
                 'coins': user.coins,
                 'diamonds': user.diamonds
             } for user in top_users], 200)
         return response
+    except Exception as e:
+        return default_error(e)
+
+
+@bp.route('/get_player_info', methods=['GET'])
+def get_player_info():
+    try:
+        user_id = request.args.get('id')
+        if user_id is not None and user_id.isdigit():
+            user = User.query.get(int(user_id))
+            if user is None:
+                return jsonify({'errors': [{'msg': 'Пользователя с таким id не существует'}]}), 400
+            response = make_response(
+                {
+                    'nickname': user.name,
+                    'about_me': user.about_me if user.about_me else '',
+                    'achievements': user.achievements,
+                    'timestamp': user.timestamp.isoformat()
+                }, 200
+            )
+            return response
+        return jsonify({'errors': [{'msg': 'Параметр id неотправлен или имеет некорректное значение'}]}), 400
     except Exception as e:
         return default_error(e)

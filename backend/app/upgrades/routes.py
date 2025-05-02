@@ -124,15 +124,19 @@ def buy_upgrade():
             if upgrade_name == 'Автокликер':
                 user_upgrade.upgrade.multiplier = 2
                 user_upgrade.active = True
+                message = f"Специальное улучшение '{upgrade_name}' активировано."
             elif upgrade_name == 'Золотая лихорадка':
                 user_upgrade.upgrade.multiplier = 2  # следующие 50 кликов по 2x (для одного клика — учитываем 2x)
                 user_upgrade.active = True
+                message = f"Специальное улучшение '{upgrade_name}' активировано."
             elif upgrade_name == 'Взрывные клики':
                 user_upgrade.upgrade.multiplier = 10  # следующие 5 кликов по 10x
                 user_upgrade.active = True
+                message = f"Специальное улучшение '{upgrade_name}' активировано."
             elif upgrade_name == 'Магический артефакт':
                 user_upgrade.upgrade.multiplier = 3  # временный множитель 3x за 30 секунд
                 user_upgrade.active = True
+                message = f"Специальное улучшение '{upgrade_name}' активировано."
 
             response = make_response({'msg': message,
                                       'user_coins': user.coins,

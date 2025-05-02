@@ -33,7 +33,7 @@ class Config:
     JWT_COOKIE_CSRF_PROTECT = True  # Включаем CSRF-защиту для JWT cookies
 
     # Localhost
-    JWT_COOKIE_SAMESITE = 'Lax'  # CSRF protection/
+    JWT_COOKIE_SAMESITE = 'Lax'  # CSRF protection
     JWT_COOKIE_DOMAIN = None
     FLASK_DEBUG = True
 
