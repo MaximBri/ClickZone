@@ -52,16 +52,18 @@
     &-item {
       display: grid;
       grid-template-columns:
-        rem(40) calc((100% - 100px) / 3) calc((100% - 100px) / 3)
-        calc((100% - 100px) / 3);
+        rem(40) calc((100% - 110px) / 3) calc((100% - 110px) / 3)
+        calc((100% - 110px) / 3);
       gap: rem(20);
+      justify-content: space-between;
 
+      width: 100%;
       width: 100%;
 
       font-size: rem(24);
       text-align: center;
       & span {
-        width: rem(40);
+        width: rem(50);
       }
       & div,
       span {
@@ -71,9 +73,13 @@
         justify-content: center;
 
         height: 100%;
-        margin: auto 0;
-        padding: rem(10) 0;
+        padding: rem(10);
         border-radius: 5px;
+
+        text-overflow: clip;
+        word-break: break-word;
+        overflow-wrap: break-word;
+        white-space: normal;
 
         background-color: $brown-light;
         > img {
@@ -88,5 +94,84 @@
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
+
+    font-size: rem(24);
+  }
+}
+
+@media (max-width: 1024px) {
+  .leaderboard {
+    padding: rem(15) rem(30);
+    &__title {
+      font-size: rem(24);
+    }
+    &__subtitle {
+      font-size: rem(22);
+    }
+    &__list {
+      gap: rem(10);
+      padding: rem(20);
+      font-size: rem(18);
+      &-item {
+        gap: rem(15);
+        font-size: rem(22);
+        & div,
+        span {
+          gap: rem(10);
+          padding: rem(10);
+          > img {
+            width: rem(30);
+            height: rem(30);
+          }
+        }
+        &-count {
+          display: flex;
+          flex-direction: column;
+        }
+      }
+    }
+    &__loading {
+      font-size: rem(22);
+    }
+  }
+}
+
+@media (max-width: 768px) {
+  .leaderboard {
+    gap: rem(10);
+    padding: rem(10) rem(20);
+    &__title {
+      font-size: rem(20);
+    }
+    &__subtitle {
+      font-size: rem(16);
+    }
+    &__list {
+      gap: rem(10);
+      padding: rem(15);
+      font-size: rem(16);
+      &-item {
+        grid-template-columns:
+        rem(30) calc((100% - 50px) / 3) calc((100% - 50px) / 3)
+        calc((100% - 50px) / 3);
+        gap: rem(5);
+        font-size: rem(16);
+        & span {
+          width: rem(30);
+        }
+        & div,
+        span {
+          gap: rem(5);
+          padding: rem(5);
+          > img {
+            width: rem(20);
+            height: rem(20);
+          }
+        }
+      }
+    }
+    &__loading {
+      font-size: rem(20);
+    }
   }
 }
