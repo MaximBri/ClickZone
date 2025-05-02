@@ -1,5 +1,4 @@
 import { RootState } from "@/app/store/store";
-import { setHasAchievement } from "@/entities/user/account/thunks/setHasAchevement.thunk";
 import { notificationDataInterface } from "@/shared/types";
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 

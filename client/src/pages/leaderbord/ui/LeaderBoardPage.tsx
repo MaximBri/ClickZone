@@ -27,6 +27,18 @@ export const LeaderBoardPage = () => {
     }
   };
 
+  const prepareData = (count: number): string => {
+    if (count >= 1_000_000) {
+      const millions = (count / 1_000_000).toFixed(1);
+      return `${millions} M`;
+    } else if (count >= 1000) {
+      const thousands = (count / 1000).toFixed(1);
+      return `${thousands} K`;
+    } else {
+      return count.toString();
+    }
+  };
+
   const changeSort = () => {
     setSort(sort === "coins" ? "diamonds" : "coins");
   };
@@ -68,8 +80,8 @@ export const LeaderBoardPage = () => {
               <li className={styles["leaderboard__list-item"]} key={index}>
                 <span>{index + 1}</span>
                 <div>{item.name}</div>
-                <div>{item.coins}</div>
-                <div>{item.diamonds}</div>
+                <div>{prepareData(item.coins)}</div>
+                <div>{prepareData(item.diamonds)}</div>
               </li>
             );
           })}
