@@ -54,11 +54,11 @@ export const LeaderBoardPage = () => {
           <li className={styles["leaderboard__list-item"]}>
             <span></span>
             <div>Никнейм</div>
-            <div>
+            <div className={styles["leaderboard__list-item-count"]}>
               Количество
               <img src={coinSvg} alt="diamonds" />
             </div>
-            <div>
+            <div className={styles["leaderboard__list-item-count"]}>
               Количество
               <img src={diamondSvg} alt="diamonds" />
             </div>
