@@ -21,11 +21,17 @@ interface DataModel {
   achievements: RewardModel[];
 }
 
+/**
+ * Функция отвечает за отрисовку страницы стороннего пользователя и подгрузку всех необходимых данных: никнейм, описание, награды игрока, дата регистрации
+ */
 export const UserPage = () => {
   const props = useParams();
   const rewards = useAppSelector((state) => state.user.globals.achievements);
   const [data, setData] = useState<DataModel | null>(null);
 
+  /**
+   * Функция отправляет запрос на бэкенд и устанавливает новое состояние компонента, что вызывает его перерисовку
+   */
   const getUserInfo = async () => {
     const response = await api.get(
       `${apiRoutes.getOtherAccoutInfo}?id=${props.id}`
@@ -33,6 +39,11 @@ export const UserPage = () => {
     setData(response.data);
   };
 
+  /**
+   * Функция преобразует дату из международного формата в формат ДД.ММ.ГГГГ
+   * @param {string} dateString - дата в международном формате
+   * @return {string}  result - возвращает дату в формате ДД.ММ.ГГГГ
+   */
   function formatDate(dateString: string): string {
     const date = new Date(dateString);
     const day = String(date.getDate()).padStart(2, "0");

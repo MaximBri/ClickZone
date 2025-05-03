@@ -11,6 +11,10 @@ import { DOMAIN, routes } from "@/shared/config/routes";
 import infoSvg from "@/shared/icons/info.svg";
 import styles from "./RandomizePage.module.scss";
 
+
+/**
+ * Функция отвечает за отображение режима "Рандомайзер". Включает в себя меню с количеством ключей, блок с имеющимися у игрока контейнерами, блок с покупкой контейнеров, блок с покупкой ключа.
+ */
 export const RandomizePage = () => {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();

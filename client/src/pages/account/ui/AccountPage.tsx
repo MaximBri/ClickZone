@@ -26,6 +26,9 @@ import {
 } from "@/entities/user/model/selectors";
 import styles from "./AccountPage.module.scss";
 
+/**
+ * Функция отвечает за отображение всей страницы личного кабинета пользователя. При переходе на неё идёт проверка на авторизацию. Если пользователь не авторизован, его перекидывает на главную страницу.
+ */
 export const AccountPage = () => {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
@@ -42,10 +45,17 @@ export const AccountPage = () => {
   if (isAuthorized === false) {
     navigate(routes.base);
   } else if (isAuthorized === null) {
-    // Добавить загрузчик
     return null;
   }
 
+  /**
+   * Функция отвечает за синхронизацию данных пользователя (в пределах личного кабинета) на фронтенде и бэкенде. Идёт запрос на обновление данных на бэкенд. Если он успешен, меняются данные и на фронтенде (до этого они изолированы в этом компоненте)
+   * @param {string} nickname - никнейм пользователя
+   * @param {string} description - описание пользователя
+   * @param {string} successMessage - сообщение, в случае успешной смены данных пользователя
+   * @param {boolean} changesNickname - может ли пользователь бесплатно сменить никнейм.
+   * @param {string} [errorMessage] - сообщение, которое покажется в случае ошибки
+   */
   const sendRequestToChangeAccountData = async (
     nickname: string,
     description: string,
@@ -73,8 +83,7 @@ export const AccountPage = () => {
       if (changesNickname) {
         const userState = store.getState().user;
         if (userState.account.countNicknames ?? 0 > 2) {
-          activateReward(dispatch, 8)
-          // dispatch(setHasAchievement(8));
+          activateReward(dispatch, 8);
         }
         dispatch(addCountNicknames());
       }
@@ -93,6 +102,11 @@ export const AccountPage = () => {
     }
   };
 
+  /**
+   * Функция отвечает за сохранение никнейма или описания. Если первый параметр = 'name', то будет отправляться запрос на обновление никнейма, иначе на обновление описания. Если изменения успешны, будет показано соответствующее уведомление
+   * @param {("name" | "description")} key - ключ, что будет меняться: никнейм или описание
+   * @param {string} value - новое значение никнейма или описания
+   */
   const saveNewUserData = (key: "name" | "description", value: string) => {
     if (key === "description") {
       sendRequestToChangeAccountData(

@@ -8,6 +8,9 @@ import { getMiglioramenti } from "@/entities/user/miglioramenti/thunks/getMiglio
 import { getContainers } from "@/entities/user/containers/thunks/getContainers.thunk";
 import styles from "./DailyRewardsPage.module.scss";
 
+/**
+ * Функция отвечает за отображение ежедневных наград. Включает в себя название страницы, количество часов, через которое можно будет забрать новую ежедневную награду, а также сам список наград.
+ */
 export const DailyRewardsPage = () => {
   const dispatch = useAppDispatch();
   const dailyRewards = useAppSelector(getDailyRewards);

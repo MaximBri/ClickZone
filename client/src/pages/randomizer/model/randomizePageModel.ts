@@ -3,6 +3,10 @@ import { getContainers } from "@/entities/user/containers/thunks/getContainers.t
 import { getIsAuthorized } from "@/entities/user/model/selectors";
 import { useEffect } from "react";
 
+/**
+ * Функция для управления данными о режиме "Рандомайзер". Если в хранилище нет контейнеров, то они будут запрошены
+ * @param {AppDispatch} dispatch - глобальный объект для управления состоянием хранилища
+ */
 export const randomizePageModel = (dispatch: AppDispatch) => {
   const userAuth = useAppSelector(getIsAuthorized);
   const userContainers = useAppSelector((state) => state.containers.data);

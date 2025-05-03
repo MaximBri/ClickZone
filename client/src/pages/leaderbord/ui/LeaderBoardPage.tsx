@@ -14,10 +14,16 @@ export interface PlayerModel {
   diamonds: number;
 }
 
+/**
+ * Функция отвечает за отображение страницы лидеров (топ-10 по алмазам или монетам)
+ */
 export const LeaderBoardPage = () => {
   const [players, setPlayers] = useState<PlayerModel[] | null>(null);
   const [sort, setSort] = useState<"coins" | "diamonds">("coins");
 
+  /**
+   * Асинхронная функция получения данных с бэкенда. Формирует строку запроса (сортировка по монетам или алмазам), шлёт сам запрос, помещает данные в стейт, который вызовет перерендер и покажет нужные данные (до этого просто загрузка)
+   */
   const getTopPlayers = async () => {
     try {
       const response = await api.get(`${apiRoutes.leaderboard}?sort=${sort}`);
@@ -29,6 +35,11 @@ export const LeaderBoardPage = () => {
     }
   };
 
+  /**
+   * Функция преобразует число в компанктную строку с суффиками К (тысяча) и М (миллион)
+   * @param {number} count - исходное число
+   * @return {string}  result - укороченная строка
+   */
   const prepareData = (count: number): string => {
     if (count >= 1_000_000) {
       const millions = (count / 1_000_000).toFixed(1);
@@ -41,6 +52,9 @@ export const LeaderBoardPage = () => {
     }
   };
 
+  /**
+   * Функция меняет сортировку игроков. Если была сортировка по монетам, то будет по алмазам. И наоборот
+   */
   const changeSort = () => {
     setSort(sort === "coins" ? "diamonds" : "coins");
   };

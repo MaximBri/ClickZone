@@ -8,6 +8,9 @@ import { userInfoIsLoaded } from "@/entities/user/model/selectors";
 import { ProgressInfo } from "@/features/clicker/progress-info";
 import styles from "./HomePage.module.scss";
 
+/** 
+ * Функция отвечает за отображение главной страницы. Включает в себя фигурку, блок с количеством ресурсов, навигационного меню, блок с постоянными улучшениями.
+ */
 export const HomePage = memo(() => {
   const clickerData = useAppSelector(userInfoIsLoaded);
   if (clickerData === null)
