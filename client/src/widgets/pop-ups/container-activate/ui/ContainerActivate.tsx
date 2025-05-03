@@ -9,7 +9,7 @@ import { notificationManager } from "../../notifications/model/notificationManag
 import { getContainers } from "@/entities/user/containers/thunks/getContainers.thunk";
 import { getMiglioramenti } from "@/entities/user/miglioramenti/thunks/getMiglioramenti.thunk";
 import { activateMiglioramentiThunk } from "@/entities/user/miglioramenti/thunks/activateMiglioramentiThunk";
-import { ContainerRewards } from "@/features/randomizer/container-rewards/ui/ContainerRewards";
+import { ContainerRewards } from "@/features/randomizer/container-rewards";
 import {
   addContainerWithCount,
   removeOneContainer,

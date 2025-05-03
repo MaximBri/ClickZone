@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 
 import { api } from "@/shared/api/base";
 import { apiRoutes } from "@/shared/config/apiRoutes";
@@ -7,6 +8,7 @@ import diamondSvg from "/images/resources/diamond.svg";
 import styles from "./LeaderBoardPage.module.scss";
 
 export interface PlayerModel {
+  id: number;
   name: string;
   coins: number;
   diamonds: number;
@@ -79,7 +81,7 @@ export const LeaderBoardPage = () => {
             return (
               <li className={styles["leaderboard__list-item"]} key={index}>
                 <span>{index + 1}</span>
-                <div>{item.name}</div>
+                <Link to={`/user/${item.id}`}>{item.name}</Link>
                 <div>{prepareData(item.coins)}</div>
                 <div>{prepareData(item.diamonds)}</div>
               </li>

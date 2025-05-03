@@ -1,0 +1,125 @@
+.user {
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: rem(20);
+
+  width: 100%;
+  max-height: calc(100dvh - 70px);
+  padding: rem(30);
+  &__name {
+    font-size: rem(24);
+    font-weight: 500;
+    text-align: center;
+  }
+  &__title {
+    font-size: rem(18);
+    font-weight: 500;
+  }
+  &__block {
+    display: flex;
+    flex-direction: column;
+    gap: rem(20);
+  }
+  &__textarea {
+    resize: none;
+
+    height: rem(100);
+    margin-right: rem(5);
+    padding: rem(10) rem(20);
+    border: 1px solid $border-primary;
+    border-radius: 10px;
+
+    font-size: rem(18);
+    &::placeholder {
+      color: $text-primary;
+    }
+  }
+  &__list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: rem(20);
+    align-items: center;
+    justify-content: center;
+    &-item {
+      display: flex;
+      flex-direction: column;
+      flex-grow: 1;
+      align-items: center;
+
+      width: rem(170);
+      max-width: rem(180);
+
+      text-align: center;
+      & > img {
+        height: rem(100);
+      }
+      &--grey {
+        & > img {
+          filter: grayscale(1);
+        }
+      }
+    }
+  }
+  &__date {
+    font-size: rem(20);
+  }
+}
+
+@media (max-width: 1024px) {
+  .user {
+    gap: rem(15);
+    padding: rem(20);
+    &__name {
+      font-size: rem(22);
+    }
+    &__title {
+      font-size: rem(16);
+    }
+    &__block {
+      gap: rem(15);
+    }
+    &__textarea {
+      font-size: rem(16);
+    }
+    &__list {
+      gap: rem(15);
+      &-item {
+        width: rem(140);
+        max-width: rem(150);
+        & > img {
+          height: rem(70);
+        }
+      }
+    }
+    &__date {
+      font-size: rem(18);
+    }
+  }
+}
+
+@media (max-width: 768px) {
+  .user {
+    gap: rem(10);
+    &__name {
+      font-size: rem(20);
+    }
+    &__textarea {
+      height: rem(70);
+      padding: rem(5) rem(10);
+    }
+    &__list {
+      gap: rem(10);
+      &-item {
+        width: rem(100);
+        max-width: rem(110);
+        & > img {
+          height: rem(50);
+        }
+      }
+    }
+    &__date {
+      font-size: rem(16);
+    }
+  }
+}

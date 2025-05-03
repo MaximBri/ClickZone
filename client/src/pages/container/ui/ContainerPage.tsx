@@ -6,10 +6,10 @@ import { DOMAIN, routes } from "@/shared/config/routes";
 import { buyContainer } from "@/entities/user/containers/buyContainer";
 import { getFinances } from "@/entities/user/model/selectors";
 import { getContainers } from "@/entities/user/containers/thunks/getContainers.thunk";
-import { ContainerRewards } from "@/features/randomizer/container-rewards/ui/ContainerRewards";
 import coinSvg from "/images/resources/coin.svg";
 import diamondSvg from "/images/resources/diamond.svg";
 import styles from "./ContainerPage.module.scss";
+import { ContainerRewards } from "@/features/randomizer/container-rewards";
 
 export const ContainerPage = () => {
   const params = useParams();

@@ -10,6 +10,7 @@ export const apiRoutes = {
   // Profile
   editProfile: "profile/edit_profile",
   getAccountInfo: "profile/me",
+  getOtherAccoutInfo: "get_player_info",
   setReward: "achievements",
   // Daily rewards
   getDailyRewards: "daily-rewards/",
