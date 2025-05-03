@@ -3,9 +3,9 @@ import { useParams } from "react-router-dom";
 
 import { api } from "@/shared/api/base";
 import { apiRoutes } from "@/shared/config/apiRoutes";
-import { useAppDispatch, useAppSelector } from "@/app/store/store";
-import { fetchAccountData } from "@/entities/user/account/thunks";
+import { useAppSelector } from "@/app/store/store";
 import { DOMAIN } from "@/shared/config/routes";
+import { achievementsImagesPaths } from "@/entities/user/model/achievementsImagesPaths";
 import styles from "./UserPage.module.scss";
 
 interface RewardModel {
@@ -22,7 +22,6 @@ interface DataModel {
 }
 
 export const UserPage = () => {
-  const dispatch = useAppDispatch();
   const props = useParams();
   const rewards = useAppSelector((state) => state.user.globals.achievements);
   const [data, setData] = useState<DataModel | null>(null);
@@ -42,23 +41,11 @@ export const UserPage = () => {
     return `${day}.${month}.${year}`;
   }
 
-  const getRewards = async () => {
-    await dispatch(fetchAccountData());
-  };
-
-  useEffect(() => {
-    console.log(data);
-  }, [data]);
-
   useEffect(() => {
     getUserInfo();
-    if (!rewards.length) {
-      getRewards();
-    }
   }, []);
 
   useEffect(() => {
-    console.log(rewards);
     if (
       rewards.length === data?.achievements?.length &&
       !data.achievements[0].imagePath
@@ -67,7 +54,7 @@ export const UserPage = () => {
     }
   }, [rewards, data]);
 
-  if (!data) return <>Загрузка...</>;
+  if (!data) return <h2 className={styles.user__loading}>Загрузка...</h2>;
 
   return (
     <section className={styles.user}>
@@ -83,7 +70,7 @@ export const UserPage = () => {
       <div className={styles.user__block}>
         <h3 className={styles.user__title}>Награды:</h3>
         <ul className={styles.user__list}>
-          {data.achievements.map((item) => {
+          {data.achievements.map((item, index) => {
             return (
               <li
                 key={item.name}
@@ -92,7 +79,7 @@ export const UserPage = () => {
                 }`}
               >
                 <img
-                  src={`${DOMAIN}/images/rewards/${item.imagePath}`}
+                  src={`${DOMAIN}/images/rewards/${achievementsImagesPaths[index]}`}
                   alt="reward"
                 />
                 <h4>{item.name}</h4>
