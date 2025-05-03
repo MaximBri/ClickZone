@@ -10,11 +10,17 @@ import {
 } from "@/widgets/pop-ups/model/popUpsSlice";
 import styles from "./OneTimeMiglioramenti.module.scss";
 
+/**
+ * Функция для отрисовки отдельного одноразового улучшения во всплывающем окне. Содержит в себе кнопку активации, при нажатии на которую открывается то или иное окно.
+ * @param {UpgradeInterface} { data }
+ */
 export const OneTimeMiglioramenti: FC<{
   data: UpgradeInterface;
 }> = ({ data }) => {
-  console.log(data);
   const dispatch = useAppDispatch();
+  /**
+   * Функция активации улучшений. В зависимости от id показывает то или иное всплывающее окно (связано с самими эффектами улучшений)
+   */
   const activate = () => {
     if ([2, 3, 4, 5].includes(data.id)) {
       dispatch(setImprovements(false));

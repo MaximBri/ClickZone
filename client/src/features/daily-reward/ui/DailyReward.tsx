@@ -8,6 +8,10 @@ import diamondsSvg from "/images/resources/diamond.svg";
 import checkSvg from "./icons/check.svg";
 import styles from "./DailyReward.module.scss";
 
+/**
+ * Функция для отрисовки отдельной ежедневной награды (рендер происходит списком). Если награда по этому дню уже была получена, то дополнительно показывается значок галочки, говорящий об этом. Сам помпонент показывает день, саму награду.
+ * @param {{data: dailyRewardInterface,currentDay: number}} { data, currentDay } - объект с текущим днём (нужен для того, чтобы определить, нужно ли ставить галочку, или нет) и сама информация о награде.
+ */
 export const DailyReward: FC<{
   data: dailyRewardInterface;
   currentDay: number;

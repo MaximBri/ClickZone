@@ -8,12 +8,20 @@ import { ContainerSliceInterface } from "@/shared/types";
 import keySvg from "/images/containers/key.svg";
 import styles from "./OwnContainer.module.scss";
 
-export const OwnContainer: FC<{ data: ContainerSliceInterface }> = ({
-  data,
-}) => {
+export /**
+ * Функция отвечает за рендер отдельного контейнера, который есть у пользователя. Включает в себя изображение и кнопку открытия
+ * @param {ContainerSliceInterface} {
+ *   data,
+ * }
+ */
+const OwnContainer: FC<{ data: ContainerSliceInterface }> = ({ data }) => {
   const dispatch = useAppDispatch();
   const userKeys = useAppSelector((state) => state.containers.keys);
 
+  /**
+   * Функция срабатывает по нажатию на кнопку открытия. Если контейнер открывается с ключом, проверяет наличие хотя бы одного ключа. Если его нет, приостанавливает выполнение и показывает уведомление, которое говорит о том, что у пользователя нет ключа. Если контейнер откывается без ключа, или с ключом, но у пользователя есть хотя бы 1, то шлётся запрос на открытие.
+   * @param {boolean} withKey - контейнер открывается с ключом или без.
+   */
   const activate = (withKey: boolean) => {
     if (withKey) {
       if (userKeys > 0) {

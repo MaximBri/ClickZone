@@ -10,6 +10,9 @@ import {
   getLevel,
 } from "@/entities/user/model/selectors";
 
+/**
+ * Функция для отрисовки компонента с фигрукой, по которой кликает пользователь. Включает в себя логику по отрисовыванию кликов с начислением монет, смену уровней
+ */
 export const animalModel = () => {
   const dispatch = useDispatch();
   const coinsRequiredForNextLevel = 1;
@@ -32,6 +35,10 @@ export const animalModel = () => {
     Array<{ x: number; y: number; id: number; value?: number }>
   >([]);
 
+  /**
+   * Функция для добавления монет после клика и отрисовки самого результата: появление в месте клика информации о начислении монет
+   * @param {React.MouseEvent<HTMLButtonElement, MouseEvent>} event - событие клика на фигурку
+   */
   const addCoins = (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
     const rect = event.currentTarget.getBoundingClientRect();
     const x = event.clientX - rect.left;

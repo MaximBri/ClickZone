@@ -16,6 +16,10 @@ import {
 } from "@/widgets/clicker-shop/model/miglioramentiSlice";
 import { activateMiglioramentiThunk } from "@/entities/user/miglioramenti/thunks/activateMiglioramentiThunk";
 
+/**
+ * Функция с основной логикой для улучшений в окне с покупкой улучшений. Отслеживает имеющиеся у пользователя постоянные улучшения, и если они уже есть, не даёт приобрести их снова. Одноразовые улучшения можно покупать сколько угодно раз
+ * @param {miglioramentiInterface} improvement
+ */
 export const miglioramentiModel = (improvement: miglioramentiInterface) => {
   const dispatch = useAppDispatch();
   const userImprovements = useAppSelector(getMiglioramenti);
@@ -24,6 +28,10 @@ export const miglioramentiModel = (improvement: miglioramentiInterface) => {
     userImprovements.find((item) => item.id === improvement.id) &&
     improvement.isInfinite;
 
+  /**
+   * Функция для покупки улучшения по его id. Проверяет, что у пользователя достаточно ресурсов для покупки. Отправляет запрос на покупку. Если покупка прошла успешно, начисляет улучшение, показывает уведомление об успешной покупке. Если во время покупки произошла ошибка, то показывается уведомление с ошибкой.
+   * @param {number} id - id улучшения, которое хочет купить пользователь
+   */
   const buyImprovement = async (id: number) => {
     const improvement = miglioramentiList.find((item) => item.id === id);
     if (!improvement) {

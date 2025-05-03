@@ -7,6 +7,10 @@ import coinSvg from "/images/resources/coin.svg";
 import infinitySvg from "/images/miglioramenti/infinity.svg";
 import styles from "./Miglioramenti.module.scss";
 
+/**
+ * Функция, отрисовывающая улучшения в магазине. Если улучшение бесконечное и уже есть у пользователя, кнопка покупки будет заблокирована. Если у пользователя не хватает ресурсов на покупку какого-либо улучшения, кнопка покупки тоже будет заблокирована. 
+ * @param {*} { data, coins } - объект с самим улучшением и количеством монет пользователя
+ */
 export const Miglioramenti: FC<{
   data: miglioramentiInterface;
   coins: number;

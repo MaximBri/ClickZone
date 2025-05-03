@@ -6,6 +6,10 @@ import coinSvg from "/images/resources/coin.svg";
 import diamondSvg from "/images/resources/diamond.svg";
 import styles from "./UserNickname.module.scss";
 
+/**
+ * Функция отвечает за отображение блока с никнеймом.
+ * @param {*} { onUpdate } - функция для обновления никнейма пользователя
+ */
 export const UserNickname: FC<{
   onUpdate: (key: "name" | "description", value: string) => void;
 }> = ({ onUpdate }) => {
@@ -20,6 +24,10 @@ export const UserNickname: FC<{
   );
   const maxLength = 64;
 
+  /**
+   * Функция срабатывает при изменении текста в поле ввода. Проверяет текст на длину, прежде чем сохранить (связано с ограничениями на бэкенде)
+   * @param {string} text - новый никнейм
+   */
   const onNicknameChange = (text: string) => {
     if (text.length > 64) text = text.slice(0, maxLength);
     setNickname(text);

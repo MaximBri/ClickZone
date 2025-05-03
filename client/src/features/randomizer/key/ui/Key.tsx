@@ -5,16 +5,23 @@ import { key } from "@/pages/randomizer/model/containerList";
 import { getFinances } from "@/entities/user/model/selectors";
 import { notificationManager } from "@/widgets/pop-ups/notifications/model/notificationManager";
 import { setContainerKeys } from "@/pages/randomizer/model/containtersSlice";
-import coinSvg from "/images/resources/coin.svg";
-import styles from "./Key.module.scss";
 import { apiRoutes } from "@/shared/config/apiRoutes";
 import { api } from "@/shared/api/base";
 import { setCoins } from "@/entities/user/model/userSlice";
+import coinSvg from "/images/resources/coin.svg";
+import styles from "./Key.module.scss";
 
+/**
+ * Функция отвечает за рендер ключа. Его можно использовать для открытия контейнеров
+ */
 export const Key = () => {
   const dispatch = useAppDispatch();
   const keys = useAppSelector((state) => state.containers.keys);
   const userFinances = useAppSelector(getFinances);
+
+  /**
+   * Функция покупки ключа. Срабатывает при нажатии на кнопку. Проверяет, достаточно ли у пользователя ресурсов. Если нет, показывает соотвествуещее уведомление, иначе отправляет запрос на покупку. Если покупка успешна, покажется соответствующее уведомление
+   */
   const buyOneKey = async () => {
     if (userFinances.coins >= key.price) {
       const coins = store.getState().user.finances.coins;

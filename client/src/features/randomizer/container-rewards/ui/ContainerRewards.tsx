@@ -4,6 +4,14 @@ import coinSvg from "/images/resources/coin.svg";
 import diamondSvg from "/images/resources/diamond.svg";
 import styles from "./ContainerRewards.module.scss";
 
+/**
+ * Функция для отрисовки наград, которые могут выпасть из контейнера.
+ * @param {{
+ *   rewards: RewardInterface[];
+ * }} {
+ *   rewards,
+ * } - массив наград, который будет отрендерен
+ */
 export const ContainerRewards = ({
   rewards,
 }: {

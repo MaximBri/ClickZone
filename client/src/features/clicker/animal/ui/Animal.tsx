@@ -2,6 +2,9 @@ import { DOMAIN } from "@/shared/config/routes";
 import { animalModel } from "../model/animalModel";
 import styles from "./Animal.module.scss";
 
+/**
+ * Функция для отрисовки непосредственно самой фигурки
+ */
 export const Animal = () => {
   const data = animalModel();
 

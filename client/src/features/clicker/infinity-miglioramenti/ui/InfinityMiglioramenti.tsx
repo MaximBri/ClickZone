@@ -5,6 +5,9 @@ import { DOMAIN } from "@/shared/config/routes";
 import { getMiglioramenti } from "@/entities/user/model/selectors";
 import styles from "./InfinityMiglioramenti.module.scss";
 
+/**
+ * Функция для отрисовки блока с постоянными улучшениями. Берёт все улучшения из хранилища и отрисовывает только те, которые являются бесконечными
+ */
 export const InfinityMiglioramenti = memo(() => {
   const userMiglioramenti = useAppSelector(getMiglioramenti).filter(
     (item) => item.isInfinite === true
