@@ -9,10 +9,15 @@ import { NavBar } from "./navbar/NavBar";
 import { mainLayoutModel } from "./model/mainLayoutModel";
 import styles from "./MainLayout.module.scss";
 
+/**
+ * Функция, отрисовывающая основной шаблон приложения: шапку, нижнюю часть экрана (футер), боковое меню с навигацией
+ * @type {*}
+ */
 export const MainLayout = memo(() => {
   const dispatch = useAppDispatch();
   const data = mainLayoutModel(dispatch);
-  if (data.isLoadedClickerData === null) return <h1 className={styles.wrapper__loading}>Загрузка...</h1>;
+  if (data.isLoadedClickerData === null)
+    return <h1 className={styles.wrapper__loading}>Загрузка...</h1>;
 
   return (
     <>

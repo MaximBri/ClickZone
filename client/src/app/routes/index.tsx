@@ -12,6 +12,9 @@ import { DailyRewardsPage } from "@/pages/dialy-rewards";
 import { ContainerPage } from "@/pages/container";
 import { UserPage } from "@/pages/user";
 
+/**
+ * Функция роутинга для приложения. Содержит все страницы приложения: их ссылки и элементы, которые будут отрисовываться при переходе на соответствующую ссылку
+ */
 export const AppRoutes = () => {
   return (
     <HashRouter>

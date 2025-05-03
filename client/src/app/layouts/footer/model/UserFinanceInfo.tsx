@@ -5,6 +5,9 @@ import coinSvg from "/images/resources/coin.svg";
 import diamondSvg from "/images/resources/diamond.svg";
 import styles from "../Footer.module.scss";
 
+/**
+ * Функция для отрисовки блока с монетами и алмазами в нижней части экрана пользователя
+ */
 export const UserFinanceInfo = () => {
   const finances = useSelector(getFinances);
   return (

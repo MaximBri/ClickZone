@@ -9,6 +9,9 @@ import miglioramenti from "@/widgets/clicker-shop/model/miglioramentiSlice";
 import containers from "@/pages/randomizer/model/containtersSlice";
 import miglioramentiClicks from "@/widgets/pop-ups/miglioramenti-other/model/miglioramentiesClicksSlice";
 
+/** 
+ * Глобальное хранилище на фронтенде
+ */
 export const store = configureStore({
   reducer: {
     windows,

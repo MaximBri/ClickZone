@@ -18,6 +18,11 @@ import {
   userInfoIsLoaded,
 } from "@/entities/user/model/selectors";
 
+/**
+ * Функция с общей логикой для всего приложения. Включает в себя систему синхронизации ресурсов, отправки запроса на сихронизацию при закрытии вкладки, получение данных из режима "Кликер", начисление наград
+ * @param {AppDispatch} dispatch - глобальная функция для управления хранилищем
+ * @return {*} 
+ */
 export const mainLayoutModel = (dispatch: AppDispatch) => {
   const location = useLocation();
   const navigate = useNavigate();
@@ -78,7 +83,6 @@ export const mainLayoutModel = (dispatch: AppDispatch) => {
     ) {
       if (userId ?? 10 <= 9) {
         activateReward(dispatch, id)
-        // dispatch(setHasAchievement(id));
         hasDispatchedRef.current[id] = true;
       }
     }
@@ -91,7 +95,6 @@ export const mainLayoutModel = (dispatch: AppDispatch) => {
       const diffDays = (currentDate - registerDate) / (1000 * 60 * 60 * 24);
       if (diffDays >= 30) {
         activateReward(dispatch, 4)
-        // dispatch(setHasAchievement(4));
       }
     }
   }, [dateOfRegister]);
@@ -113,14 +116,6 @@ export const mainLayoutModel = (dispatch: AppDispatch) => {
         ) {
           hasDispatchedRef.current[id] = true;
           await activateReward(dispatch, id)
-          // const response = await dispatch(setHasAchievement(id));
-          // if (response.meta.requestStatus === "fulfilled") {
-          //   notificationManager(
-          //     dispatch,
-          //     `Вы получили новую награду: ${response.payload.achievement}`,
-          //     "success"
-          //   );
-          // }
         }
       };
 

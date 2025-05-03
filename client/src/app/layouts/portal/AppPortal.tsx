@@ -22,6 +22,10 @@ import {
 import { ContainerActivate } from "@/widgets/pop-ups/container-activate";
 import { MiglioramentiOther } from "@/widgets/pop-ups/miglioramenti-other";
 
+/**
+ * Функция на отрисовку всех всплывающих окон приложения. Берёт данные из хранилища, при необходимости отрисовывает нужное всплывающее окно
+ * @type {*}
+ */
 export const AppPortals = memo(() => {
   const authWindow = useAppSelector(getAuthWindow);
   const registerWindow = useAppSelector(getRegisterWindow);

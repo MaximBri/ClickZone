@@ -5,6 +5,9 @@ import { UserFinanceInfo } from "./model/UserFinanceInfo";
 import coinSvg from "/images/resources/coin.svg";
 import styles from "./Footer.module.scss";
 
+/**
+ * Функция для отрисовки нижней части экрана. Включает в себя блок с количеством монет и алмазов и блок с количеством монет за клик и в минуту
+ */
 export const Footer = memo(() => {
   const coinsOnClick = useAppSelector((state) => state.user.coinsOnClick);
   const cointPerMinute = useAppSelector((state) => state.user.coinsPerMinute);

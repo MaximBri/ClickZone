@@ -7,6 +7,9 @@ import { getIsAuthorized, getNickname } from "@/entities/user/model/selectors";
 import dailyRewardsSvg from "./icons/dailyRewards.svg";
 import styles from "./Header.module.scss";
 
+/**
+ * Функция для отрисовки шапки приложения. Включает в себя логотип, никнейм (если пользователь авторизован), иконку с ежедневными наградами
+ */
 export const Header = memo(() => {
   const nickname = useAppSelector(getNickname);
   const isAuthorized = useAppSelector(getIsAuthorized);
