@@ -7,6 +7,10 @@ import { setAuthWindow } from "@/widgets/pop-ups/model/popUpsSlice";
 import { refreshAccessToten } from "@/entities/user/refreshAccessToken";
 import { apiRoutes } from "../config/apiRoutes";
 
+
+/**
+ * Глобальная функция для дублирования запросов в случае, если они пришли с 401 ошибкой (ошибка авторизации, скорее всего была вызвана тем, что JWT access token истёк). Функция отслеживает запросы с 401 ошибками, отправляет запрос на обновление токена, и потом вновь дублирует запрос, который пришёл с 401 ошибкой. Распространяется на все запросы, кроме авторизации и регистрации (там не должно быть проверки access токена)
+ */
 export const useAuthInterceptor = () => {
   const dispatch = useAppDispatch();
 

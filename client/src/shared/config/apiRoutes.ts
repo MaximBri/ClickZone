@@ -1,5 +1,8 @@
 export const TEMP_USER_DATA = "keys";
 
+/**
+ * Глобальный объект с путями к запросам на бэкенде. Создан для удобства и гибкости роутинга в случае, если пути на бэкенде изменятся.
+ */
 export const apiRoutes = {
   // Auth & Register
   registration: "auth/registration",
