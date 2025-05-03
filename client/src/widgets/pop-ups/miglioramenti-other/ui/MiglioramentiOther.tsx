@@ -32,6 +32,10 @@ export const MiglioramentiOther = () => {
   const [animalIsVisible, setAnimalIsVisible] = useState(false);
   const [isFinish, setIsFinish] = useState<boolean>(false);
   const [countClicks, setCountClicks] = useState<number>(0);
+  const [popups, setPopups] = useState<
+    { id: number; x: number; y: number; value: number }[]
+  >([]);
+  const popupId = useRef(0);
   const buttonRef = useRef<HTMLButtonElement>(null);
   const countCoinsOnClick = useAppSelector((state) => state.user.coinsOnClick);
   const closeWindow = () => {
@@ -66,11 +70,25 @@ export const MiglioramentiOther = () => {
     console.log(response.data);
   };
 
-  const buttonHandle = () => {
+  const buttonHandle = (e: React.MouseEvent<HTMLButtonElement>) => {
     setCountClicks(countClicks + 1);
     if (countClicks + 1 >= miglData[data.id - 6].count) {
       finish();
       setIsFinish(true);
+    }
+    const rect = buttonRef.current?.getBoundingClientRect();
+    if (rect) {
+      const x = e.clientX - rect.left;
+      const y = e.clientY - rect.top;
+      setPopups((prev) => [
+        ...prev,
+        {
+          id: popupId.current++,
+          x,
+          y,
+          value: countCoinsOnClick * miglData[data.id - 6].multiply,
+        },
+      ]);
     }
   };
 
@@ -118,6 +136,15 @@ export const MiglioramentiOther = () => {
       }
     }
   }, [isFinish]);
+
+  useEffect(() => {
+    if (popups.length === 0) return;
+    const timer = setTimeout(() => {
+      setPopups((prev) => prev.slice(1));
+    }, 1000);
+    return () => clearTimeout(timer);
+  }, [popups]);
+
   return (
     <>
       <div
@@ -143,9 +170,23 @@ export const MiglioramentiOther = () => {
             onClick={buttonHandle}
           >
             <img src={circleGif} alt="circle" />
+            {popups.map((popup) => (
+              <span
+                key={popup.id}
+                className={styles.popup}
+                style={{
+                  left: popup.x,
+                  top: popup.y,
+                }}
+              >
+                +{popup.value}
+              </span>
+            ))}
           </button>
         )}
-        <p>Получено монет: {calculateCountOfCoins()}</p>
+        <p className={styles.migl__reward}>
+          Получено монет: {calculateCountOfCoins()}
+        </p>
       </section>
     </>
   );
