@@ -5,6 +5,9 @@ import { getFinances } from "@/entities/user/model/selectors";
 import { CSRF_TOKEN } from "@/shared/api/base";
 import { apiRoutes } from "@/shared/config/apiRoutes";
 
+/**
+ * Функция для отправки количества монет и алмазов на бэкенд перед закрытием вкладки с игрой. Нужна, чтобы поддерживать актуальность данных пользователя в любой момент
+ */
 export const useSyncOnUnload = () => {
   const userFinances = useAppSelector(getFinances);
 
@@ -17,7 +20,7 @@ export const useSyncOnUnload = () => {
       });
       const blob = new Blob([payload], { type: "application/json" });
       navigator.sendBeacon(apiRoutes.updateFinaces, blob);
-    };;
+    };
 
     window.addEventListener("beforeunload", handleBeforeUnload);
 

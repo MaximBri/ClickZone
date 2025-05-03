@@ -2,6 +2,11 @@ import { apiRoutes } from "@/shared/config/apiRoutes";
 import Cookies from "js-cookie";
 import axios from "axios";
 
+/**
+ * Функция для обновления JWT-access токена (нужен для входа пользователя в аккаунт).
+ *
+ * @return {*} - возвращает данные с бэкенда
+ */
 export const refreshAccessToten = async () => {
   const baseURL = import.meta.env.VITE_API_URL;
   const token = Cookies.get("csrf_refresh_token");

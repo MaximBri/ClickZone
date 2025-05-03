@@ -8,6 +8,16 @@ import { notificationManager } from "@/widgets/pop-ups/notifications/model/notif
 import { setCoins, setDiamonds } from "../model/userSlice";
 import { updateUserFinancesThunk } from "../account/thunks/updateUserFinances.thunk";
 
+/**
+ * Функция для покупки контейнера. Определяет, за какую валюту покупается контейнер, делает запрос к бэкенду на покупку
+ * @param {AppDispatch} dispatch - глобальная функция для смены состояния хранилища
+ * @param {{
+ *     coins: number;
+ *     diamonds: number;
+ *   }} userFinances - - количество монет и алмазов
+ * @param {ContainerInterface} data - сам контейнер, который покупается
+ * @param {boolean} moneys - контейнер покупается за монеты или за алмазы
+ */
 export const buyContainer = async (
   dispatch: AppDispatch,
   userFinances: {
@@ -17,6 +27,12 @@ export const buyContainer = async (
   data: ContainerInterface,
   moneys: boolean
 ) => {
+  /**
+   * Функция для отправки запроса на бэкенд о покупке контейнера
+   * @param {number} coins - количество монет у пользователя
+   * @param {number} diamonds - количество алмазов у пользователя
+   * @param {string} message - сообщение, которое будет в уведомлении, если контейнер будет куплен успешно
+   */
   const sendRequestToBuyContainer = async (
     coins: number,
     diamonds: number,

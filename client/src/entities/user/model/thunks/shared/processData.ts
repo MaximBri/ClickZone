@@ -1,5 +1,10 @@
 import { userDataInterface } from "@/shared/types";
 
+/**
+ * Функция для установки данных в хранилище. Была вынесена отдельно, т.к. используется для нескольких запросов
+ * @param {userDataInterface} state - глобальные данные из хранилища
+ * @param {*} payloadData - данные, которые пришли с бэкенда
+ */
 export const processUserData = (state: userDataInterface, payloadData: any) => {
   state.isAuthorized = true;
   state.flags.clickerData = true;

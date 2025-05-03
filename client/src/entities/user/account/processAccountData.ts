@@ -1,6 +1,11 @@
 import { userDataInterface } from "@/shared/types";
 import { achievementsImagesPaths } from "../model/achievementsImagesPaths";
 
+/**
+ * Функция для установки данных, которые пришли с бэкенда, в хранилище
+ * @param {userDataInterface} state - глобальный объект с данными пользователя
+ * @param {*} payloadData - данные с сервера
+ */
 export const processAccountData = (
   state: userDataInterface,
   payloadData: any

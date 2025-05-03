@@ -12,7 +12,10 @@ export interface dailyRewardInterface {
     custom?: string;
   };
 }
-
+/**
+ * Начальное состояние. Включает в себя массив с ежедневными наградами, текущий день, общее количество дней с наградами, возможность получить награду, количество часов для получения новой ежедневной награды
+ *  @type {*}
+ */
 const initialState: {
   data: dailyRewardInterface[];
   currentDay: number | null;
@@ -30,14 +33,7 @@ const initialState: {
 const dailyRewardsSlice = createSlice({
   name: "dialyRewards",
   initialState,
-  reducers: {
-    setDailyRewards: (state, action: PayloadAction<dailyRewardInterface[]>) => {
-      state.data = action.payload;
-    },
-    addOneInCurrentDay: (state) => {
-      if (state.currentDay) state.currentDay++;
-    },
-  },
+  reducers: {},
   extraReducers: (builder) => {
     builder.addCase(getDailyRewardsThunk.fulfilled, (state, action) => {
       state.data = action.payload;
@@ -72,8 +68,5 @@ const dailyRewardsSlice = createSlice({
 });
 
 export const getDailyRewards = (state: RootState) => state.dialyRewards.data;
-
-export const { setDailyRewards, addOneInCurrentDay } =
-  dailyRewardsSlice.actions;
 
 export default dailyRewardsSlice.reducer;
