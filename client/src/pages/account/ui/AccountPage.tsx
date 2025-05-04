@@ -81,9 +81,15 @@ export const AccountPage = () => {
         })
       );
       if (changesNickname) {
+        const id = 8;
+        const reward = userData.achievements.find((item) => item.id === id);
         const userState = store.getState().user;
-        if (userState.account.countNicknames ?? 0 > 2) {
-          activateReward(dispatch, 8);
+        if (
+          (userState.account.countNicknames ?? 0) > 2 &&
+          reward &&
+          reward.has_achievement === false
+        ) {
+          activateReward(dispatch, id);
         }
         dispatch(addCountNicknames());
       }
