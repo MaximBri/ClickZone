@@ -4,6 +4,9 @@ import { getMiglioramentiList } from "./miglioramentiSlice";
 import { useEffect } from "react";
 import { getMiglioramenti } from "@/entities/user/miglioramenti/thunks/getMiglioramenti.thunk";
 
+/**
+ * Функция для управления данными улучшений пользователя. Если нет данных об улучшений, они будут запрошены с бэкенда.
+ */
 export const miglioramentiModel = () => {
   const dispatch = useAppDispatch();
   const userCoins = useAppSelector(getFinances);

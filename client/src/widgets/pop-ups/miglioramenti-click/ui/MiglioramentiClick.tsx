@@ -13,6 +13,9 @@ import {
 import circleGif from "@/shared/icons/circle.gif";
 import styles from "./MiglioramentiClick.module.scss";
 
+/**
+ * Функция отвечает за открытие всплывающего окна с активацией мгновенных улучшений и всю необходимую логику.
+ */
 export const MiglioramentiClick = () => {
   const dispatch = useAppDispatch();
   const [isActive, setIsActive] = useState<boolean>(false);
@@ -23,6 +26,9 @@ export const MiglioramentiClick = () => {
     setIsActive(true);
   }, []);
 
+  /**
+   * Функция для плавного закрытия окна
+   */
   const closeWindow = () => {
     setIsActive(false);
     setTimeout(() => {
@@ -30,6 +36,9 @@ export const MiglioramentiClick = () => {
     }, 300);
   };
 
+  /**
+   * Асинхронная функция для активации улучшения. Отправляет запрос на бэкенд и начисляет награду на фронтенде для синхронизации с бэкендом
+   */
   const activate = async () => {
     try {
       const response = await api.post(apiRoutes.activateMiglioramenti, { id });

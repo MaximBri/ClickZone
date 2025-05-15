@@ -4,8 +4,6 @@ import { routes } from "@/shared/config/routes";
 import { MainLayout } from "../layouts/MainLayout";
 import { HomePage } from "@/pages/home";
 import { RandomizePage } from "@/pages/randomizer";
-import { ShopPage } from "@/pages/shop";
-import { GlobalMapPage } from "@/pages/global-map";
 import { LeaderBoardPage } from "@/pages/leaderbord";
 import { AccountPage } from "@/pages/account";
 import { DailyRewardsPage } from "@/pages/dialy-rewards";
@@ -30,11 +28,6 @@ export const AppRoutes = () => {
             path={`${routes.pages.randomizer}/:type`}
             element={<ContainerPage />}
           />
-          <Route path={routes.pages.shop} element={<ShopPage />}></Route>
-          <Route
-            path={routes.pages.globalMap}
-            element={<GlobalMapPage />}
-          ></Route>
           <Route
             path={routes.pages.leaderboard}
             element={<LeaderBoardPage />}

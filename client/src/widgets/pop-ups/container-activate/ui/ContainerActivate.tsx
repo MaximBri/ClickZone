@@ -26,6 +26,9 @@ import coinSvg from "/images/resources/coin.svg";
 import diamondSvg from "/images/resources/diamond.svg";
 import styles from "./ContainerActivate.module.scss";
 
+/**
+ * Функция отвечает за отображение всплывающего окна с открытием контейнера.
+ */
 export const ContainerActivate = () => {
   const dispatch = useAppDispatch();
   const data = useAppSelector((state) => state.containers.activeContainer);
@@ -39,12 +42,18 @@ export const ContainerActivate = () => {
 
   if (!data) return null;
 
+  /**
+   * Функция запрашивает список улучшений в случае, если их ещё нет в хранилище фронтенда
+   */
   const getMiglioramenties = async () => {
     if (!miglioramenties.length) {
       await dispatch(getMiglioramenti());
     }
   };
 
+  /**
+   * Функция запрашивает список контейнеров у бэкенда, если их ещё нет на фронтенде
+   */
   const getContainersList = async () => {
     if (!containers.length) {
       await dispatch(getContainers());
@@ -60,6 +69,9 @@ export const ContainerActivate = () => {
     setIsActive(true);
   }, [data]);
 
+  /**
+   * Функция закрытия окна с открытием контейнера
+   */
   const closeWindow = () => {
     setIsActive(false);
     setTimeout(() => {
@@ -67,6 +79,9 @@ export const ContainerActivate = () => {
     }, 300);
   };
 
+  /**
+   * Асинхронная функция открытия контейнера. Срабатывает по нажатию на кнопку открытия. Запрашивает награду с бэкенда (определяет её случайно), далее отображает её пользователю и добавляет ресурсы, улучшения или контейнеры (если они выпали в качестве награды)
+   */
   const activate = async () => {
     setAlreadyOpen(true);
     try {
@@ -75,7 +90,6 @@ export const ContainerActivate = () => {
         use_key: data.key,
       });
       let reward: RewardInterface = response.data.reward;
-      console.log(reward);
       if (reward.improvement_id) {
         reward = {
           ...reward,
@@ -184,7 +198,9 @@ export const ContainerActivate = () => {
         }`}
       >
         <div className={styles.container__wrapper}>
-          <h2 className={styles.container__title}>{`Контейнер ${data.name}`}</h2>
+          <h2
+            className={styles.container__title}
+          >{`Контейнер ${data.name}`}</h2>
           <div className={styles.container__reward}>
             {!rewards && <>Нажмите кнопку ниже, чтобы получить награду</>}
             {rewards?.coins && (

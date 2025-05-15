@@ -1,6 +1,6 @@
 import { RootState } from "@/app/store/store";
 import { getMiglioramenti } from "@/entities/user/miglioramenti/thunks/getMiglioramenti.thunk";
-import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { createSlice } from "@reduxjs/toolkit";
 
 export interface miglioramentiInterface {
   id: number;
@@ -11,6 +11,9 @@ export interface miglioramentiInterface {
   imagePath: string;
 }
 
+/**
+ * Начальное состояние глобального объекта, связанного с улучшениями
+ */
 const initialState: { data: miglioramentiInterface[] } = {
   data: [],
 };
@@ -18,14 +21,7 @@ const initialState: { data: miglioramentiInterface[] } = {
 const miglioramentiSlice = createSlice({
   name: "miglioramenti",
   initialState,
-  reducers: {
-    setMiglioramentiList: (
-      state,
-      action: PayloadAction<miglioramentiInterface[]>
-    ) => {
-      state.data = action.payload;
-    },
-  },
+  reducers: {},
   extraReducers: (builder) => {
     builder.addCase(getMiglioramenti.fulfilled, (state, action) => {
       state.data = action.payload.map((item: any) => {
@@ -41,8 +37,6 @@ const miglioramentiSlice = createSlice({
     });
   },
 });
-
-export const { setMiglioramentiList } = miglioramentiSlice.actions;
 
 export const getMiglioramentiList = (state: RootState) =>
   state.miglioramenti.data;

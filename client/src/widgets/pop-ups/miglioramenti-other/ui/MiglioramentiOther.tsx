@@ -20,6 +20,9 @@ const texts = [
   "У тебя есть 10 секунд на подготовку и 30 секунд, чтобы накликать как можно больше, вперёд!",
 ];
 
+/**
+ * Функция отвечает за отображение всплывающего окна с автивацией одноразовых улучшений, всю логику, связанную с активацией
+ */
 export const MiglioramentiOther = () => {
   const dispatch = useAppDispatch();
   const data = useAppSelector((state) => state.miglioramentiClicks.data);
@@ -38,6 +41,10 @@ export const MiglioramentiOther = () => {
   const popupId = useRef(0);
   const buttonRef = useRef<HTMLButtonElement>(null);
   const countCoinsOnClick = useAppSelector((state) => state.user.coinsOnClick);
+
+  /**
+   * Функция закрытия окна
+   */
   const closeWindow = () => {
     if (!animalIsVisible) {
       setIsActive(false);
@@ -48,28 +55,42 @@ export const MiglioramentiOther = () => {
   };
   if (!data) return null;
 
+  /**
+   * Функция установки флага завершения
+   */
   const finish = () => {
     setAnimalIsVisible(false);
   };
 
+  /**
+   * Функция для расчёта общего количества монет, опирается на количество кликов, коэффициент улучшения
+   */
   const calculateCountOfCoins = () => {
     return countCoinsOnClick * countClicks * miglData[data.id - 6].multiply;
   };
 
+  /**
+   * Функция для списания улучшения на бэкенде по его id.
+   */
   const deactivateMiglioramenti = async () => {
-    const response = await api.post(apiRoutes.deactivateMigliorament, {
+    await api.post(apiRoutes.deactivateMigliorament, {
       id: data.id,
     });
-    console.log(response);
   };
 
+  /**
+   * Функция для активации улучшения по его id
+   */
   const activateMiglioramenti = async () => {
-    const response = await api.post(apiRoutes.activateMiglioramenti, {
+    await api.post(apiRoutes.activateMiglioramenti, {
       id: data.id,
     });
-    console.log(response.data);
   };
 
+  /**
+   * Функция, которая срабатывает в момент нажатия на кнопку-кликер. Добавляет клик на экране, обновляет количество заработанных монет
+   * @param e - событие клика
+   */
   const buttonHandle = (e: React.MouseEvent<HTMLButtonElement>) => {
     setCountClicks(countClicks + 1);
     if (countClicks + 1 >= miglData[data.id - 6].count) {

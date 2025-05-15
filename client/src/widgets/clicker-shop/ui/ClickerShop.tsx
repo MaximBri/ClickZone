@@ -5,6 +5,10 @@ import { miglioramentiModel } from "../model/miglioramentiModel";
 import crossSvg from "@/shared/icons/cross.svg";
 import styles from "./ClickerShop.module.scss";
 
+/**
+ *
+ * @param {{active: boolean, closeSection: React.Dispatch<React.SetStateAction<boolean>>}} { active, closeSection } - объект, состоящий из 2 полей: active - отвечает за анимацию плавного повления, closeSection - функция для закрытия всплывающего окна с текущим компонентом
+ */
 export const ClickerShop: FC<{
   active: boolean;
   closeSection: React.Dispatch<React.SetStateAction<boolean>>;

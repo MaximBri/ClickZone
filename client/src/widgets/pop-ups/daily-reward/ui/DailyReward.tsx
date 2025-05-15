@@ -10,6 +10,9 @@ import coinSvg from "/images/resources/coin.svg";
 import diamondsSvg from "/images/resources/diamond.svg";
 import styles from "./DailyReward.module.scss";
 
+/**
+ * Функция отвечает за отображение всплывающего окна с ежедневной наградой и всю логику, связанную с её получением
+ */
 export const DailyReward = memo(() => {
   const dispatch = useAppDispatch();
   const [open, setIsOpen] = useState<boolean>(false);
@@ -28,6 +31,10 @@ export const DailyReward = memo(() => {
     return null;
   }
 
+  /**
+   * Функция отвечает за начисление контейнера, если он выпал в качестве награды
+   * @param {number} id - начисление контейнера по его id на фронтенде
+   */
   const addContainerByReward = (id: number) => {
     const containersList = store.getState().containers.allContainers;
     const container = containersList.find((item) => item.id === id);
@@ -38,6 +45,10 @@ export const DailyReward = memo(() => {
     }
   };
 
+  /**
+   * Функция отвечает за начисление улучшений на фронтенде по id, который передаётся в параметре
+   * @param {number} id - id улучшения
+   */
   const addMiglioramentiByReward = (id: number) => {
     const miglioramentiList = store.getState().miglioramenti.data;
     const improvement = miglioramentiList.find((item) => item.id === id);
@@ -49,6 +60,10 @@ export const DailyReward = memo(() => {
   };
 
   const currentReward = currentDayReward.rewards;
+
+  /**
+   * Функция закрытия окна и начисления награды. Вызывается в момент закрытия всплывающего окна с наградой. Отправляет запрос на бэкенд о начислении и начисляет награду на фронтенде.
+   */
   const closeWindow = () => {
     setIsOpen(false);
     setTimeout(() => {

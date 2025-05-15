@@ -9,8 +9,12 @@ import { setTutorial, tutorialsType } from "../../model/popUpsSlice";
 import crossSvg from "@/shared/icons/cross.svg";
 import styles from "./PopUpTutorialPattern.module.scss";
 
+/**
+ * Функция отвечает за отрисовку info-окна. На входе принимается объект, который содержит в себе заголовок, сам тип info-окна, текст
+ * @param param - принимает заголовок, название info-окна, текст, который будет показан
+ */
 export const Tutorial: FC<{
-  data: { title: string; tutorialName: tutorialsType, text: string };
+  data: { title: string; tutorialName: tutorialsType; text: string };
 }> = ({ data }) => {
   const dispatch = useAppDispatch();
   const [isActive, setIsActive] = useState<boolean>(false);
