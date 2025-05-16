@@ -26,6 +26,7 @@ const texts = [
 export const MiglioramentiOther = () => {
   const dispatch = useAppDispatch();
   const data = useAppSelector((state) => state.miglioramentiClicks.data);
+  const countCoinsOnClick = useAppSelector((state) => state.user.coinsOnClick);
   const miglData = [
     { count: 50, multiply: 2 },
     { count: 5, multiply: 10 },
@@ -40,7 +41,6 @@ export const MiglioramentiOther = () => {
   >([]);
   const popupId = useRef(0);
   const buttonRef = useRef<HTMLButtonElement>(null);
-  const countCoinsOnClick = useAppSelector((state) => state.user.coinsOnClick);
 
   /**
    * Функция закрытия окна
