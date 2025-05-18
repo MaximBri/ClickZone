@@ -78,12 +78,12 @@ def containers_claim():
                 container: Container = Container.query.get(id)
                 count = container_rewards.get('count')
 
-                user_container = user.containers.filter_by(container_id=id).first()
-                if user_container:
-                    user_container.quantity += count
+                user_container_ = user.containers.filter_by(container_id=id).first()
+                if user_container_:
+                    user_container_.quantity += count
                 else:
-                    user_container = UserContainer(user=user, container=container, quantity=count)
-                db.session.add(user_container)
+                    user_container_ = UserContainer(user=user, container=container, quantity=count)
+                db.session.add(user_container_)
 
             if user_container.quantity > 1:
                 user_container.quantity -= 1
