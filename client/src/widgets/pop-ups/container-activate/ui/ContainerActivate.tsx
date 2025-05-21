@@ -24,6 +24,7 @@ import {
 } from "@/entities/user/model/userSlice";
 import coinSvg from "/images/resources/coin.svg";
 import diamondSvg from "/images/resources/diamond.svg";
+import crossSvg from "@/shared/icons/cross.svg";
 import styles from "./ContainerActivate.module.scss";
 
 /**
@@ -38,7 +39,6 @@ export const ContainerActivate = () => {
   const containers = useAppSelector((state) => state.containers.allContainers);
   const miglioramenties = useAppSelector((state) => state.miglioramenti.data);
   const keys = useAppSelector((state) => state.containers.keys);
-  console.log(rewards);
 
   if (!data) return null;
 
@@ -173,7 +173,6 @@ export const ContainerActivate = () => {
         dispatch(removeOneKey());
       }
       dispatch(removeOneContainer(data.id));
-      console.log(response);
     } catch (error) {
       console.log(error);
       notificationManager(
@@ -197,6 +196,12 @@ export const ContainerActivate = () => {
           isActive ? "" : styles["container--hidden"]
         }`}
       >
+        <button
+          className={styles.container__close}
+          onClick={() => closeWindow()}
+        >
+          <img src={crossSvg} alt="cross" />
+        </button>
         <div className={styles.container__wrapper}>
           <h2
             className={styles.container__title}

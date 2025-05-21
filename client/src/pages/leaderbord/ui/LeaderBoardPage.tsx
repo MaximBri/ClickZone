@@ -28,7 +28,6 @@ export const LeaderBoardPage = () => {
     try {
       const response = await api.get(`${apiRoutes.leaderboard}?sort=${sort}`);
       setPlayers(response.data);
-      console.log(response);
     } catch (error) {
       console.error(error);
       setPlayers([]);

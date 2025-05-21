@@ -22,8 +22,25 @@
     gap: rem(30);
     align-items: center;
 
-    max-height: calc(90dvh - 60px);
+    max-height: calc(90dvh - 90px);
+    margin-top: rem(30);
     padding-right: rem(10);
+  }
+  &__close {
+    position: absolute;
+    top: rem(20);
+    right: rem(20);
+
+    width: rem(30);
+    height: rem(30);
+
+    background-color: transparent;
+    & > img {
+      width: 100%;
+    }
+  }
+  &__reward{
+    text-align: center;
   }
   &__background {
     position: fixed;
@@ -45,8 +62,6 @@
   }
   &--hidden {
     opacity: 0;
-  }
-  &__reward {
   }
   &__list {
     position: relative;
@@ -186,5 +201,18 @@
       font-size: rem(28);
       text-align: center;
     }
+  }
+}
+
+@media (max-width: 768px) {
+  .container {
+    width: 90dvw;
+    max-height: 90dvh;
+    padding: rem(30) rem(20) rem(30) rem(30);
+    border-radius: 20px;
+
+    opacity: 1;
+    background-color: $button;
+
   }
 }

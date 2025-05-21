@@ -11,7 +11,6 @@ export const getCurrentRewardThunk = createAsyncThunk(
   "getCurrentReward",
   async () => {
     const responce = await api.post(apiRoutes.getDailyRewardsClaim, {});
-    console.log(responce);
     return responce.data;
   }
 );

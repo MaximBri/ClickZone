@@ -133,6 +133,7 @@ export const mainLayoutModel = (dispatch: AppDispatch) => {
           routes.pages.shop,
           routes.pages.userPage,
           routes.pages.randomizer,
+          routes.pages.dailyRewards,
         ].includes(location.pathname)
       ) {
         navigate(routes.base);
