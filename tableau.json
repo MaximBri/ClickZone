@@ -2,7 +2,7 @@
   "version": "1",
   "api_version": 1,
   "layout": {
-    "logo": "/ClickZone/icon192.png",
+    "logo": "icon192.png",
     "color": "#fff",
     "show_title": true
   }
