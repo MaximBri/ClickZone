@@ -121,4 +121,4 @@
 
 
 - **Frontend**: HTML, SCSS (модули), TypeScript, React, Redux Toolkit, FSD (архитектура), Vite (сборщик)
-- **Backend**: Flask, Flask-SQLAlchemy, Flask-CORS, Flask-Migrate, Flask-JWT-Extended, PostgreSQL, Pydantic, python-dotenv
+- **Backend**: Flask, Flask-SQLAlchemy, Flask-CORS, Flask-Migrate, Flask-JWT-Extended, PostgreSQL(psycopg), Redis, Pydantic, python-doten
