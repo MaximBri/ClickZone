@@ -1,0 +1,63 @@
+.migl {
+  &__background {
+    position: fixed;
+    z-index: 100;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+
+    opacity: 1;
+    background-color: $pop-up-background;
+
+    transition: opacity 0.3s;
+  }
+  &__body {
+    position: fixed;
+    z-index: 120;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+
+    display: flex;
+    flex-direction: column;
+    gap: rem(20);
+    align-items: center;
+
+    width: 70%;
+    padding: rem(30);
+    border-radius: 20px;
+
+    opacity: 1;
+    background-color: $button;
+
+    transition: opacity 0.3s;
+    &-title {
+      font-size: rem(28);
+      font-weight: 600;
+      text-align: center;
+    }
+  }
+  &--hidden {
+    opacity: 0 ;
+  }
+  &__clicker {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    width: rem(200);
+    height: rem(200);
+    border-radius: 50%;
+
+    font-size: rem(24);
+    text-align: center;
+
+    background-color: transparent;
+    & > img {
+      width: 90%;
+      border-radius: 50%;
+      background-color: transparent;
+    }
+  }
+}

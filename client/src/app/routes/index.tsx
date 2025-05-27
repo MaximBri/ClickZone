@@ -4,13 +4,15 @@ import { routes } from "@/shared/config/routes";
 import { MainLayout } from "../layouts/MainLayout";
 import { HomePage } from "@/pages/home";
 import { RandomizePage } from "@/pages/randomizer";
-import { ShopPage } from "@/pages/shop";
-import { GlobalMapPage } from "@/pages/global-map";
 import { LeaderBoardPage } from "@/pages/leaderbord";
 import { AccountPage } from "@/pages/account";
 import { DailyRewardsPage } from "@/pages/dialy-rewards";
 import { ContainerPage } from "@/pages/container";
+import { UserPage } from "@/pages/user";
 
+/**
+ * Функция роутинга для приложения. Содержит все страницы приложения: их ссылки и элементы, которые будут отрисовываться при переходе на соответствующую ссылку
+ */
 export const AppRoutes = () => {
   return (
     <HashRouter>
@@ -26,11 +28,6 @@ export const AppRoutes = () => {
             path={`${routes.pages.randomizer}/:type`}
             element={<ContainerPage />}
           />
-          <Route path={routes.pages.shop} element={<ShopPage />}></Route>
-          <Route
-            path={routes.pages.globalMap}
-            element={<GlobalMapPage />}
-          ></Route>
           <Route
             path={routes.pages.leaderboard}
             element={<LeaderBoardPage />}
@@ -39,6 +36,7 @@ export const AppRoutes = () => {
             path={routes.pages.dailyRewards}
             element={<DailyRewardsPage />}
           ></Route>
+          <Route path={routes.pages.user} element={<UserPage />}></Route>
         </Route>
       </Routes>
     </HashRouter>

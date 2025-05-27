@@ -1,0 +1,218 @@
+.container {
+  position: fixed;
+  z-index: 120;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+
+  width: 70dvw;
+  max-height: 90dvh;
+  padding: rem(30) rem(20) rem(30) rem(30);
+  border-radius: 20px;
+
+  opacity: 1;
+  background-color: $button;
+
+  transition: opacity 0.3s;
+
+  &__wrapper {
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    gap: rem(30);
+    align-items: center;
+
+    max-height: calc(90dvh - 90px);
+    margin-top: rem(30);
+    padding-right: rem(10);
+  }
+  &__close {
+    position: absolute;
+    top: rem(20);
+    right: rem(20);
+
+    width: rem(30);
+    height: rem(30);
+
+    background-color: transparent;
+    & > img {
+      width: 100%;
+    }
+  }
+  &__reward{
+    text-align: center;
+  }
+  &__background {
+    position: fixed;
+    z-index: 100;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+
+    opacity: 1;
+    background-color: $pop-up-background;
+
+    transition: opacity 0.3s;
+  }
+  &__title {
+    font-size: rem(24);
+    font-weight: 500;
+    text-align: center;
+  }
+  &--hidden {
+    opacity: 0;
+  }
+  &__list {
+    position: relative;
+
+    overflow-x: auto;
+    overflow-y: hidden;
+    display: flex;
+    align-items: center;
+
+    width: 100%;
+    height: rem(200);
+    border: 2px solid $border-button;
+    border-radius: 20px;
+
+    background-color: $button-active;
+    &::-webkit-scrollbar-button {
+      display: none;
+      width: 0;
+      height: 0;
+    }
+
+    &::-webkit-scrollbar-track {
+      background-color: transparent;
+    }
+
+    &::-webkit-scrollbar-thumb {
+      border-radius: 10px;
+      background-color: $button-secondary;
+    }
+
+    &::-webkit-scrollbar {
+      width: 0px;
+      height: 0px;
+    }
+    &-item {
+      &--resource {
+        display: flex;
+        flex-direction: column;
+        flex-shrink: 0;
+        gap: rem(10);
+        align-items: center;
+        justify-content: center;
+
+        width: 20%;
+        height: 100%;
+
+        font-size: rem(32);
+        font-weight: 600;
+        & > img {
+          width: rem(50);
+          height: rem(50);
+        }
+      }
+      &--container {
+        display: flex;
+        flex-direction: column;
+        flex-shrink: 0;
+        align-items: center;
+        justify-content: center;
+
+        width: 20%;
+
+        font-size: rem(28);
+        font-weight: 600;
+        & > img {
+          width: 90%;
+        }
+      }
+      &--miglioramenti {
+        display: flex;
+        flex-direction: column;
+        flex-shrink: 0;
+        align-items: center;
+        justify-content: center;
+
+        width: 20%;
+
+        font-size: rem(28);
+        font-weight: 600;
+        & > img {
+          width: 40%;
+        }
+      }
+    }
+    &-separator {
+      position: absolute;
+      top: rem(-10);
+      left: 49.6%;
+      transform: rotate(45deg) translate(-50%, 0%);
+
+      width: rem(30);
+      height: rem(30);
+
+      background-color: $error;
+    }
+  }
+  &__button {
+    padding: rem(10) rem(20);
+    border-radius: 10px;
+
+    font-size: rem(22);
+    font-weight: 600;
+    color: $button;
+
+    background-color: $button-secondary;
+  }
+  &__coins {
+    display: flex;
+    gap: rem(10);
+    align-items: center;
+    font-size: rem(28);
+    & > img {
+      width: rem(30);
+      height: rem(30);
+    }
+  }
+  &__container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    & > img {
+      width: rem(100);
+    }
+    & > h3 {
+      font-size: rem(28);
+      text-align: center;
+    }
+  }
+  &__improvement {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    & > img {
+      width: rem(80);
+    }
+    & > h3 {
+      font-size: rem(28);
+      text-align: center;
+    }
+  }
+}
+
+@media (max-width: 768px) {
+  .container {
+    width: 90dvw;
+    max-height: 90dvh;
+    padding: rem(30) rem(20) rem(30) rem(30);
+    border-radius: 20px;
+
+    opacity: 1;
+    background-color: $button;
+
+  }
+}

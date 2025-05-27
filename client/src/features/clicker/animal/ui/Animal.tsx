@@ -2,6 +2,9 @@ import { DOMAIN } from "@/shared/config/routes";
 import { animalModel } from "../model/animalModel";
 import styles from "./Animal.module.scss";
 
+/**
+ * Функция для отрисовки непосредственно самой фигурки
+ */
 export const Animal = () => {
   const data = animalModel();
 
@@ -9,6 +12,7 @@ export const Animal = () => {
     <div className={styles.animal}>
       <h2 className={styles.animal__title}>{data.pet.name}</h2>
       <button
+        ref={data.buttonRef}
         className={styles.animal__button}
         onClick={(e) => data.addCoins(e)}
       >
@@ -27,7 +31,7 @@ export const Animal = () => {
               top: `${click.y}px`,
             }}
           >
-            +{data.countCoinsOnClick}
+            +{click.value ?? data.countCoinsOnClick}
           </div>
         ))}
       </button>

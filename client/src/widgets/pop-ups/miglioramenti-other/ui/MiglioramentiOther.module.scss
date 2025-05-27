@@ -1,0 +1,154 @@
+.migl {
+  position: fixed;
+  z-index: 120;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+
+  display: flex;
+  flex-direction: column;
+  gap: rem(20);
+  align-items: center;
+
+  padding: rem(50) rem(30) rem(30);
+  border-radius: 20px;
+
+  opacity: 1;
+  background-color: $button;
+
+  transition: opacity 0.3s;
+
+  &__background {
+    position: fixed;
+    z-index: 100;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+
+    opacity: 1;
+    background-color: $pop-up-background;
+
+    transition: opacity 0.3s;
+  }
+  &__title {
+    font-size: rem(24);
+    font-weight: 500;
+    text-align: center;
+  }
+  &__subtitle {
+    font-size: rem(20);
+    font-weight: 500;
+    text-align: center;
+  }
+  &__close {
+    position: absolute;
+    top: 0;
+    right: 0;
+    transform: translate(-50%, 50%);
+
+    width: rem(30);
+    height: rem(30);
+
+    background-color: transparent;
+    & > img {
+      width: 100%;
+    }
+  }
+  &__button {
+    position: relative;
+
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    width: 70%;
+    border-radius: 50%;
+
+    background-color: transparent;
+    & > img {
+      width: 100%;
+    }
+  }
+  &__reward {
+    font-size: rem(20);
+    font-weight: 500;
+    text-align: center;
+  }
+  &--hidden {
+    opacity: 0;
+  }
+}
+
+.popup {
+  pointer-events: none;
+
+  position: absolute;
+  transform: translate(-50%, -50%);
+
+  font-size: rem(24);
+  font-weight: bold;
+  color: #ffbf0d;
+
+  animation: popup-float 1s forwards;
+}
+
+@keyframes popup-float {
+  from {
+    transform: translate(-50%, -50%) translateY(0);
+    opacity: 1;
+  }
+  to {
+    transform: translate(-50%, -50%) translateY(-40px);
+    opacity: 0;
+  }
+}
+
+@media (max-width: 1024px) {
+  .migl {
+    gap: rem(15);
+    width: 60dvw;
+    padding: rem(40) rem(20) rem(20);
+    &__title {
+      font-size: rem(20);
+    }
+    &__subtitle {
+      font-size: rem(18);
+    }
+    &__close {
+      width: rem(25);
+      height: rem(25);
+    }
+    &__button {
+      width: 70%;
+    }
+    &__reward {
+      font-size: rem(18);
+    }
+  }
+}
+
+@media (max-width: 768px) {
+  .migl {
+    gap: rem(10);
+    width: 80dvw;
+    padding: rem(30) rem(15) rem(15);
+    &__title {
+      font-size: rem(18);
+    }
+    &__subtitle {
+      font-size: rem(16);
+    }
+    &__close {
+      width: rem(20);
+      height: rem(20);
+    }
+    &__button {
+      width: 80%;
+    }
+    &__reward {
+      font-size: rem(16);
+    }
+  }
+}

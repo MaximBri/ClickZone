@@ -7,13 +7,15 @@ import { OneTimeMiglioramenti } from "@/features/clicker/one-time-miglioramenti"
 import crossSvg from "@/shared/icons/cross.svg";
 import styles from "./ClickerImprovements.module.scss";
 
+/**
+ * Функция отвечает за отображение всплывающего окна с мгновенными улучшениями для режима "Кликер"
+ */
 export const ClickerImprovements = () => {
   const dispatch = useDispatch();
   const [active, setActive] = useState<boolean>(false);
   const improvements = useSelector(getMiglioramenti).filter(
     (item) => !item.isInfinite
   );
-  console.log(improvements);
 
   const closeWindow = () => {
     setActive(false);

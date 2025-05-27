@@ -107,31 +107,3 @@
     }
   }
 }
-
-@media (max-width: 420px) {
-  .container {
-    // gap: rem(10);
-    // width: rem(100);
-    &__image {
-      max-width: rem(100);
-    }
-    &__nav {
-      height: rem(30);
-    }
-    &__button {
-      padding: rem(5) rem(10);
-      font-size: rem(14);
-
-      &-key {
-        height: 100%;
-        padding: 0 rem(10);
-
-        & > img {
-          width: rem(20);
-          height: rem(20);
-          margin-top: rem(4);
-        }
-      }
-    }
-  }
-}

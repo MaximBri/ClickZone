@@ -2,6 +2,9 @@ import { authModel } from "./model/authModel";
 import crossSvg from "@/shared/icons/cross.svg";
 import styles from "../shared/Auth&Register.module.scss";
 
+/**
+ * Функция отвечает за отображение всплывающего окна с авторизацией
+ */
 export const Auth = () => {
   const data = authModel();
   return (

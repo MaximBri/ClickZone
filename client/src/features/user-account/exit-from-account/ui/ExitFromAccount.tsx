@@ -6,9 +6,16 @@ import { routes } from "@/shared/config/routes";
 import { logoutUser } from "@/entities/user/model/thunks";
 import styles from "./ExitFromAccount.module.scss";
 
+/**
+ * Функция отвечат за рендер блока с кнопкой выхода из аккаунта в личном кабинете.
+ */
 export const ExitFromAccount = () => {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
+
+  /**
+   * Функция выхода. Срабатывает по нажатию на кнопку. Выполняет запрос на бэкенд (убирает токены из Cookies), обнуляет часть хранилища, связанную с данными пользователя. После выхода перенаправляет пользователя на главную страницу.
+   */
   const exitFromAccount = async () => {
     try {
       dispatch(logoutUser());

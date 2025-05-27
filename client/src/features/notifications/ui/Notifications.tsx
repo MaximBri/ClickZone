@@ -2,10 +2,13 @@ import { FC, memo } from "react";
 import { notificationDataInterface } from "@/shared/types";
 import styles from "./Notifications.module.scss";
 
+/**
+ * Функция, отвечающая за отображение одного уведомления
+ * @param {data} data - данные самого уведомления: сообщение и его тип (ошибка, предупреждение, успех)
+ */
 export const Notifications: FC<{
   data: notificationDataInterface;
 }> = memo(({ data }) => {
-
   return (
     <div
       className={`${styles["alert-card"]} ${

@@ -1,20 +1,24 @@
 import { memo, useState } from "react";
 import { useAppDispatch, useAppSelector } from "@/app/store/store";
+import { useMediaQuery } from "react-responsive";
 import Tippy from "@tippyjs/react";
 
 import { ClickerShop } from "@/widgets/clicker-shop";
-import { useMediaQuery } from "react-responsive";
+import { getIsAuthorized } from "@/entities/user/model/selectors";
 import {
   setImprovements,
   setTutorial,
 } from "@/widgets/pop-ups/model/popUpsSlice";
-import { getIsAuthorized } from "@/entities/user/model/selectors";
 import infoSvg from "@/shared/icons/info.svg";
 import shopSvg from "./icons/shop.svg";
 import lockSvg from "/images/services/lock.svg";
 import improvementsSvg from "/images/services/lollipop.svg";
 import styles from "./ClickerNavBar.module.scss";
 
+/** 
+ * Навигационное меню в режиме "Крикер". Включает в себя кнопки с магазином, текущими одноразовыми улучшениями и подсказки по режиму.
+ * @type {*}
+ */
 export const ClickerNavBar = memo(() => {
   const dispatch = useAppDispatch();
   const [shopIsActive, setShopIsActive] = useState<boolean>(false);

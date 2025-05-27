@@ -1,11 +1,12 @@
 from flask import request, jsonify, make_response
 from flask_jwt_extended import create_access_token, create_refresh_token, set_access_cookies, set_refresh_cookies, \
-    unset_jwt_cookies, jwt_required
+    unset_jwt_cookies, jwt_required, decode_token
 from pydantic import ValidationError
 
-from app import db
+from config import Config
+from app import db, redis
 from app.auth import bp
-from .validation import RegistrationForm
+from .validators import RegistrationForm, LoginForm
 from app.models import User, DBSessionManager
 from app.errors import validation_error, default_error
 
@@ -34,61 +35,68 @@ def register():
 
 @bp.route('/login', methods=['POST'])
 def login():
-    username = request.json.get('login', None)
-    password = request.json.get('password', None)
+    try:
+        form = LoginForm(**request.get_json())
+        user: User = User.query.filter_by(username=form.login).first()
 
-    if not username or not password:
-        return jsonify({'errors': [{'msg': 'Username and password are required'}]}), 400
+        user_upgrades = []
+        for user_upgrade in user.upgrades.all():
+            upgrade = user_upgrade.upgrade
+            user_upgrades.append(
+                {
+                    'id': upgrade.id,
+                    'name': upgrade.name,
+                    'description': upgrade.description,
+                    'quantity': user_upgrade.quantity,
+                    'image_path': upgrade.image_path,
+                    'type': upgrade.upgrade_type,
+                    'effect': upgrade.effect_type,
+                    'cost_coins': upgrade.cost_coins,
+                    'cost_diamonds': upgrade.cost_diamonds,
+                    'multiplier': upgrade.multiplier
+                })
+        user_containers = []
+        for user_container in user.containers:
+            container = user_container.container
+            container_dict = container.to_dict_self()
+            container_dict['quantity'] = user_container.quantity
+            user_containers.append(container_dict)
 
-    user: User = User.query.filter_by(username=username).first()
+        response = {
+            'id': user.id,
+            'nickname': user.name,
+            'about_me': user.about_me if user.about_me else '',
+            'upgrades': user_upgrades,
+            'containers': user_containers,
+            'resources': {
+                'coins': user.coins,
+                'diamonds': user.diamonds,
+                'keys': user.keys
+            },
+            'coins_per_minute': user.base_per_minute,
+            'coins_per_click': user.base_per_click
+        }
 
-    if not user or not user.check_password(password):
-        return jsonify({'errors': [{'msg': 'Invalid username or password'}]}), 401
+        response = make_response(response, 200)
 
-    user_upgrades = []
-    for user_upgrade in user.upgrades.all():
-        upgrade = user_upgrade.upgrade
-        user_upgrades.append(
-            {
-                'id': upgrade.id,
-                'name': upgrade.name,
-                'description': upgrade.description,
-                'quantity': user_upgrade.quantity,
-                'image_path': upgrade.image_path,
-                'type': upgrade.upgrade_type,
-                'effect': upgrade.effect_type,
-                'cost_coins': upgrade.cost_coins,
-                'cost_diamonds': upgrade.cost_diamonds,
-                'multiplier': upgrade.multiplier
-            })
-    user_containers = []
-    for user_container in user.containers:
-        container = user_container.container
-        container_dict = container.to_dict_self()
-        container_dict['quantity'] = user_container.quantity
-        user_containers.append(container_dict)
+        access_token = create_access_token(identity=str(user.id))
+        refresh_token = create_refresh_token(identity=str(user.id))
 
-    response = {
-        'id': user.id,
-        'nickname': user.name,
-        'about_me': user.about_me if user.about_me else '',
-        'upgrades': user_upgrades,
-        'containers': user_containers,
-        'resources': {
-            'coins': user.coins,
-            'diamonds': user.diamonds
-        },
-        'coins_per_minute': user.base_per_minute,
-        'coins_per_click': user.base_per_click
-    }
+        decoded_at = decode_token(refresh_token)
+        rt_jti = decoded_at['jti']
+        redis.set(f'refresh_jti:{user.id}', rt_jti, ex=Config.JWT_REFRESH_TOKEN_EXPIRES)
 
-    response = make_response(response, 200)
-    access_token = create_access_token(identity=str(user.id))
-    refresh_token = create_refresh_token(identity=str(user.id))
-    set_access_cookies(response, access_token)
-    set_refresh_cookies(response, refresh_token)
+        set_access_cookies(response, access_token)
+        set_refresh_cookies(response, refresh_token)
+        return response
 
-    return response
+    except ValidationError as e:
+        errors = e.errors()
+        if any(err.get('msg') in 'Value error, Invalid login or password' for err in errors):
+            return jsonify({'errors': [{'msg': 'Invalid login or password'}]}), 401
+        return validation_error(e)
+    except Exception as e:
+        return default_error(e)
 
 
 @bp.route('/logout', methods=['POST'])
@@ -96,5 +104,4 @@ def login():
 def logout():
     response = make_response({'msg': 'Logout success'}, 200)
     unset_jwt_cookies(response)
-
     return response

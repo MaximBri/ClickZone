@@ -8,6 +8,12 @@ export interface dataAfterRegisterInterface {
   nickname: string;
 }
 
+/**
+ * Функция регистрации на основе логина, пароля.
+ * @param {userDataForRegister} userData - объект с логином и паролем
+ * @param {React.Dispatch<React.SetStateAction<formDataSendInterface>>} setError - функция для установки какой-либо ошибки, показывается покажется пользователю
+ * @param {() => void} closeRegisterWindow - функция для закрытия окна регистрации
+ */
 export const registration = async (
   userData: userDataForRegister,
   setError: React.Dispatch<React.SetStateAction<formDataSendInterface>>,

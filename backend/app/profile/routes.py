@@ -2,7 +2,7 @@ from flask import request, jsonify, make_response
 from flask_jwt_extended import jwt_required, get_current_user
 from pydantic import ValidationError
 
-from .validation import EditProfileForm
+from app.profile.validators import EditProfileForm
 from app import db
 from app.profile import bp
 from app.errors import validation_error, default_error, InsufficientMoneyError
@@ -31,6 +31,7 @@ def edit_profile():
                         user.name = form.name
                     else:
                         raise InsufficientMoneyError("Not enough coins or diamonds to change name")
+                user.changes_number += 1
 
             return jsonify({'msg': 'Successfully updated name or(and) about_me fields',
                             'nickname_price': user.nickname_change_cost,
@@ -62,6 +63,7 @@ def me():
         },
         'achievements': user.achievements,
         'can_change_name': user.can_change_name,
+        'changes_number': user.changes_number,
         'nickname_price': user.nickname_change_cost,
         'timestamp': user.timestamp.isoformat()
     }

@@ -2,6 +2,9 @@ import { registerModel } from "./model/registerModel";
 import crossSvg from "@/shared/icons/cross.svg";
 import styles from "../shared/Auth&Register.module.scss";
 
+/**
+ * Функция отвечает за отрисовку окна регистрации. Включает в себя поля: "Логин", "Пароль", "Повторите пароль"
+ */
 export const Register = () => {
   const data = registerModel();
   return (

@@ -124,10 +124,43 @@
       height: rem(30);
     }
     &__shop {
-      gap: rem(10);
-      justify-content: space-around;
+      flex-wrap: nowrap;
+      gap: rem(30);
+      justify-content: flex-start;
+
+      max-width: 70vw;
+      margin-bottom: rem(10);
+
       &-title {
         font-size: rem(16);
+      }
+    }
+    &__wrapper {
+      overflow-x: auto;
+      display: flex;
+
+      width: 100%;
+      height: auto;
+      min-height: min-content;
+      padding-top: rem(10);
+
+      &::-webkit-scrollbar-thumb {
+        border-radius: 10px;
+        background-color: $button-secondary;
+      }
+
+      &::-webkit-scrollbar {
+        width: 5px;
+        height: 5px;
+      }
+      &::-webkit-scrollbar-button {
+        display: none;
+        width: 0;
+        height: 0;
+      }
+
+      &::-webkit-scrollbar-track {
+        background-color: transparent;
       }
     }
   }

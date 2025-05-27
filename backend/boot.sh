@@ -11,4 +11,9 @@ while true; do
     fi
 done
 
-exec gunicorn -b :5000 --access-logfile - --error-logfile - ClickZone:app
+exec gunicorn -b :5000 \
+    -w 4 \
+    --timeout 60 \
+    --access-logfile - \
+    --error-logfile - \
+    ClickZone:app

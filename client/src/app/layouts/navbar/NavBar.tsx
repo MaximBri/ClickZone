@@ -15,6 +15,10 @@ import personSvg from "/images/Person.svg";
 import lockSvg from "/images/services/lock.svg";
 import styles from "./NavBar.module.scss";
 
+/**
+ * Функция на отрисовку бокового меню с навигацией между режимами
+ * @type {*}
+ */
 export const NavBar = memo(() => {
   const navigate = useNavigate();
   const location = useLocation();
@@ -22,6 +26,9 @@ export const NavBar = memo(() => {
   const authorized = useSelector(getIsAuthorized);
   const isMobile = useMediaQuery({ query: "(max-width: 768px)" });
 
+  /**
+   * Функция, которая срабатывает по нажатию на иконку пользователя. Если игрок авторизован, перенаправляет на страницу личного кабинета, иначе открывает окно с авторизацией
+   */
   const userButtonHandle = () => {
     if (authorized) {
       navigate(routes.pages.userPage);
@@ -30,11 +37,21 @@ export const NavBar = memo(() => {
     }
   };
 
+  /**
+   * Функция на то, нужно ли блокировать кнопки в навбаре. Если пользователь не авторизирован, возвращает false, иначе true
+   * @param {boolean} needAuth - пользователь авторизован или нет
+   * @return {*}  {boolean}
+   */
   const checkDisabled = (needAuth: boolean): boolean => {
     return needAuth ? !authorized : false;
   };
 
-  const buttonHandle = (link: string, needAuth: boolean) => {
+/**
+ * Функция на навигацию пользователя по режимам. Если режим требует авторизации, то идёт проверка на статус пользователя. Если он авторизирован, то он перенаправляется на требуемую страницу. Если режим не требует авторизации, то пользователь перенаправляется на него без дополнительных проверок.
+ * @param {string} link - ссылка на режим, куда будет перенаправлен пользователь
+ * @param {boolean} needAuth - должен ли пользователь быть авторизированным
+ */
+const buttonHandle = (link: string, needAuth: boolean) => {
     if (needAuth) {
       if (authorized) {
         navigate(link);

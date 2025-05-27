@@ -2,6 +2,11 @@ import { api } from "@/shared/api/base";
 import { apiRoutes } from "@/shared/config/apiRoutes";
 import { createAsyncThunk } from "@reduxjs/toolkit";
 
+/** 
+ * Функция для смены данных о пользователе (никнейм или описание). В запросе отправляются никнейм, описание, цена на изменение никнейма
+ * Возвращает ответ от бэкенда
+ * @type {*}
+ */
 export const changeUserData = createAsyncThunk(
   "user/changeUserData",
   async (credentials: {

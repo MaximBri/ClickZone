@@ -4,6 +4,10 @@ import { FC, useEffect, useState } from "react";
 import { getDescription } from "@/entities/user/model/selectors";
 import styles from "./UserDescription.module.scss";
 
+/**
+ * Функция отвечает за рендер блока с описанием в личном кабинете пользователя.
+ * @param {*} { onUpdate } - функция для обновления строки описания в родительском компоненте
+ */
 export const UserDescription: FC<{
   onUpdate: (key: "name" | "description", value: string) => void;
 }> = ({ onUpdate }) => {
@@ -18,6 +22,10 @@ export const UserDescription: FC<{
       : setSaveButtonIsActive(false);
   }, [description, userDescription]);
 
+  /**
+   * Функция изменения описания пользователя. Проверяет на длину текст, прежде чем сохранить (связано с ограничениями на бэкенде)
+   * @param {string} text - новый текст
+   */
   const onDescriptionChange = (text: string) => {
     if (text.length > maxLength) text = text.slice(0, maxLength);
     setDescription(text);

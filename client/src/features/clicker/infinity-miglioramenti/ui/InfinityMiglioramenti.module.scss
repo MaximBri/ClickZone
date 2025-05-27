@@ -1,6 +1,8 @@
 .list {
+  overflow-x: hidden;
   display: flex;
   gap: rem(10);
+
   width: min-content;
   margin: 0 auto;
   &__wrapper {
@@ -35,6 +37,7 @@
 
 @media (max-width: 1024px) {
   .list {
+    overflow-x: auto;
     &__wrapper {
       margin: rem(10) auto;
       padding: rem(8) rem(15);
@@ -42,14 +45,37 @@
     &__title {
       font-size: rem(18);
     }
+    &__item {
+      min-width: rem(50);
+    }
   }
 }
 
-
 @media (max-width: 768px) {
   .list {
-    justify-content: center;
+    justify-content: flex-start;
     width: auto;
+    padding-bottom: rem(10);
+
+    &::-webkit-scrollbar-button {
+      display: none;
+      width: 0;
+      height: 0;
+    }
+
+    &::-webkit-scrollbar-track {
+      background-color: transparent;
+    }
+
+    &::-webkit-scrollbar-thumb {
+      border-radius: 10px;
+      background-color: $button-secondary;
+    }
+
+    &::-webkit-scrollbar {
+      width: 5px;
+      height: 5px;
+    }
     &__wrapper {
       min-width: 0;
       padding: rem(5) rem(10);
@@ -59,6 +85,7 @@
     }
     &__item {
       width: rem(40);
+      min-width: rem(40);
     }
   }
 }

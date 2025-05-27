@@ -1,7 +1,11 @@
 import { userDataInterface } from "@/shared/types";
 import { achievementsImagesPaths } from "../model/achievementsImagesPaths";
-import { checkCoinsCount } from "./checkCoinsCount";
 
+/**
+ * Функция для установки данных, которые пришли с бэкенда, в хранилище
+ * @param {userDataInterface} state - глобальный объект с данными пользователя
+ * @param {*} payloadData - данные с сервера
+ */
 export const processAccountData = (
   state: userDataInterface,
   payloadData: any
@@ -13,6 +17,7 @@ export const processAccountData = (
   state.account.nicknamePrice = payloadData.nickname_price;
   state.finances = payloadData.resources;
   state.globals.dateOfRegister = payloadData.timestamp;
+  state.account.countNicknames = payloadData.changes_number;
   payloadData.achievements.forEach((item: any, index: number) => {
     state.globals.achievements.push({
       ...item,
@@ -21,5 +26,4 @@ export const processAccountData = (
       imagePath: achievementsImagesPaths[index],
     });
   });
-  checkCoinsCount(state, payloadData.resources.coins);
 };

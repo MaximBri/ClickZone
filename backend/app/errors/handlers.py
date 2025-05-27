@@ -1,4 +1,8 @@
+import logging
+
 from flask import jsonify
+
+logger = logging.getLogger(__name__)
 
 
 def validation_error(e: Exception):
@@ -38,5 +42,5 @@ def validation_error(e: Exception):
 
 
 def default_error(e):
-    print(f'Unexpected server error: {e}')
-    return jsonify({'msg': f'Произошла ошибка на сервере {e}'}), 500
+    logger.error(f'Unexpected server error: {e}', exc_info=True)
+    return jsonify({'errors': [{'msg': f'Произошла ошибка: {e}'}]}), 500

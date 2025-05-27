@@ -1,5 +1,10 @@
 import { userDataInterface } from "@/shared/types";
 
+/**
+ * Функция для установки данных в хранилище. Была вынесена отдельно, т.к. используется для нескольких запросов
+ * @param {userDataInterface} state - глобальные данные из хранилища
+ * @param {*} payloadData - данные, которые пришли с бэкенда
+ */
 export const processUserData = (state: userDataInterface, payloadData: any) => {
   state.isAuthorized = true;
   state.flags.clickerData = true;
@@ -14,16 +19,20 @@ export const processUserData = (state: userDataInterface, payloadData: any) => {
   state.coinsOnClick = payloadData.coins_per_click;
   state.coinsPerMinute = payloadData.coins_per_minute;
 
-  const upgrades = payloadData.upgrades.map((item: any) => {
+  state.clicker.upgrades = payloadData.upgrades.map((item: any) => {
     return {
       id: item.id,
       name: item.name,
       description: item.description,
       cost: item.cost_coins,
-      isInfinite: item.type === 'permanent',
+      isInfinite: item.type === "permanent",
       count: item.quantity,
       imagePath: item.image_path,
     };
   });
-  state.clicker.upgrades = upgrades;
+
+  const autoClicker = payloadData.upgrades.find((item: any) => item.id === 14);
+  if (autoClicker) {
+    state.hasAutoClicker = true;
+  }
 };

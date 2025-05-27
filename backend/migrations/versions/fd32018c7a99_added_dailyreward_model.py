@@ -41,10 +41,10 @@ def upgrade():
         {'id': 7, 'rewards': {'custom': "/miglioramenti/gold.svg"}},
         {'id': 8, 'rewards': {'diamonds': 10}},
         {'id': 9, 'rewards': {'custom': "/miglioramenti/bombClicks.svg"}},
-        {'id': 10, 'rewards': {'custom': "/containers/container.png"}},
+        {'id': 10, 'rewards': {'custom': "/containers/container-simple.png"}},
         {'id': 11, 'rewards': {'custom': "/miglioramenti/happinesIcon.svg"}},
         {'id': 12, 'rewards': {'coins': 500}},
-        {'id': 13, 'rewards': {'custom': "/containers/container.png"}},
+        {'id': 13, 'rewards': {'custom': "/containers/container-rare.png"}},
         {'id': 14, 'rewards': {'diamonds': 20}},
     ]
 

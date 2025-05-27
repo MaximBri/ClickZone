@@ -1,9 +1,12 @@
 import { useAppDispatch, useAppSelector } from "@/app/store/store";
 import { UserReward } from "../user-reward";
+import { setTutorial } from "@/widgets/pop-ups/model/popUpsSlice";
 import infoSvg from "@/shared/icons/info.svg";
 import styles from "./UserRewards.module.scss";
-import { setTutorial } from "@/widgets/pop-ups/model/popUpsSlice";
 
+/**
+ * Функция отвечает за отображение списка наград. Внутри себя получает список наград, потом рендерит его
+ */
 export const UserRewards = () => {
   const dispatch = useAppDispatch();
   const rewardsList = useAppSelector(

@@ -3,8 +3,8 @@
   overflow-y: auto;
   display: flex;
   flex-direction: column;
+  gap: rem(20);
   align-items: center;
-  justify-content: center;
 
   width: 100%;
   padding: rem(20) rem(40);
@@ -15,11 +15,17 @@
   &__image {
     width: 50%;
   }
+  &__subtitle {
+    font-size: rem(22);
+    font-weight: 600;
+  }
   &__nav {
     display: flex;
     gap: rem(20);
     align-items: center;
     justify-content: center;
+
+    font-size: rem(24);
     &-button {
       display: flex;
       gap: rem(10);
@@ -36,6 +42,68 @@
         width: rem(25);
         height: rem(25);
         filter: drop-shadow(0px 1px 2px #000);
+      }
+    }
+  }
+}
+
+@media (max-width: 1024px) {
+  .container {
+    gap: rem(15);
+    padding: rem(15) rem(30);
+    &__title {
+      font-size: rem(24);
+    }
+    &__subtitle {
+      font-size: rem(20);
+    }
+    &__nav {
+      gap: rem(15);
+      font-size: rem(22);
+      &-button {
+        padding: rem(15) rem(20);
+        font-size: rem(20);
+      }
+    }
+  }
+}
+
+@media (max-width: 768px) {
+  .container {
+    gap: rem(10);
+    padding: rem(10) rem(20);
+    &__title {
+      font-size: rem(22);
+    }
+    &__image {
+      width: 70%;
+    }
+    &__subtitle {
+      font-size: rem(18);
+    }
+    &__nav {
+      gap: rem(10);
+      font-size: rem(20);
+      &-button {
+        padding: rem(10) rem(15);
+        font-size: rem(18);
+
+        & > img {
+          width: rem(20);
+          height: rem(20);
+        }
+      }
+    }
+  }
+}
+
+@media (max-width: 420px) {
+  .container {
+    &__nav {
+      font-size: rem(18);
+      &-button {
+        padding: rem(5) rem(10);
+        font-size: rem(18);
       }
     }
   }

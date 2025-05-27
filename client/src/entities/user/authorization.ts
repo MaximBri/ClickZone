@@ -3,6 +3,18 @@ import { notificationManager } from "@/widgets/pop-ups/notifications/model/notif
 import { AppDispatch } from "@/app/store/store";
 import { loginUser } from "./model/thunks";
 
+/**
+ * Функция авторизации на основе логина, пароля
+ * @param {{
+ *   login: string; - логин пользователя
+ *   password: string; - пароль пользователя
+ *   appDispatch: AppDispatch; - dispatch, нужен для работы с локальным хранилищем на Frontend-уровне
+ *   closeAuthWindow: () => void; - функция для закрытия окна авторизации
+ *   setError: React.Dispatch<React.SetStateAction<authErrorInterface>>; - функция для установки ошибки в окно авторизации, если что-то пошло не так
+ *   setIsLoaded: React.Dispatch<React.SetStateAction<boolean>>; - функция для установки загрузки, чтобы показывать пользователю статус загрузки, не допускать повторных запросов на бэкенд
+ * }} data
+ */
+
 export const authorization = async (data: {
   login: string;
   password: string;

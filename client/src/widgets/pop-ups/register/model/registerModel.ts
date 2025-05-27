@@ -20,6 +20,9 @@ export interface formDataInterface {
   repeatPass: string;
 }
 
+/**
+ * Функция отвечает за всю логику для окна регистрации. Включает в себя функции для проверки, можно ли отправить данные на бэкенд (проверка ограничений), функцию для отправки данных на бэкенд, функции для открытия окна авторизации и закрытия окна регистрации.
+ */
 export const registerModel = () => {
   const dispatch = useAppDispatch();
   const [canSend, setCanSend] = useState<boolean>(false);
@@ -34,6 +37,10 @@ export const registerModel = () => {
   const body = useRef<HTMLElement>(null);
   const inProcess = useSelector(getInProcess);
 
+  /**
+   * Функция отвечает за проверку всех данных пользователя, которые он ввёл в форме. Включает в себя проверку на длину никнейма (длина от 4-х символов), пароля (длина от 4-х символов), совпадение полей "Пароль" и "Повторите пароль". Если что-то не выполняется, возвращает false, иначе true
+   * @return {boolean}  result - булевое значение, отвечает за то, можно ли отправить данные на бэкенд
+   */
   const checkCanSend = (): boolean => {
     let check: boolean = false;
     if (formData.login.length < 4) {
@@ -59,6 +66,11 @@ export const registerModel = () => {
     return check;
   };
 
+  /**
+   * Функция отвечает за синхронизацию данных пользователя в форме и в компоненте
+   * @param key - ключ, отвечающий за название поля, которое будет обновлено
+   * @param value - новое значение, которое будет установлено в объект с данными пользователя
+   */
   const onChangeData = (
     key: "login" | "pass" | "repeatPass" | "",
     value: string
@@ -68,6 +80,9 @@ export const registerModel = () => {
     });
   };
 
+  /**
+   * Функция отвечает за открытие окна авторизации и закрытия окна регистрации. Дополнительно выполняется код, отвечающий за плавность переключения
+   */
   const openAuthWindow = () => {
     body.current?.classList.add(styles["window--closed"]);
     setTimeout(() => {
@@ -77,6 +92,9 @@ export const registerModel = () => {
     }, 250);
   };
 
+  /**
+   * Функция отвечает за закрытия окна регистрации, дополнительно выполняется код для плавности выключения
+   */
   const closeRegisterWindow = () => {
     background.current?.classList.add(styles["window__background--closed"]);
     body.current?.classList.add(styles["window--closed"]);
@@ -86,6 +104,9 @@ export const registerModel = () => {
     }, 250);
   };
 
+  /**
+   * Функция отвечает за отправку данных. В начале проверяет, можно ли отправить их (выполнены ли все условия). Если да, то отправляет данные на бэкенд
+   */
   const sendForm = () => {
     const check = checkCanSend();
     if (check) {
